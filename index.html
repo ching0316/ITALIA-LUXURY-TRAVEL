@@ -627,9 +627,9 @@
                                                         onClick={() => setSelectedDay(d.day)}
                                                         class={`snap-center flex-shrink-0 w-16 py-1.5 rounded-xl border flex flex-col items-center justify-center transition-all ${selectedDay === d.day ? "bg-gradient-to-br from-emerald-800 to-teal-950 text-white border-emerald-800 shadow-md scale-105 font-bold" : `${darkMode ? "bg-slate-800 border-slate-700 text-slate-300" : "bg-zinc-50 border-zinc-200 text-zinc-700 hover:bg-zinc-100"}`}`}
                                                     >
-                                                        <span class="text-[8px] uppercase tracking-widest opacity-80">Day</span>
+                                                        <span class="text-[10px] uppercase tracking-widest opacity-80">Day</span>
                                                         <span class="text-sm font-black">{d.day}</span>
-                                                        <span class="text-[8px] truncate max-w-[55px] opacity-90">{d.city.split(" ")[0]}</span>
+                                                        <span class="text-[10px] truncate max-w-[55px] opacity-90">{d.city.split(" ")[0]}</span>
                                                     </button>
                                                 ))}
                                             </div>
@@ -639,7 +639,7 @@
                                         <div class="relative overflow-hidden rounded-2xl p-4 bg-gradient-to-br from-emerald-900 to-teal-950 text-white shadow-lg">
                                             <div class="absolute -right-12 -top-12 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl pointer-events-none"></div>
                                             <div class="flex justify-between items-start gap-2">
-                                                <span class="bg-amber-400 text-emerald-950 text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest">Day {selectedDayData.day}</span>
+                                                <span class="bg-amber-400 text-emerald-950 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest">Day {selectedDayData.day}</span>
                                                 <span class="text-[10px] font-bold text-emerald-200">📍 {selectedDayData.city}</span>
                                             </div>
                                             <h2 class="text-base font-black mt-2 leading-snug">{selectedDayData.title}</h2>
@@ -657,8 +657,8 @@
                                                     <div class="flex justify-between items-start gap-2.5">
                                                         <div class="space-y-1.5 flex-1">
                                                             <div class="flex items-center gap-1.5">
-                                                                <span class="text-[10px] font-black text-amber-500 font-mono tracking-wider bg-amber-500/10 px-1.5 py-0.5 rounded">{item.time}</span>
-                                                                <span class={`text-[8px] px-1.5 py-0.5 rounded font-black uppercase ${
+                                                                <span class="text-[12px] font-black text-amber-500 font-mono tracking-wider bg-amber-500/10 px-1.5 py-0.5 rounded">{item.time}</span>
+                                                                <span class={`text-[10px] px-1.5 py-0.5 rounded font-black uppercase ${
                                                                     item.type === "sight" ? "bg-blue-500/10 text-blue-500" :
                                                                     item.type === "food" ? "bg-orange-500/10 text-orange-500" :
                                                                     item.type === "shopping" ? "bg-pink-500/10 text-pink-500" :
@@ -678,13 +678,13 @@
                                                             <p class={`text-[11px] leading-relaxed ${darkMode ? "text-slate-350" : "text-zinc-500"}`}>{item.desc}</p>
                                                             
                                                             {item.note && (
-                                                                <div class="mt-1.5 flex items-start gap-1 text-[9px] text-amber-600 dark:text-amber-400 font-bold bg-amber-500/5 p-1.5 rounded border border-amber-500/10">
+                                                                <div class="mt-1.5 flex items-start gap-1 text-[11px] text-amber-600 dark:text-amber-400 font-bold bg-amber-500/5 p-1.5 rounded border border-amber-500/10">
                                                                     <i class="lucide-info w-3 h-3 flex-shrink-0 mt-0.5"></i>
                                                                     <span><strong>提醒：</strong>{item.note}</span>
                                                                 </div>
                                                             )}
                                                             {item.tips && (
-                                                                <div class="mt-1.5 flex items-start gap-1 text-[9px] text-teal-600 dark:text-teal-400 font-bold bg-teal-500/5 p-1.5 rounded border border-teal-500/10">
+                                                                <div class="mt-1.5 flex items-start gap-1 text-[11px] text-teal-600 dark:text-teal-400 font-bold bg-teal-500/5 p-1.5 rounded border border-teal-500/10">
                                                                     <i class="lucide-compass w-3 h-3 flex-shrink-0 mt-0.5"></i>
                                                                     <span><strong>拍照秘訣：</strong>{item.tips}</span>
                                                                 </div>
@@ -694,7 +694,7 @@
                                                             href={getGoogleMapsLink(item, selectedDayData.city)}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            class="flex-shrink-0 p-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 transition-all flex items-center justify-center gap-0.5 text-[9px] font-extrabold"
+                                                            class="flex-shrink-0 p-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 transition-all flex items-center justify-center gap-0.5 text-[10px] font-extrabold"
                                                         >
                                                             <i class="lucide-map-pin w-3 h-3"></i>
                                                             <span>地圖</span>
@@ -717,30 +717,30 @@
                                         <div class={`rounded-xl shadow border overflow-hidden ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
                                             <div class="bg-emerald-900 text-white p-3 flex justify-between items-center text-[11px] font-extrabold">
                                                 <span>✈️ 長榮航空 BR095 (去程)</span>
-                                                <span class="bg-amber-400 text-emerald-950 px-1.5 py-0.5 rounded text-[9px]">10/1 出發</span>
+                                                <span class="bg-amber-400 text-emerald-950 px-1.5 py-0.5 rounded text-[11px]">10/1 出發</span>
                                             </div>
                                             <div class="p-3 space-y-3">
                                                 <div class="flex justify-between items-center border-b border-dashed border-zinc-100 dark:border-slate-800 pb-2.5">
                                                     <div>
                                                         <p class="text-lg font-black font-mono">TPE</p>
-                                                        <p class="text-[9px] text-zinc-400">桃園 T2</p>
-                                                        <p class="text-[10px] font-black text-emerald-600 mt-0.5">23:15</p>
+                                                        <p class="text-[11px] text-zinc-400">桃園 T2</p>
+                                                        <p class="text-[13px] font-black text-emerald-600 mt-0.5">23:15</p>
                                                     </div>
                                                     <div class="flex-1 flex flex-col items-center px-1">
-                                                        <span class="text-[8px] text-zinc-400">14H 5M</span>
+                                                        <span class="text-[11px] text-zinc-400">14H 5M</span>
                                                         <div class="w-full h-px bg-zinc-200 dark:bg-slate-700 relative my-1">
                                                             <i class="lucide-plane w-3 h-3 absolute -top-1.5 left-1/2 -translate-x-1/2 rotate-90 text-amber-500"></i>
                                                         </div>
-                                                        <span class="text-[8px] text-zinc-450">B777-300ER</span>
+                                                        <span class="text-[11px] text-zinc-450">B777-300ER</span>
                                                     </div>
                                                     <div class="text-right">
                                                         <p class="text-lg font-black font-mono">MXP</p>
-                                                        <p class="text-[9px] text-zinc-400">米蘭 MXP T1</p>
-                                                        <p class="text-[10px] font-black text-emerald-600 mt-0.5">07:35 <span class="font-normal text-[8px]">+1天</span></p>
+                                                        <p class="text-[11px] text-zinc-400">米蘭 MXP T1</p>
+                                                        <p class="text-[13px] font-black text-emerald-600 mt-0.5">07:35 <span class="font-normal text-[11px]">+1天</span></p>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <label class="block text-[8px] font-black uppercase text-zinc-400 mb-1">您的去程座位號碼 (點擊可編輯填寫)</label>
+                                                    <label class="block text-[11px] font-black uppercase text-zinc-400 mb-1">您的去程座位號碼 (點擊可編輯填寫)</label>
                                                     <input 
                                                         type="text" 
                                                         value={outboundSeat} 
@@ -754,32 +754,32 @@
 
                                         {/* 回程航班卡片 */}
                                         <div class={`rounded-xl shadow border overflow-hidden ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
-                                            <div class="bg-emerald-900 text-white p-3 flex justify-between items-center text-[11px] font-extrabold">
+                                            <div class="bg-emerald-900 text-white p-3 flex justify-between items-center text-[13px] font-extrabold">
                                                 <span>✈️ 中華航空 CI076 (回程)</span>
-                                                <span class="bg-amber-400 text-emerald-950 px-1.5 py-0.5 rounded text-[9px]">10/14 出發</span>
+                                                <span class="bg-amber-400 text-emerald-950 px-1.5 py-0.5 rounded text-[11px]">10/14 出發</span>
                                             </div>
                                             <div class="p-3 space-y-3">
                                                 <div class="flex justify-between items-center border-b border-dashed border-zinc-100 dark:border-slate-800 pb-2.5">
                                                     <div>
                                                         <p class="text-lg font-black font-mono">FCO</p>
-                                                        <p class="text-[9px] text-zinc-400">羅馬 FCO T3</p>
-                                                        <p class="text-[10px] font-black text-emerald-600 mt-0.5">11:00</p>
+                                                        <p class="text-[11px] text-zinc-400">羅馬 FCO T3</p>
+                                                        <p class="text-[13px] font-black text-emerald-600 mt-0.5">11:00</p>
                                                     </div>
                                                     <div class="flex-1 flex flex-col items-center px-1">
-                                                        <span class="text-[8px] text-zinc-400">12H 40M</span>
+                                                        <span class="text-[11px] text-zinc-400">12H 40M</span>
                                                         <div class="w-full h-px bg-zinc-200 dark:bg-slate-700 relative my-1">
                                                             <i class="lucide-plane w-3 h-3 absolute -top-1.5 left-1/2 -translate-x-1/2 rotate-90 text-amber-500"></i>
                                                         </div>
-                                                        <span class="text-[8px] text-zinc-450">A350-900</span>
+                                                        <span class="text-[11px] text-zinc-450">A350-900</span>
                                                     </div>
                                                     <div class="text-right">
                                                         <p class="text-lg font-black font-mono">TPE</p>
-                                                        <p class="text-[9px] text-zinc-400">桃園 T1</p>
-                                                        <p class="text-[10px] font-black text-emerald-600 mt-0.5">05:40 <span class="font-normal text-[8px]">+1天</span></p>
+                                                        <p class="text-[11px] text-zinc-400">桃園 T1</p>
+                                                        <p class="text-[13px] font-black text-emerald-600 mt-0.5">05:40 <span class="font-normal text-[8px]">+1天</span></p>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <label class="block text-[8px] font-black uppercase text-zinc-400 mb-1">您的回程座位號碼 (點擊可編輯填寫)</label>
+                                                    <label class="block text-[11px] font-black uppercase text-zinc-400 mb-1">您的回程座位號碼 (點擊可編輯填寫)</label>
                                                     <input 
                                                         type="text" 
                                                         value={inboundSeat} 
@@ -799,42 +799,42 @@
                                             </h3>
                                             <div class="space-y-3">
                                                 <div class="p-2 rounded bg-zinc-50 dark:bg-slate-800/60 border border-zinc-100 dark:border-slate-850">
-                                                    <div class="flex justify-between items-center text-[10px] mb-1">
+                                                    <div class="flex justify-between items-center text-[13px] mb-1">
                                                         <span class="font-extrabold">🚄 10/4 高鐵: 米蘭 ➔ 威尼斯</span>
-                                                        <span class="bg-red-650 text-white font-bold px-1 rounded text-[8px]">Frecciarossa</span>
+                                                        <span class="bg-red-650 text-white font-bold px-1 rounded text-[11px]">Frecciarossa</span>
                                                     </div>
                                                     <input 
                                                         type="text" 
                                                         value={milanVeniceSeat} 
                                                         onChange={(e) => setMilanVeniceSeat(e.target.value)}
                                                         placeholder="輸入車廂/座位 (例: Coach 3, Seat 14A)" 
-                                                        class={`w-full px-2 py-1 text-[11px] rounded border outline-none ${darkMode ? "bg-slate-900 border-slate-700 text-amber-400" : "bg-white border-zinc-200 text-zinc-900"}`}
+                                                        class={`w-full px-2 py-1 text-[13px] rounded border outline-none ${darkMode ? "bg-slate-900 border-slate-700 text-amber-400" : "bg-white border-zinc-200 text-zinc-900"}`}
                                                     />
                                                 </div>
                                                 <div class="p-2 rounded bg-zinc-50 dark:bg-slate-800/60 border border-zinc-100 dark:border-slate-850">
-                                                    <div class="flex justify-between items-center text-[10px] mb-1">
+                                                    <div class="flex justify-between items-center text-[13px] mb-1">
                                                         <span class="font-extrabold">🚄 10/6 高鐵: 威尼斯 ➔ 佛羅倫斯</span>
-                                                        <span class="bg-amber-500 text-emerald-950 font-bold px-1 rounded text-[8px]">Italo</span>
+                                                        <span class="bg-amber-500 text-emerald-950 font-bold px-1 rounded text-[11px]">Italo</span>
                                                     </div>
                                                     <input 
                                                         type="text" 
                                                         value={veniceFlorenceSeat} 
                                                         onChange={(e) => setVeniceFlorenceSeat(e.target.value)}
                                                         placeholder="輸入車廂/座位 (例: Coach 2, Seat 5B)" 
-                                                        class={`w-full px-2 py-1 text-[11px] rounded border outline-none ${darkMode ? "bg-slate-900 border-slate-700 text-amber-400" : "bg-white border-zinc-200 text-zinc-900"}`}
+                                                        class={`w-full px-2 py-1 text-[13px] rounded border outline-none ${darkMode ? "bg-slate-900 border-slate-700 text-amber-400" : "bg-white border-zinc-200 text-zinc-900"}`}
                                                     />
                                                 </div>
                                                 <div class="p-2 rounded bg-zinc-50 dark:bg-slate-800/60 border border-zinc-100 dark:border-slate-850">
-                                                    <div class="flex justify-between items-center text-[10px] mb-1">
+                                                    <div class="flex justify-between items-center text-[13px] mb-1">
                                                         <span class="font-extrabold">🚄 10/9 高鐵: 佛羅倫斯 ➔ 羅馬</span>
-                                                        <span class="bg-amber-500 text-emerald-950 font-bold px-1 rounded text-[8px]">Italo</span>
+                                                        <span class="bg-amber-500 text-emerald-950 font-bold px-1 rounded text-[11px]">Italo</span>
                                                     </div>
                                                     <input 
                                                         type="text" 
                                                         value={florenceRomeSeat} 
                                                         onChange={(e) => setFlorenceRomeSeat(e.target.value)}
                                                         placeholder="輸入車廂/座位 (例: Coach 4, Seat 12A)" 
-                                                        class={`w-full px-2 py-1 text-[11px] rounded border outline-none ${darkMode ? "bg-slate-900 border-slate-700 text-amber-400" : "bg-white border-zinc-200 text-zinc-900"}`}
+                                                        class={`w-full px-2 py-1 text-[13px] rounded border outline-none ${darkMode ? "bg-slate-900 border-slate-700 text-amber-400" : "bg-white border-zinc-200 text-zinc-900"}`}
                                                     />
                                                 </div>
                                             </div>
@@ -849,7 +849,7 @@
                                                 <i class="lucide-square-check-big w-4 h-4"></i>
                                                 <span>行李打包智能進度</span>
                                             </h2>
-                                            <p class="text-[9px] text-emerald-200">即時清點行李項目，支援離線保存進度！</p>
+                                            <p class="text-[10px] text-emerald-200">即時清點行李項目，支援離線保存進度！</p>
                                             <div class="mt-3 flex items-center gap-3">
                                                 <div class="flex-1 bg-teal-950/65 rounded-full h-2.5 overflow-hidden p-0.5 border border-teal-500/20">
                                                     <div class="bg-amber-400 h-full rounded-full transition-all duration-300" style={{ width: `${checklistPercent}%` }}></div>
@@ -869,7 +869,7 @@
                                             <select 
                                                 value={newChecklistCategory} 
                                                 onChange={(e) => setNewChecklistCategory(e.target.value)}
-                                                class={`px-1.5 text-[11px] rounded border outline-none ${darkMode ? "bg-slate-800 border-slate-700 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"}`}
+                                                class={`px-1.5 text-[13px] rounded border outline-none ${darkMode ? "bg-slate-800 border-slate-700 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"}`}
                                             >
                                                 <option value="核心證件與現金">證件與現金</option>
                                                 <option value="隨身電子設備">隨身電子</option>
@@ -885,7 +885,7 @@
                                                 <div key={cat} class={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
                                                     <h3 class="text-xs font-black text-amber-500 border-b border-zinc-50 dark:border-slate-850 pb-2 mb-2 flex justify-between items-center uppercase tracking-wider">
                                                         <span>{cat === "核心證件與現金" ? "🔑 證件與現金" : cat === "隨身電子設備" ? "🔌 隨身電子" : "👕 護理與衣物"}</span>
-                                                        <span class="text-[9px] bg-zinc-100 dark:bg-slate-800 px-1.5 py-0.5 rounded-full text-zinc-500">
+                                                        <span class="text-[11px] bg-zinc-100 dark:bg-slate-800 px-1.5 py-0.5 rounded-full text-zinc-500">
                                                             {checklist.filter((i) => i.category === cat && i.checked).length} / {checklist.filter((i) => i.category === cat).length}
                                                         </span>
                                                     </h3>
@@ -925,7 +925,7 @@
                                             </h2>
                                             <button 
                                                 onClick={() => { setFlashcardIndex(0); setShowAnswer(false); }}
-                                                class="bg-emerald-800 hover:bg-emerald-700 text-white font-bold text-[9px] px-2 py-0.5 rounded flex items-center gap-0.5"
+                                                class="bg-emerald-800 hover:bg-emerald-700 text-white font-bold text-[12px] px-2 py-0.5 rounded flex items-center gap-0.5"
                                             >
                                                 ⚡ 閃卡記憶模式
                                             </button>
@@ -935,14 +935,14 @@
                                         {flashcardIndex !== null && (
                                             <div class="p-4 rounded-xl border border-amber-500/20 bg-gradient-to-br from-emerald-950 to-teal-950 text-white text-center space-y-4 relative">
                                                 <button onClick={() => setFlashcardIndex(null)} class="absolute top-2 right-2 text-zinc-300 hover:text-white">✕</button>
-                                                <div class="text-[10px] text-amber-400 font-bold uppercase">義語記憶閃卡 ({flashcardIndex + 1}/{PHRASEBOOK_DATA.length})</div>
+                                                <div class="text-[12px] text-amber-400 font-bold uppercase">義語記憶閃卡 ({flashcardIndex + 1}/{PHRASEBOOK_DATA.length})</div>
                                                 <div class="space-y-1">
                                                     <div class="text-2xl font-black text-amber-300 tracking-wide">{PHRASEBOOK_DATA[flashcardIndex].italian}</div>
                                                     <div class="text-xs text-zinc-300">發音：{PHRASEBOOK_DATA[flashcardIndex].pinyin}</div>
                                                 </div>
                                                 <button 
                                                     onClick={() => speakItalian(PHRASEBOOK_DATA[flashcardIndex].italian)}
-                                                    class="mx-auto flex items-center gap-1 px-3 py-1 rounded bg-amber-400 text-emerald-950 text-[10px] font-black"
+                                                    class="mx-auto flex items-center gap-1 px-3 py-1 rounded bg-amber-400 text-emerald-950 text-[12px] font-black"
                                                 >
                                                     <i class="lucide-volume-2 w-3.5 h-3.5"></i> 播音
                                                 </button>
@@ -950,17 +950,17 @@
                                                     {showAnswer ? (
                                                         <div class="space-y-1">
                                                             <div class="text-sm font-bold text-emerald-100">{PHRASEBOOK_DATA[flashcardIndex].chinese}</div>
-                                                            <div class="text-[10px] text-zinc-450">{PHRASEBOOK_DATA[flashcardIndex].usage}</div>
+                                                            <div class="text-[12px] text-zinc-450">{PHRASEBOOK_DATA[flashcardIndex].usage}</div>
                                                         </div>
                                                     ) : (
-                                                        <button onClick={() => setShowAnswer(true)} class="bg-white/10 hover:bg-white/20 text-white text-[10px] px-3 py-1 rounded font-bold">顯示翻譯</button>
+                                                        <button onClick={() => setShowAnswer(true)} class="bg-white/10 hover:bg-white/20 text-white text-[12px] px-3 py-1 rounded font-bold">顯示翻譯</button>
                                                     )}
                                                 </div>
                                                 <div class="flex gap-2 pt-2">
                                                     <button 
                                                         disabled={flashcardIndex === 0} 
                                                         onClick={() => { setFlashcardIndex(prev => prev - 1); setShowAnswer(false); }}
-                                                        class="flex-1 bg-zinc-800 disabled:opacity-40 py-1.5 rounded text-[10px] font-bold"
+                                                        class="flex-1 bg-zinc-800 disabled:opacity-40 py-1.5 rounded text-[12px] font-bold"
                                                     >
                                                         上一個
                                                     </button>
@@ -973,7 +973,7 @@
                                                                 setShowAnswer(false);
                                                             }
                                                         }}
-                                                        class="flex-1 bg-amber-400 text-emerald-950 py-1.5 rounded text-[10px] font-black"
+                                                        class="flex-1 bg-amber-400 text-emerald-950 py-1.5 rounded text-[12px] font-black"
                                                     >
                                                         {flashcardIndex === PHRASEBOOK_DATA.length - 1 ? "完成" : "下一個"}
                                                     </button>
@@ -999,10 +999,10 @@
                                                         <div>
                                                             <div class="flex items-center gap-1.5">
                                                                 <span class="text-sm font-serif font-black text-emerald-900 dark:text-amber-400">{phrase.italian}</span>
-                                                                <span class="text-[9px] text-zinc-400 font-bold">[{phrase.pinyin}]</span>
+                                                                <span class="text-[12px] text-zinc-400 font-bold">[{phrase.pinyin}]</span>
                                                             </div>
                                                             <p class="text-xs font-extrabold text-stone-850 dark:text-slate-100">{phrase.chinese}</p>
-                                                            <p class="text-[9px] text-zinc-500 italic mt-0.5">{phrase.usage}</p>
+                                                            <p class="text-[12px] text-zinc-500 italic mt-0.5">{phrase.usage}</p>
                                                         </div>
                                                         <button 
                                                             onClick={() => speakItalian(phrase.italian)}
@@ -1026,14 +1026,14 @@
                                     class={`flex flex-col items-center gap-1 transition-all ${activeTab === "itinerary" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-450"}`}
                                 >
                                     <i class="lucide-calendar w-5 h-5"></i>
-                                    <span class="text-[8px] font-black">每日行程</span>
+                                    <span class="text-[11px] font-black">每日行程</span>
                                 </button>
                                 <button 
                                     onClick={() => setActiveTab("flights")}
                                     class={`flex flex-col items-center gap-1 transition-all ${activeTab === "flights" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-450"}`}
                                 >
                                     <i class="lucide-plane w-5 h-5"></i>
-                                    <span class="text-[8px] font-black">航班高鐵</span>
+                                    <span class="text-[11px] font-black">航班高鐵</span>
                                 </button>
                                 <button 
                                     onClick={() => setActiveTab("checklist")}
@@ -1042,17 +1042,17 @@
                                     <div class="relative">
                                         <i class="lucide-square-check-big w-5 h-5"></i>
                                         {checklistPercent > 0 && (
-                                            <span class="absolute -top-1.5 -right-2 bg-amber-400 text-emerald-950 text-[7px] font-black rounded-full px-1">{checklistPercent}%</span>
+                                            <span class="absolute -top-1.5 -right-2 bg-amber-400 text-emerald-950 text-[9px] font-black rounded-full px-1">{checklistPercent}%</span>
                                         )}
                                     </div>
-                                    <span class="text-[8px] font-black">行李打包</span>
+                                    <span class="text-[11px] font-black">行李打包</span>
                                 </button>
                                 <button 
                                     onClick={() => setActiveTab("phrases")}
                                     class={`flex flex-col items-center gap-1 transition-all ${activeTab === "phrases" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-450"}`}
                                 >
                                     <i class="lucide-languages w-5 h-5"></i>
-                                    <span class="text-[8px] font-black">隨身義語</span>
+                                    <span class="text-[11px] font-black">隨身義語</span>
                                 </button>
                             </nav>
 
