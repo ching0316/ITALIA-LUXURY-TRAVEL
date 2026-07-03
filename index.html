@@ -684,7 +684,12 @@
                                                     <div class="flex justify-between items-start gap-2.5">
                                                         <div class="space-y-1.5 flex-1">
                                                             <div class="flex items-center gap-1.5">
-                                                                <span class="text-[13px] font-black text-[#E5C158] font-mono tracking-wider bg-[#121212] border border-zinc-800/80 px-2 py-0.5 rounded drop-shadow-[0_0_4px_rgba(229,193,88,0.6)] inline-block">{item.time}</span>
+                                                                <div class="flex items-center gap-1.5">
+                                                                    <div class="inline-block text-[13px] font-black font-mono tracking-wider bg-[#121212] border border-zinc-800/80 px-2 py-0.5 rounded">
+                                                                        <span class="text-[#E5C158] drop-shadow-[0_0_6px_rgba(229,193,88,0.85)]">
+                                                                            {item.time}
+                                                                        </span>
+                                                                    </div>
                                                                 
                                                                 {/* 類別標籤 */}
                                                                 <span class={`text-xs px-1.5 py-0.5 rounded font-black uppercase ${
