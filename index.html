@@ -461,16 +461,12 @@
 
             useEffect(() => {
                 if (iconRef.current) {
-                    // 清空先前渲染過的內容，避免重複堆疊
                     iconRef.current.innerHTML = '';
-                    
-                    // 建立一個臨時 <i> 標籤供 Lucide 解析
                     const iconEl = document.createElement('i');
                     iconEl.setAttribute('data-lucide', name);
                     iconEl.className = className;
                     iconRef.current.appendChild(iconEl);
 
-                    // 呼叫 Lucide 解析特定的局部節點
                     if (window.lucide && typeof window.lucide.createIcons === 'function') {
                         window.lucide.createIcons({
                             nodeList: [iconEl]
@@ -479,7 +475,7 @@
                 }
             }, [name, className]);
 
-            return <span ref={iconRef} class="inline-flex items-center justify-center" />;
+            return <span ref={iconRef} className="inline-flex items-center justify-center" />;
         }
 
         function App() {
@@ -487,11 +483,9 @@
             const [selectedDay, setSelectedDay] = useState(2);
             const [darkMode, setDarkMode] = useState(false);
             
-            // 自訂座位號碼儲存 (僅保留去/回程飛機座位自填)
             const [outboundSeat, setOutboundSeat] = useState(() => localStorage.getItem("outboundSeat") || "");
             const [inboundSeat, setInboundSeat] = useState(() => localStorage.getItem("inboundSeat") || "");
 
-            // 打包清單儲存
             const [checklist, setChecklist] = useState(() => {
                 const saved = localStorage.getItem("packingChecklist");
                 return saved ? JSON.parse(saved) : PACKING_LIST_DATA;
@@ -499,7 +493,6 @@
             const [newChecklistItem, setNewChecklistItem] = useState("");
             const [newChecklistCategory, setNewChecklistCategory] = useState("核心證件與現金");
 
-            // 語彙搜尋與閃卡 state
             const [phraseSearch, setPhraseSearch] = useState("");
             const [flashcardIndex, setFlashcardIndex] = useState(null);
             const [showAnswer, setShowAnswer] = useState(false);
@@ -513,7 +506,6 @@
                 localStorage.setItem("packingChecklist", JSON.stringify(checklist));
             }, [checklist]);
 
-            // 自動語音朗讀義大利語
             const speakItalian = (text) => {
                 if ("speechSynthesis" in window) {
                     window.speechSynthesis.cancel();
@@ -524,7 +516,6 @@
                 }
             };
 
-            // 義大利城市名稱轉換對應 (用於地圖最佳精準查詢)
             const translateCity = (cityStr) => {
               if (!cityStr) return '';
               if (cityStr.includes('米蘭')) return 'Milan';
@@ -537,7 +528,6 @@
               return cityStr.split(' ➔ ')[0].split(' ')[0];
             };
 
-            // 100% 精準 Google Maps 連結生成器
             const getGoogleMapsLink = (item, city) => {
               const coordsRegex = /(-?\d+\.\d+)\s*,\s*(-?\d+\.\d+)/;
               const combinedText = (item.desc || '') + ' ' + (item.tips || '');
@@ -585,40 +575,39 @@
             const checklistPercent = Math.round((checkedCount / checklist.length) * 100) || 0;
             const selectedDayData = DAYS_DATA.find((d) => d.day === selectedDay) || DAYS_DATA[0];
 
-            // 實作打包離線 HTML
             const handleOfflineDownload = () => {
                 const docString = document.documentElement.outerHTML;
                 const blob = new Blob([docString], { type: "text/html;charset=utf-8" });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.href = url;
-                a.download = "義大利15日尊榮旅遊手冊_iPhone14Pro離線版.html";
+                a.download = "義大利15日尊榮旅遊手冊_離線版.html";
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
             };
 
             return (
-                <div class={darkMode ? "dark" : ""}>
+                <div className={darkMode ? "dark" : ""}>
                     {/* 主要外層 Wrapper */}
-                    <div class="min-h-screen w-full sm:flex sm:items-center sm:justify-center transition-colors duration-300 p-0 sm:p-6 bg-emerald-950 dark:bg-slate-950">
-                        <div class="w-full h-[100dvh] sm:h-[852px] sm:w-[393px] flex flex-col relative sm:rounded-[48px] sm:border-[8px] sm:border-zinc-800 dark:sm:border-slate-800 sm:shadow-2xl overflow-hidden transition-all duration-300 bg-white dark:bg-slate-900 border-zinc-200">
+                    <div className="min-h-screen w-full sm:flex sm:items-center sm:justify-center transition-colors duration-300 p-0 sm:p-6 bg-emerald-950 dark:bg-slate-950">
+                        <div className="w-full h-[100dvh] sm:h-[852px] sm:w-[393px] flex flex-col relative sm:rounded-[48px] sm:border-[8px] sm:border-zinc-800 dark:sm:border-slate-800 sm:shadow-2xl overflow-hidden transition-all duration-300 bg-white dark:bg-slate-900 border-zinc-200">
                             
                             {/* 頂部 Header */}
-                            <header class="px-4 pb-3.5 safe-top border-b sticky top-0 z-50 flex justify-between items-center transition-colors bg-gradient-to-r from-emerald-900 to-teal-950 text-white border-emerald-950 shadow-md">
-                                <div class="flex items-center gap-2 mt-2">
-                                    <div class="p-1.5 bg-amber-400 rounded-lg text-emerald-950 flex items-center justify-center">
+                            <header className="px-4 pb-3.5 safe-top border-b sticky top-0 z-50 flex justify-between items-center transition-colors bg-gradient-to-r from-emerald-900 to-teal-950 text-white border-emerald-950 shadow-md">
+                                <div className="flex items-center gap-2 mt-2">
+                                    <div className="p-1.5 bg-amber-400 rounded-lg text-emerald-950 flex items-center justify-center">
                                         <Icon name="compass" className="w-5 h-5 text-emerald-950" />
                                     </div>
                                     <div>
-                                        <p class="text-[10px] tracking-widest uppercase font-bold text-amber-300">ITALIA LUXURY TRAVEL</p>
-                                        <h1 class="text-xs font-black tracking-tight">義大利 15 日尊榮旅遊手冊</h1>
+                                        <p className="text-[10px] tracking-widest uppercase font-bold text-amber-300">ITALIA LUXURY TRAVEL</p>
+                                        <h1 className="text-xs font-black tracking-tight">義大利 15 日尊榮旅遊手冊</h1>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-1.5 mt-2">
+                                <div className="flex items-center gap-1.5 mt-2">
                                     <button 
                                         onClick={handleOfflineDownload} 
-                                        class="bg-amber-400 hover:bg-amber-500 text-emerald-950 font-extrabold px-2 py-1 rounded text-[9px] flex items-center gap-1 transition-all"
+                                        className="bg-amber-400 hover:bg-amber-500 text-emerald-950 font-extrabold px-2 py-1 rounded text-[9px] flex items-center gap-1 transition-all"
                                         title="下載此網頁為離線版App，無網路也能百分百正常使用！"
                                     >
                                         <Icon name="download" className="w-3 h-3 text-emerald-950" />
@@ -626,7 +615,7 @@
                                     </button>
                                     <button 
                                         onClick={() => setDarkMode(!darkMode)}
-                                        class="p-1 rounded-full border transition-all border-emerald-800 bg-emerald-950/40 text-amber-200 flex items-center justify-center"
+                                        className="p-1 rounded-full border transition-all border-emerald-800 bg-emerald-950/40 text-amber-200 flex items-center justify-center"
                                     >
                                         {darkMode ? <Icon name="sun" className="w-3.5 h-3.5 text-amber-200" /> : <Icon name="moon" className="w-3.5 h-3.5 text-amber-200" />}
                                     </button>
@@ -634,89 +623,90 @@
                             </header>
 
                             {/* 主要滑動內容區 */}
-                            <div class="flex-1 overflow-y-auto pb-28 px-4 pt-4 space-y-4 no-scrollbar bg-zinc-100 dark:bg-slate-950">
+                            <div className="flex-1 overflow-y-auto pb-28 px-4 pt-4 space-y-4 no-scrollbar bg-zinc-100 dark:bg-slate-950">
                                 
                                 {activeTab === "itinerary" && (
-                                    <div class="space-y-4">
+                                    <div className="space-y-4">
                                         {/* 橫向滑動天數 */}
-                                        <div class="space-y-1.5">
-                                            <div class="flex justify-between items-center">
-                                                <span class="text-xs font-black uppercase tracking-wider text-amber-500 flex items-center gap-1">
+                                        <div className="space-y-1.5">
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-xs font-black uppercase tracking-wider text-amber-500 flex items-center gap-1">
                                                     <Icon name="calendar" className="w-3.5 h-3.5 text-amber-500" />
                                                     <span>15 天行程橫向切換</span>
                                                 </span>
-                                                <span class="text-[9px] text-zinc-400 font-bold">左右滑動</span>
+                                                <span className="text-[9px] text-zinc-400 font-bold">左右滑動</span>
                                             </div>
-                                            <div class="flex overflow-x-auto gap-2 py-1 no-scrollbar snap-x scroll-smooth">
+                                            <div className="flex overflow-x-auto gap-2 py-1 no-scrollbar snap-x scroll-smooth">
                                                 {DAYS_DATA.map((d) => (
                                                     <button
                                                         key={d.day}
                                                         onClick={() => setSelectedDay(d.day)}
-                                                        class={`snap-center flex-shrink-0 w-16 py-1.5 rounded-xl border flex flex-col items-center justify-center transition-all ${selectedDay === d.day ? "bg-gradient-to-br from-emerald-800 to-teal-950 text-white border-emerald-800 shadow-md scale-105 font-bold" : `${darkMode ? "bg-slate-800 border-slate-700 text-slate-300" : "bg-white border-zinc-200 text-zinc-750 hover:bg-zinc-50"}`}`}
+                                                        className={`snap-center flex-shrink-0 w-16 py-1.5 rounded-xl border flex flex-col items-center justify-center transition-all ${selectedDay === d.day ? "bg-gradient-to-br from-emerald-800 to-teal-950 text-white border-emerald-800 shadow-md scale-105 font-bold" : `${darkMode ? "bg-slate-800 border-slate-700 text-slate-300" : "bg-white border-zinc-200 text-zinc-750 hover:bg-zinc-50"}`}`}
                                                     >
-                                                        <span class="text-[12px] uppercase tracking-widest opacity-85">Day</span>
-                                                        <span class="text-sm font-black">{d.day}</span>
-                                                        <span class="text-[12px] truncate max-w-[55px] opacity-90">{d.city.split(" ")[0]}</span>
+                                                        <span className="text-[12px] uppercase tracking-widest opacity-85">Day</span>
+                                                        <span className="text-sm font-black">{d.day}</span>
+                                                        <span className="text-[12px] truncate max-w-[55px] opacity-90">{d.city.split(" ")[0]}</span>
                                                     </button>
                                                 ))}
                                             </div>
                                         </div>
 
                                         {/* 天數大卡片 */}
-                                        <div class="relative overflow-hidden rounded-2xl p-4 bg-gradient-to-br from-emerald-900 to-teal-950 text-white shadow-lg">
-                                            <div class="absolute -right-12 -top-12 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl pointer-events-none"></div>
-                                            <div class="flex justify-between items-start gap-2">
-                                                <span class="bg-amber-400 text-emerald-950 text-[12px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest">Day {selectedDayData.day}</span>
-                                                <span class="text-[12px] font-bold text-emerald-200">📍 {selectedDayData.city}</span>
+                                        <div className="relative overflow-hidden rounded-2xl p-4 bg-gradient-to-br from-emerald-900 to-teal-950 text-white shadow-lg">
+                                            <div className="absolute -right-12 -top-12 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl pointer-events-none"></div>
+                                            <div className="flex justify-between items-start gap-2">
+                                                <span className="bg-amber-400 text-emerald-950 text-[12px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest">Day {selectedDayData.day}</span>
+                                                <span className="text-[12px] font-bold text-emerald-200">📍 {selectedDayData.city}</span>
                                             </div>
-                                            <h2 class="text-base font-black mt-2 leading-snug">{selectedDayData.title}</h2>
-                                            <p class="text-[12px] text-emerald-100 mt-1.5 leading-relaxed font-medium opacity-90">{selectedDayData.summary}</p>
-                                            <div class="mt-3 pt-3 border-t border-white/10 flex justify-between items-center text-[11px] text-amber-300 font-bold">
+                                            <h2 className="text-base font-black mt-2 leading-snug">{selectedDayData.title}</h2>
+                                            <p className="text-[12px] text-emerald-100 mt-1.5 leading-relaxed font-medium opacity-90">{selectedDayData.summary}</p>
+                                            <div className="mt-3 pt-3 border-t border-white/10 flex justify-between items-center text-[11px] text-amber-300 font-bold">
                                                 <span>{selectedDayData.date}</span>
-                                                <span class="bg-emerald-800 px-2 py-0.5 rounded text-[10px] text-white">共 {selectedDayData.items.length} 節點</span>
+                                                <span className="bg-emerald-800 px-2 py-0.5 rounded text-[10px] text-white">共 {selectedDayData.items.length} 節點</span>
                                             </div>
                                         </div>
 
+                                        {}
                                         {/* 當日行程節點清單 */}
-                                        <div class="space-y-3">
+                                        <div className="space-y-3">
                                             {selectedDayData.items.map((item) => (
-                                                <div key={item.id} class={`p-3.5 rounded-xl border transition-all ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
-                                                    <div class="flex justify-between items-start gap-2.5">
-                                                        <div class="space-y-1.5 flex-1">
-                                                            <div class="flex items-center gap-1.5">
-                                                                <div class="flex items-center gap-1.5">
-                                                                    <div class="inline-block text-[13px] font-black font-mono tracking-wider bg-[#121212] border border-zinc-800/80 px-2 py-0.5 rounded">
-                                                                        <span class="text-[#E5C158] drop-shadow-[0_0_6px_rgba(229,193,88,0.85)]">
-                                                                            {item.time}
-                                                                        </span>
-                                                                    </div>
-                                                                
-                                                                    {/* 類別標籤 */}
-                                                                    <span class={`text-xs px-1.5 py-0.5 rounded font-black uppercase ${
-                                                                        item.type === "sight" ? "bg-blue-500/10 text-blue-500" :
-                                                                        item.type === "food" ? "bg-orange-500/10 text-orange-500" :
-                                                                        item.type === "shopping" ? "bg-pink-500/10 text-pink-500" :
-                                                                        item.type === "transport" ? "bg-green-500/10 text-green-500" :
-                                                                        item.type === "flight" ? "bg-sky-500/10 text-sky-500" :
-                                                                        item.type === "hotel" ? "bg-purple-500/10 text-purple-500" : "bg-zinc-500/10 text-zinc-500"
-                                                                    }`}>
-                                                                        {item.type === "sight" ? "🏛️ 景點" :
-                                                                         item.type === "food" ? "🍕 美食" :
-                                                                         item.type === "shopping" ? "🛍️ 購物" :
-                                                                         item.type === "transport" ? "🚄 交通" :
-                                                                         item.type === "flight" ? "✈️ 航班" :
-                                                                         item.type === "hotel" ? "🏨 住宿" : "📍 其他"}
+                                                <div key={item.id} className={`p-3.5 rounded-xl border transition-all ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
+                                                    <div className="flex justify-between items-start gap-2.5">
+                                                        <div className="space-y-1.5 flex-1">
+                                                            {/* 修正後的頂部時間與類別標籤，移除重複的標籤容器，確保排版完美 */}
+                                                            <div className="flex items-center gap-1.5 flex-wrap">
+                                                                <div className="inline-block text-[13px] font-black font-mono tracking-wider bg-[#121212] border border-zinc-800/80 px-2 py-0.5 rounded">
+                                                                    <span className="text-[#E5C158] drop-shadow-[0_0_6px_rgba(229,193,88,0.85)]">
+                                                                        {item.time}
                                                                     </span>
                                                                 </div>
+                                                                
+                                                                {/* 類別標籤 */}
+                                                                <span className={`text-xs px-1.5 py-0.5 rounded font-black uppercase ${
+                                                                    item.type === "sight" ? "bg-blue-500/10 text-blue-500" :
+                                                                    item.type === "food" ? "bg-orange-500/10 text-orange-500" :
+                                                                    item.type === "shopping" ? "bg-pink-500/10 text-pink-500" :
+                                                                    item.type === "transport" ? "bg-green-500/10 text-green-500" :
+                                                                    item.type === "flight" ? "bg-sky-500/10 text-sky-500" :
+                                                                    item.type === "hotel" ? "bg-purple-500/10 text-purple-500" : "bg-zinc-500/10 text-zinc-500"
+                                                                }`}>
+                                                                    {item.type === "sight" ? "🏛️ 景點" :
+                                                                     item.type === "food" ? "🍕 美食" :
+                                                                     item.type === "shopping" ? "🛍️ 購物" :
+                                                                     item.type === "transport" ? "🚄 交通" :
+                                                                     item.type === "flight" ? "✈️ 航班" :
+                                                                     item.type === "hotel" ? "🏨 住宿" : "📍 其他"}
+                                                                </span>
+                                                            </div>
                                                             {/* 活動標題 */}
-                                                            <h4 class="text-sm font-black leading-snug">{item.title}</h4>
+                                                            <h4 className="text-sm font-black leading-snug">{item.title}</h4>
                                                             
                                                             {/* 內文描述 */}
-                                                            <p class={`text-[13px] leading-relaxed ${darkMode ? "text-slate-300" : "text-zinc-650"}`}>{item.desc}</p>
+                                                            <p className={`text-[13px] leading-relaxed ${darkMode ? "text-slate-300" : "text-zinc-650"}`}>{item.desc}</p>
                                                             
                                                             {/* 重要提醒 */}
                                                             {item.note && (
-                                                                <div class="mt-1.5 flex items-start gap-1 text-[13px] text-amber-600 dark:text-amber-400 font-bold bg-amber-500/5 p-1.5 rounded border border-amber-500/10">
+                                                                <div className="mt-1.5 flex items-start gap-1 text-[13px] text-amber-600 dark:text-amber-400 font-bold bg-amber-500/5 p-1.5 rounded border border-amber-500/10">
                                                                     <Icon name="info" className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
                                                                     <span><strong>提醒：</strong>{item.note}</span>
                                                                 </div>
@@ -724,7 +714,7 @@
                                                             
                                                             {/* 拍照秘訣 */}
                                                             {item.tips && (
-                                                                <div class="mt-1.5 flex items-start gap-1 text-[13px] text-teal-600 dark:text-teal-400 font-bold bg-teal-500/5 p-1.5 rounded border border-teal-500/10">
+                                                                <div className="mt-1.5 flex items-start gap-1 text-[13px] text-teal-600 dark:text-teal-400 font-bold bg-teal-500/5 p-1.5 rounded border border-teal-500/10">
                                                                     <Icon name="compass" className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-teal-600 dark:text-teal-400" />
                                                                     <span><strong>拍照秘訣：</strong>{item.tips}</span>
                                                                 </div>
@@ -736,7 +726,7 @@
                                                             href={getGoogleMapsLink(item, selectedDayData.city)}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            class="flex-shrink-0 p-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 transition-all flex items-center justify-center gap-0.5 text-xs font-extrabold"
+                                                            className="flex-shrink-0 p-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 transition-all flex items-center justify-center gap-0.5 text-xs font-extrabold"
                                                         >
                                                             <Icon name="map-pin" className="w-3.5 h-3.5 text-emerald-750 dark:text-emerald-400" />
                                                             <span>地圖</span>
@@ -749,170 +739,170 @@
                                 )}
 
                                 {activeTab === "flights" && (
-                                    <div class="space-y-4 pb-4">
-                                        <h2 class="text-sm font-black uppercase tracking-wider text-amber-500 flex items-center gap-1.5">
+                                    <div className="space-y-4 pb-4">
+                                        <h2 className="text-sm font-black uppercase tracking-wider text-amber-500 flex items-center gap-1.5">
                                             <Icon name="plane" className="w-4 h-4 text-amber-500" />
                                             <span>來回航班與高鐵票券</span>
                                         </h2>
                                         
-                                        {/* 去程航班卡片 - 【字體加大 2px 改動】 */}
-                                        <div class={`rounded-xl shadow border overflow-hidden ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
-                                            <div class="bg-emerald-900 text-white p-3 flex justify-between items-center text-[13px] font-extrabold">
+                                        {/* 去程航班卡片 */}
+                                        <div className={`rounded-xl shadow border overflow-hidden ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
+                                            <div className="bg-emerald-900 text-white p-3 flex justify-between items-center text-[13px] font-extrabold">
                                                 <span>✈️ 長榮航空 BR095 (去程)</span>
-                                                <span class="bg-amber-400 text-emerald-950 px-2 py-0.5 rounded text-[13px]">10/1 出發</span>
+                                                <span className="bg-amber-400 text-emerald-950 px-2 py-0.5 rounded text-[13px]">10/1 出發</span>
                                             </div>
-                                            <div class="p-3 space-y-3">
-                                                <div class="flex justify-between items-center border-b border-dashed border-zinc-100 dark:border-slate-800 pb-2.5">
+                                            <div className="p-3 space-y-3">
+                                                <div className="flex justify-between items-center border-b border-dashed border-zinc-100 dark:border-slate-800 pb-2.5">
                                                     <div>
-                                                        <p class="text-xl font-black font-mono">TPE</p>
-                                                        <p class="text-[13px] text-zinc-450">桃園 T2</p>
-                                                        <p class="text-[15px] font-black text-emerald-600 mt-0.5">23:15</p>
+                                                        <p className="text-xl font-black font-mono">TPE</p>
+                                                        <p className="text-[13px] text-zinc-450">桃園 T2</p>
+                                                        <p className="text-[15px] font-black text-emerald-600 mt-0.5">23:15</p>
                                                     </div>
-                                                    <div class="flex-1 flex flex-col items-center px-1">
-                                                        <span class="text-[13px] text-zinc-455 font-semibold">14H 5M</span>
-                                                        <div class="w-full h-px bg-zinc-200 dark:bg-slate-700 relative my-1.5">
-                                                            <div class="absolute -top-1.5 left-1/2 -translate-x-1/2 rotate-90">
+                                                    <div className="flex-1 flex flex-col items-center px-1">
+                                                        <span className="text-[13px] text-zinc-455 font-semibold">14H 5M</span>
+                                                        <div className="w-full h-px bg-zinc-200 dark:bg-slate-700 relative my-1.5">
+                                                            <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 rotate-90">
                                                                 <Icon name="plane" className="w-3.5 h-3.5 text-amber-500" />
                                                             </div>
                                                         </div>
-                                                        <span class="text-[13px] text-zinc-455">B777-300ER</span>
+                                                        <span className="text-[13px] text-zinc-455">B777-300ER</span>
                                                     </div>
-                                                    <div class="text-right">
-                                                        <p class="text-xl font-black font-mono">MXP</p>
-                                                        <p class="text-[13px] text-zinc-455">米蘭 MXP T1</p>
-                                                        <p class="text-[15px] font-black text-emerald-600 mt-0.5">07:35 <span class="font-normal text-[13px]">+1天</span></p>
+                                                    <div className="text-right">
+                                                        <p className="text-xl font-black font-mono">MXP</p>
+                                                        <p className="text-[13px] text-zinc-455">米蘭 MXP T1</p>
+                                                        <p className="text-[15px] font-black text-emerald-600 mt-0.5">07:35 <span className="font-normal text-[13px]">+1天</span></p>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <label class="block text-[13px] font-black uppercase text-zinc-455 mb-1 font-sans">您的去程座位號碼 (點擊可編輯填寫)</label>
+                                                    <label className="block text-[13px] font-black uppercase text-zinc-455 mb-1 font-sans">您的去程座位號碼 (點擊可編輯填寫)</label>
                                                     <input 
                                                         type="text" 
                                                         value={outboundSeat} 
                                                         onChange={(e) => setOutboundSeat(e.target.value)}
                                                         placeholder="例如: 22K (自動儲存)" 
-                                                        class={`w-full px-2.5 py-1.5 text-[14px] rounded border outline-none font-bold font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-amber-400" : "bg-amber-50/50 border-amber-200 text-emerald-950"}`}
+                                                        className={`w-full px-2.5 py-1.5 text-[14px] rounded border outline-none font-bold font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-amber-400" : "bg-amber-50/50 border-amber-200 text-emerald-950"}`}
                                                     />
                                                 </div>
                                             </div>
                                         </div>
 
-                                        {/* 回程航班卡片 - 【字體加大 2px 改動】 */}
-                                        <div class={`rounded-xl shadow border overflow-hidden ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
-                                            <div class="bg-emerald-900 text-white p-3 flex justify-between items-center text-[15px] font-extrabold">
+                                        {/* 回程航班卡片 */}
+                                        <div className={`rounded-xl shadow border overflow-hidden ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
+                                            <div className="bg-emerald-900 text-white p-3 flex justify-between items-center text-[15px] font-extrabold">
                                                 <span>✈️ 中華航空 CI076 (回程)</span>
-                                                <span class="bg-amber-400 text-emerald-950 px-2 py-0.5 rounded text-[13px]">10/14 出發</span>
+                                                <span className="bg-amber-400 text-emerald-950 px-2 py-0.5 rounded text-[13px]">10/14 出發</span>
                                             </div>
-                                            <div class="p-3 space-y-3">
-                                                <div class="flex justify-between items-center border-b border-dashed border-zinc-100 dark:border-slate-800 pb-2.5">
+                                            <div className="p-3 space-y-3">
+                                                <div className="flex justify-between items-center border-b border-dashed border-zinc-100 dark:border-slate-800 pb-2.5">
                                                     <div>
-                                                        <p class="text-xl font-black font-mono">FCO</p>
-                                                        <p class="text-[13px] text-zinc-455">羅馬 FCO T3</p>
-                                                        <p class="text-[15px] font-black text-emerald-600 mt-0.5">11:00</p>
+                                                        <p className="text-xl font-black font-mono">FCO</p>
+                                                        <p className="text-[13px] text-zinc-455">羅馬 FCO T3</p>
+                                                        <p className="text-[15px] font-black text-emerald-600 mt-0.5">11:00</p>
                                                     </div>
-                                                    <div class="flex-1 flex flex-col items-center px-1">
-                                                        <span class="text-[13px] text-zinc-455 font-semibold">12H 40M</span>
-                                                        <div class="w-full h-px bg-zinc-200 dark:bg-slate-700 relative my-1.5">
-                                                            <div class="absolute -top-1.5 left-1/2 -translate-x-1/2 rotate-90">
+                                                    <div className="flex-1 flex flex-col items-center px-1">
+                                                        <span className="text-[13px] text-zinc-455 font-semibold">12H 40M</span>
+                                                        <div className="w-full h-px bg-zinc-200 dark:bg-slate-700 relative my-1.5">
+                                                            <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 rotate-90">
                                                                 <Icon name="plane" className="w-3.5 h-3.5 text-amber-500" />
                                                             </div>
                                                         </div>
-                                                        <span class="text-[13px] text-zinc-455">A350-900</span>
+                                                        <span className="text-[13px] text-zinc-455">A350-900</span>
                                                     </div>
-                                                    <div class="text-right">
-                                                        <p class="text-xl font-black font-mono">TPE</p>
-                                                        <p class="text-[13px] text-zinc-455">桃園 T1</p>
-                                                        <p class="text-[15px] font-black text-emerald-600 mt-0.5">05:40 <span class="font-normal text-[10px]">+1天</span></p>
+                                                    <div className="text-right">
+                                                        <p className="text-xl font-black font-mono">TPE</p>
+                                                        <p className="text-[13px] text-zinc-455">桃園 T1</p>
+                                                        <p className="text-[15px] font-black text-emerald-600 mt-0.5">05:40 <span className="font-normal text-[10px]">+1天</span></p>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <label class="block text-[13px] font-black uppercase text-zinc-455 mb-1 font-sans">您的回程座位號碼 (點擊可編輯填寫)</label>
+                                                    <label className="block text-[13px] font-black uppercase text-zinc-455 mb-1 font-sans">您的回程座位號碼 (點擊可編輯填寫)</label>
                                                     <input 
                                                         type="text" 
                                                         value={inboundSeat} 
                                                         onChange={(e) => setInboundSeat(e.target.value)}
                                                         placeholder="例如: 31D (自動儲存)" 
-                                                        class={`w-full px-2.5 py-1.5 text-[14px] rounded border outline-none font-bold font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-amber-400" : "bg-amber-50/50 border-amber-200 text-emerald-950"}`}
+                                                        className={`w-full px-2.5 py-1.5 text-[14px] rounded border outline-none font-bold font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-amber-400" : "bg-amber-50/50 border-amber-200 text-emerald-950"}`}
                                                     />
                                                 </div>
                                             </div>
                                         </div>
 
-                                        {/* 義大利高鐵模擬實體車票設計 - 【擬真車票外觀、座位唯讀固定】 */}
-                                        <div class="space-y-4">
-                                            <h3 class="text-sm font-black uppercase text-amber-500 tracking-wider flex items-center gap-1">
+                                        {}
+                                        {/* 義大利高鐵模擬實體車票設計 */}
+                                        <div className="space-y-4">
+                                            <h3 className="text-sm font-black uppercase text-amber-500 tracking-wider flex items-center gap-1">
                                                 <Icon name="ticket" className="w-4 h-4 text-amber-500" />
                                                 <span>義大利高鐵車票 (電子票根)</span>
                                             </h3>
                                             
                                             {/* 車票 1: Frecciarossa 10/4 */}
-                                            {}
-                                            <div class="relative rounded-2xl border border-red-500/20 bg-white dark:bg-slate-900 shadow-xl overflow-hidden transition-all duration-300">
+                                            <div className="relative rounded-2xl border border-red-500/20 bg-white dark:bg-slate-900 shadow-xl overflow-hidden transition-all duration-300">
                                                 {/* 車票上頂欄 - 鐵路品牌配色 */}
-                                                <div class="bg-gradient-to-r from-red-600 to-red-800 text-white px-3.5 py-2.5 flex justify-between items-center">
-                                                    <div class="flex items-center gap-1.5">
-                                                        <span class="font-mono text-xs tracking-wider bg-white/10 px-1.5 py-0.5 rounded font-extrabold">TRENOTALIA</span>
-                                                        <span class="font-extrabold text-[12px] tracking-tight">Frecciarossa</span>
+                                                <div className="bg-gradient-to-r from-red-600 to-red-800 text-white px-3.5 py-2.5 flex justify-between items-center">
+                                                    <div className="flex items-center gap-1.5">
+                                                        <span className="font-mono text-xs tracking-wider bg-white/10 px-1.5 py-0.5 rounded font-extrabold">TRENOTALIA</span>
+                                                        <span className="font-extrabold text-[12px] tracking-tight">Frecciarossa</span>
                                                     </div>
-                                                    <span class="text-[10px] font-black bg-amber-400 text-red-950 px-2 py-0.5 rounded-full uppercase tracking-wider">BUSINESS</span>
+                                                    <span className="text-[10px] font-black bg-amber-400 text-red-955 px-2 py-0.5 rounded-full uppercase tracking-wider">BUSINESS</span>
                                                 </div>
                                                 
                                                 {/* 車票主體內文 */}
-                                                <div class="p-3.5 space-y-3.5 relative">
-                                                    <div class="flex justify-between items-center">
+                                                <div className="p-3.5 space-y-3.5 relative">
+                                                    <div className="flex justify-between items-center">
                                                         <div>
-                                                            <p class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Departure / Partenza</p>
-                                                            <p class="text-sm font-black text-zinc-800 dark:text-slate-100">米蘭</p>
-                                                            <p class="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Milano Centrale</p>
-                                                            <p class="text-lg font-black text-red-600 dark:text-red-400 font-mono mt-0.5">08:45</p>
+                                                            <p className="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Departure / Partenza</p>
+                                                            <p className="text-sm font-black text-zinc-800 dark:text-slate-100">米蘭</p>
+                                                            <p className="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Milano Centrale</p>
+                                                            <p className="text-lg font-black text-red-600 dark:text-red-400 font-mono mt-0.5">08:45</p>
                                                         </div>
-                                                        <div class="flex-1 px-3 flex flex-col items-center gap-y-1">
-                                                            <span class="text-[12px] text-zinc-400 dark:text-slate-400 font-bold">10月4日</span>
-                                                            <div class="w-full flex items-center justify-center my-3 relative">
-                                                                <div class="w-full h-[1px] border-t border-zinc-300 dark:border-slate-700"></div>
-                                                                <div class="absolute bg-white dark:bg-slate-900 px-1 py-0.5 text-red-600">
+                                                        <div className="flex-1 px-3 flex flex-col items-center gap-y-1">
+                                                            <span className="text-[12px] text-zinc-400 dark:text-slate-400 font-bold">10月4日</span>
+                                                            <div className="w-full flex items-center justify-center my-3 relative">
+                                                                <div className="w-full h-[1px] border-t border-zinc-300 dark:border-slate-700"></div>
+                                                                <div className="absolute bg-white dark:bg-slate-900 px-1 py-0.5 text-red-600">
                                                                     <Icon name="arrow-right" className="w-4 h-4" />
                                                                 </div>
                                                             </div>
-                                                            <span class="text-[10px] bg-zinc-100 dark:bg-slate-800 text-zinc-550 dark:text-slate-350 px-1.5 py-0.5 rounded font-semibold">2H 27M</span>
+                                                            <span className="text-[10px] bg-zinc-100 dark:bg-slate-800 text-zinc-550 dark:text-slate-350 px-1.5 py-0.5 rounded font-semibold">2H 27M</span>
                                                         </div>
-                                                        <div class="text-right">
-                                                            <p class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Arrival / Arrivo</p>
-                                                            <p class="text-sm font-black text-zinc-800 dark:text-slate-100">威尼斯</p>
-                                                            <p class="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Venezia S. Lucia</p>
-                                                            <p class="text-lg font-black text-red-600 dark:text-red-400 font-mono mt-0.5">11:12</p>
+                                                        <div className="text-right">
+                                                            <p className="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Arrival / Arrivo</p>
+                                                            <p className="text-sm font-black text-zinc-800 dark:text-slate-100">威尼斯</p>
+                                                            <p className="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Venezia S. Lucia</p>
+                                                            <p className="text-lg font-black text-red-600 dark:text-red-400 font-mono mt-0.5">11:12</p>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 {/* 擬真撕開線與防偽半圓形打孔 */}
-                                                <div class="relative flex items-center my-0.5">
-                                                    <div class="absolute -left-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-r border-zinc-250 dark:border-slate-800"></div>
-                                                    <div class="w-full border-t-2 border-dashed border-zinc-200 dark:border-slate-800 mx-3"></div>
-                                                    <div class="absolute -right-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-l border-zinc-250 dark:border-slate-800"></div>
+                                                <div className="relative flex items-center my-0.5">
+                                                    <div className="absolute -left-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-r border-zinc-250 dark:border-slate-800"></div>
+                                                    <div className="w-full border-t-2 border-dashed border-zinc-200 dark:border-slate-800 mx-3"></div>
+                                                    <div className="absolute -right-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-l border-zinc-250 dark:border-slate-800"></div>
                                                 </div>
 
                                                 {/* 唯讀座位票根 stub */}
-                                                <div class="p-3.5 bg-zinc-50/50 dark:bg-slate-900/40 flex justify-between items-center text-zinc-800 dark:text-slate-150 relative">
-                                                    <div class="grid grid-cols-2 gap-x-6 gap-y-2">
+                                                <div className="p-3.5 bg-zinc-50/50 dark:bg-slate-900/40 flex justify-between items-center text-zinc-800 dark:text-slate-150 relative">
+                                                    <div className="grid grid-cols-2 gap-x-6 gap-y-2">
                                                         <div>
-                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Coach / Carrozza</p>
-                                                            <p class="text-sm font-black text-red-600 dark:text-red-400 font-mono">03</p>
+                                                            <p className="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Coach / Carrozza</p>
+                                                            <p className="text-sm font-black text-red-600 dark:text-red-400 font-mono">03</p>
                                                         </div>
                                                         <div>
-                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Seat / Posto</p>
-                                                            <p class="text-sm font-black text-red-600 dark:text-red-400 font-mono">1D & 2D</p>
+                                                            <p className="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Seat / Posto</p>
+                                                            <p className="text-sm font-black text-red-600 dark:text-red-400 font-mono">1D & 2D</p>
                                                         </div>
                                                         <div class="col-span-2">
-                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Type / Class</p>
-                                                            <p class="text-[11px] font-black text-zinc-700 dark:text-slate-200">BUSINESS</p>
+                                                            <p className="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Type / Class</p>
+                                                            <p className="text-[11px] font-black text-zinc-700 dark:text-slate-200">BUSINESS</p>
                                                         </div>
                                                     </div>
                                                     
-                                                    {/* 防偽條碼 & 蓋印效果 */}
-                                                    <div class="flex flex-col items-end gap-1">
-                                                        <span class="text-[9px] font-black font-serif text-emerald-800/60 dark:text-emerald-500/50 border border-emerald-800/40 dark:border-emerald-500/40 px-1 py-0.5 rounded rotate-12">CONFERMATO</span>
-                                                        <div class="w-20 h-6 bg-transparent opacity-85 dark:opacity-70">
-                                                            <svg class="w-full h-full text-zinc-800 dark:text-zinc-200" viewBox="0 0 100 24" fill="currentColor">
+                                                    {/* 防偽條碼 */}
+                                                    <div className="flex flex-col items-end gap-1">
+                                                        <span className="text-[9px] font-black font-serif text-emerald-800/60 dark:text-emerald-500/50 border border-emerald-800/40 dark:border-emerald-500/40 px-1 py-0.5 rounded rotate-12">CONFERMATO</span>
+                                                        <div className="w-20 h-6 bg-transparent opacity-85 dark:opacity-70">
+                                                            <svg className="w-full h-full text-zinc-800 dark:text-zinc-200" viewBox="0 0 100 24" fill="currentColor">
                                                                 <rect x="0" y="0" width="3" height="24"/>
                                                                 <rect x="5" y="0" width="1" height="24"/>
                                                                 <rect x="8" y="0" width="4" height="24"/>
@@ -943,74 +933,73 @@
                                             </div>
 
                                             {/* 車票 2: Italo 10/6 */}
-                                            {}
-                                            <div class="relative rounded-2xl border border-amber-600/20 bg-white dark:bg-slate-900 shadow-xl overflow-hidden transition-all duration-300">
+                                            <div className="relative rounded-2xl border border-amber-600/20 bg-white dark:bg-slate-900 shadow-xl overflow-hidden transition-all duration-300">
                                                 {/* 車票上頂欄 - Italo 經典暗酒紅與金色 */}
-                                                <div class="bg-gradient-to-r from-red-900 to-red-950 text-white px-3.5 py-2.5 flex justify-between items-center">
-                                                    <div class="flex items-center gap-1.5">
-                                                        <span class="font-sans text-xs tracking-wider font-extrabold text-red-500 italic">italo</span>
-                                                        <span class="font-medium text-[11px] tracking-tight opacity-90">NTV SpA</span>
+                                                <div className="bg-gradient-to-r from-red-900 to-red-955 text-white px-3.5 py-2.5 flex justify-between items-center">
+                                                    <div className="flex items-center gap-1.5">
+                                                        <span className="font-sans text-xs tracking-wider font-extrabold text-red-500 italic">italo</span>
+                                                        <span className="font-medium text-[11px] tracking-tight opacity-90">NTV SpA</span>
                                                     </div>
-                                                    <span class="text-[10px] font-black bg-amber-400 text-red-955 px-2 py-0.5 rounded-full uppercase tracking-wider">Prima Business</span>
+                                                    <span className="text-[10px] font-black bg-amber-400 text-red-955 px-2 py-0.5 rounded-full uppercase tracking-wider">Prima Business</span>
                                                 </div>
                                                 
                                                 {/* 車票主體內文 */}
-                                                <div class="p-3.5 space-y-3.5 relative">
-                                                    <div class="flex justify-between items-center">
+                                                <div className="p-3.5 space-y-3.5 relative">
+                                                    <div className="flex justify-between items-center">
                                                         <div>
-                                                            <p class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Departure / Partenza</p>
-                                                            <p class="text-sm font-black text-zinc-800 dark:text-slate-100">威尼斯</p>
-                                                            <p class="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Venezia S. Lucia</p>
-                                                            <p class="text-lg font-black text-rose-800 dark:text-rose-400 font-mono mt-0.5">08:05</p>
+                                                            <p className="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Departure / Partenza</p>
+                                                            <p className="text-sm font-black text-zinc-800 dark:text-slate-100">威尼斯</p>
+                                                            <p className="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Venezia S. Lucia</p>
+                                                            <p className="text-lg font-black text-rose-800 dark:text-rose-400 font-mono mt-0.5">08:05</p>
                                                         </div>
-                                                        <div class="flex-1 px-3 flex flex-col items-center gap-y-1">
-                                                            <span class="text-[12px] text-zinc-400 dark:text-slate-400 font-bold">10月6日</span>
-                                                            <div class="w-full flex items-center justify-center my-3 relative">
-                                                                <div class="w-full h-[1px] border-t border-zinc-300 dark:border-slate-700"></div>
-                                                                <div class="absolute bg-white dark:bg-slate-900 px-1 py-0.5  text-amber-500">
+                                                        <div className="flex-1 px-3 flex flex-col items-center gap-y-1">
+                                                            <span className="text-[12px] text-zinc-400 dark:text-slate-400 font-bold">10月6日</span>
+                                                            <div className="w-full flex items-center justify-center my-3 relative">
+                                                                <div className="w-full h-[1px] border-t border-zinc-300 dark:border-slate-700"></div>
+                                                                <div className="absolute bg-white dark:bg-slate-900 px-1 py-0.5  text-amber-500">
                                                                     <Icon name="arrow-right" className="w-4 h-4" />
                                                                 </div>
                                                             </div>
-                                                            <span class="text-[10px] bg-zinc-100 dark:bg-slate-800 text-zinc-550 dark:text-slate-350 px-1.5 py-0.5 rounded font-semibold">2H 15M</span>
+                                                            <span className="text-[10px] bg-zinc-100 dark:bg-slate-800 text-zinc-550 dark:text-slate-350 px-1.5 py-0.5 rounded font-semibold">2H 15M</span>
                                                         </div>
                                                         <div class="text-right">
-                                                            <p class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Arrival / Arrivo</p>
-                                                            <p class="text-sm font-black text-zinc-800 dark:text-slate-100">佛羅倫斯</p>
-                                                            <p class="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Firenze S.M.N</p>
-                                                            <p class="text-lg font-black text-rose-800 dark:text-rose-400 font-mono mt-0.5">10:20</p>
+                                                            <p className="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Arrival / Arrivo</p>
+                                                            <p className="text-sm font-black text-zinc-800 dark:text-slate-100">佛羅倫斯</p>
+                                                            <p className="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Firenze S.M.N</p>
+                                                            <p className="text-lg font-black text-rose-800 dark:text-rose-400 font-mono mt-0.5">10:20</p>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 {/* 擬真撕開線與防偽半圓形打孔 */}
-                                                <div class="relative flex items-center my-0.5">
-                                                    <div class="absolute -left-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-r border-zinc-250 dark:border-slate-800"></div>
-                                                    <div class="w-full border-t-2 border-dashed border-zinc-200 dark:border-slate-800 mx-3"></div>
-                                                    <div class="absolute -right-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-l border-zinc-250 dark:border-slate-800"></div>
+                                                <div className="relative flex items-center my-0.5">
+                                                    <div className="absolute -left-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-r border-zinc-250 dark:border-slate-800"></div>
+                                                    <div className="w-full border-t-2 border-dashed border-zinc-200 dark:border-slate-800 mx-3"></div>
+                                                    <div className="absolute -right-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-l border-zinc-250 dark:border-slate-800"></div>
                                                 </div>
 
                                                 {/* 唯讀座位票根 stub */}
-                                                <div class="p-3.5 bg-zinc-50/50 dark:bg-slate-900/40 flex justify-between items-center text-zinc-800 dark:text-slate-150 relative">
-                                                    <div class="grid grid-cols-2 gap-x-6 gap-y-2">
+                                                <div className="p-3.5 bg-zinc-50/50 dark:bg-slate-900/40 flex justify-between items-center text-zinc-800 dark:text-slate-150 relative">
+                                                    <div className="grid grid-cols-2 gap-x-6 gap-y-2">
                                                         <div>
-                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Carriage / Carrozza</p>
-                                                            <p class="text-sm font-black text-rose-800 dark:text-rose-400 font-mono font-sans">1</p>
+                                                            <p className="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Carriage / Carrozza</p>
+                                                            <p className="text-sm font-black text-rose-800 dark:text-rose-400 font-mono font-sans">1</p>
                                                         </div>
                                                         <div>
-                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Seat / Posto</p>
-                                                            <p class="text-sm font-black text-rose-800 dark:text-rose-400 font-mono font-sans">41 & 42</p>
+                                                            <p className="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Seat / Posto</p>
+                                                            <p className="text-sm font-black text-rose-800 dark:text-rose-400 font-mono font-sans">41 & 42</p>
                                                         </div>
-                                                        <div class="col-span-2">
-                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Type / Class</p>
-                                                            <p class="text-[11px] font-black text-zinc-700 dark:text-slate-200">Prima Business Standard</p>
+                                                        <div className="col-span-2">
+                                                            <p className="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Type / Class</p>
+                                                            <p className="text-[11px] font-black text-zinc-700 dark:text-slate-200">Prima Business Standard</p>
                                                         </div>
                                                     </div>
                                                     
-                                                    {/* 防偽條碼 & 蓋印效果 */}
-                                                    <div class="flex flex-col items-end gap-1">
-                                                        <span class="text-[9px] font-black font-serif text-emerald-800/60 dark:text-emerald-500/50 border border-emerald-800/40 dark:border-emerald-500/40 px-1 py-0.5 rounded -rotate-6">CONFERMATO</span>
-                                                        <div class="w-20 h-6 bg-transparent opacity-85 dark:opacity-70">
-                                                            <svg class="w-full h-full text-zinc-800 dark:text-zinc-200" viewBox="0 0 100 24" fill="currentColor">
+                                                    {/* 防偽條碼 */}
+                                                    <div className="flex flex-col items-end gap-1">
+                                                        <span className="text-[9px] font-black font-serif text-emerald-800/60 dark:text-emerald-500/50 border border-emerald-800/40 dark:border-emerald-500/40 px-1 py-0.5 rounded -rotate-6">CONFERMATO</span>
+                                                        <div className="w-20 h-6 bg-transparent opacity-85 dark:opacity-70">
+                                                            <svg className="w-full h-full text-zinc-800 dark:text-zinc-200" viewBox="0 0 100 24" fill="currentColor">
                                                                 <rect x="0" y="0" width="1" height="24"/>
                                                                 <rect x="3" y="0" width="3" height="24"/>
                                                                 <rect x="8" y="0" width="1" height="24"/>
@@ -1041,74 +1030,73 @@
                                             </div>
 
                                             {/* 車票 3: Italo 10/9 */}
-                                            {}
-                                            <div class="relative rounded-2xl border border-amber-600/20 bg-white dark:bg-slate-900 shadow-xl overflow-hidden transition-all duration-300">
+                                            <div className="relative rounded-2xl border border-amber-600/20 bg-white dark:bg-slate-900 shadow-xl overflow-hidden transition-all duration-300">
                                                 {/* 車票上頂欄 - Italo 經典暗酒紅與金色 */}
-                                                <div class="bg-gradient-to-r from-red-900 to-red-950 text-white px-3.5 py-2.5 flex justify-between items-center">
-                                                    <div class="flex items-center gap-1.5">
-                                                        <span class="font-sans text-xs tracking-wider font-extrabold text-red-500 italic">italo</span>
-                                                        <span class="font-medium text-[11px] tracking-tight opacity-90">NTV SpA</span>
+                                                <div className="bg-gradient-to-r from-red-900 to-red-955 text-white px-3.5 py-2.5 flex justify-between items-center">
+                                                    <div className="flex items-center gap-1.5">
+                                                        <span className="font-sans text-xs tracking-wider font-extrabold text-red-500 italic">italo</span>
+                                                        <span className="font-medium text-[11px] tracking-tight opacity-90">NTV SpA</span>
                                                     </div>
-                                                    <span class="text-[10px] font-black bg-amber-400 text-red-955 px-2 py-0.5 rounded-full uppercase tracking-wider">Prima Business</span>
+                                                    <span className="text-[10px] font-black bg-amber-400 text-red-955 px-2 py-0.5 rounded-full uppercase tracking-wider">Prima Business</span>
                                                 </div>
                                                 
                                                 {/* 車票主體內文 */}
-                                                <div class="p-3.5 space-y-3.5 relative">
-                                                    <div class="flex justify-between items-center">
+                                                <div className="p-3.5 space-y-3.5 relative">
+                                                    <div className="flex justify-between items-center">
                                                         <div>
-                                                            <p class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Departure / Partenza</p>
-                                                            <p class="text-sm font-black text-zinc-800 dark:text-slate-100">佛羅倫斯</p>
-                                                            <p class="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Firenze S.M.N</p>
-                                                            <p class="text-lg font-black text-rose-800 dark:text-rose-400 font-mono mt-0.5">10:03</p>
+                                                            <p className="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Departure / Partenza</p>
+                                                            <p className="text-sm font-black text-zinc-800 dark:text-slate-100">佛羅倫斯</p>
+                                                            <p className="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Firenze S.M.N</p>
+                                                            <p className="text-lg font-black text-rose-800 dark:text-rose-400 font-mono mt-0.5">10:03</p>
                                                         </div>
-                                                        <div class="flex-1 px-3 flex flex-col items-center gap-y-1">
-                                                            <span class="text-[12px] text-zinc-400 dark:text-slate-400 font-bold">10月9日</span>
-                                                            <div class="w-full flex items-center justify-center my-3 relative">
-                                                                <div class="w-full h-[1px] border-t border-zinc-300 dark:border-slate-700"></div>
-                                                                <div class="absolute bg-white dark:bg-slate-900 px-1 py-0.5 text-amber-500">
+                                                        <div className="flex-1 px-3 flex flex-col items-center gap-y-1">
+                                                            <span className="text-[12px] text-zinc-400 dark:text-slate-400 font-bold">10月9日</span>
+                                                            <div className="w-full flex items-center justify-center my-3 relative">
+                                                                <div className="w-full h-[1px] border-t border-zinc-300 dark:border-slate-700"></div>
+                                                                <div className="absolute bg-white dark:bg-slate-900 px-1 py-0.5 text-amber-500">
                                                                     <Icon name="arrow-right" className="w-4 h-4" />
                                                                 </div>
                                                             </div>
-                                                            <span class="text-[10px] bg-zinc-100 dark:bg-slate-800 text-zinc-550 dark:text-slate-350 px-1.5 py-0.5 rounded font-semibold">1H 37M</span>
+                                                            <span className="text-[10px] bg-zinc-100 dark:bg-slate-800 text-zinc-550 dark:text-slate-350 px-1.5 py-0.5 rounded font-semibold">1H 37M</span>
                                                         </div>
-                                                        <div class="text-right">
-                                                            <p class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Arrival / Arrivo</p>
-                                                            <p class="text-sm font-black text-zinc-800 dark:text-slate-100">羅馬</p>
-                                                            <p class="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Roma Termini</p>
-                                                            <p class="text-lg font-black text-rose-800 dark:text-rose-400 font-mono mt-0.5">11:40</p>
+                                                        <div className="text-right">
+                                                            <p className="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Arrival / Arrivo</p>
+                                                            <p className="text-sm font-black text-zinc-800 dark:text-slate-100">羅馬</p>
+                                                            <p className="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Roma Termini</p>
+                                                            <p className="text-lg font-black text-rose-800 dark:text-rose-400 font-mono mt-0.5">11:40</p>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 {/* 擬真撕開線與防偽半圓形打孔 */}
-                                                <div class="relative flex items-center my-0.5">
-                                                    <div class="absolute -left-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-r border-zinc-250 dark:border-slate-800"></div>
-                                                    <div class="w-full border-t-2 border-dashed border-zinc-200 dark:border-slate-800 mx-3"></div>
-                                                    <div class="absolute -right-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-l border-zinc-250 dark:border-slate-800"></div>
+                                                <div className="relative flex items-center my-0.5">
+                                                    <div className="absolute -left-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-r border-zinc-250 dark:border-slate-800"></div>
+                                                    <div className="w-full border-t-2 border-dashed border-zinc-200 dark:border-slate-800 mx-3"></div>
+                                                    <div className="absolute -right-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-l border-zinc-250 dark:border-slate-800"></div>
                                                 </div>
 
                                                 {/* 唯讀座位票根 stub */}
-                                                <div class="p-3.5 bg-zinc-50/50 dark:bg-slate-900/40 flex justify-between items-center text-zinc-800 dark:text-slate-150 relative">
-                                                    <div class="grid grid-cols-2 gap-x-6 gap-y-2">
+                                                <div className="p-3.5 bg-zinc-50/50 dark:bg-slate-900/40 flex justify-between items-center text-zinc-800 dark:text-slate-150 relative">
+                                                    <div className="grid grid-cols-2 gap-x-6 gap-y-2">
                                                         <div>
-                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Carriage / Carrozza</p>
-                                                            <p class="text-sm font-black text-rose-800 dark:text-rose-400 font-mono font-sans">1</p>
+                                                            <p className="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Carriage / Carrozza</p>
+                                                            <p className="text-sm font-black text-rose-800 dark:text-rose-400 font-mono font-sans">1</p>
                                                         </div>
                                                         <div>
-                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Seat / Posto</p>
-                                                            <p class="text-sm font-black text-rose-800 dark:text-rose-400 font-mono font-sans">41 & 42</p>
+                                                            <p className="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Seat / Posto</p>
+                                                            <p className="text-sm font-black text-rose-800 dark:text-rose-400 font-mono font-sans">41 & 42</p>
                                                         </div>
-                                                        <div class="col-span-2">
-                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Type / Class</p>
-                                                            <p class="text-[11px] font-black text-zinc-700 dark:text-slate-200">Prima Business Standard</p>
+                                                        <div className="col-span-2">
+                                                            <p className="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Type / Class</p>
+                                                            <p className="text-[11px] font-black text-zinc-700 dark:text-slate-200">Prima Business Standard</p>
                                                         </div>
                                                     </div>
                                                     
-                                                    {/* 防偽條碼 & 蓋印效果 */}
-                                                    <div class="flex flex-col items-end gap-1">
-                                                        <span class="text-[9px] font-black font-serif text-emerald-800/60 dark:text-emerald-500/50 border border-emerald-800/40 dark:border-emerald-500/40 px-1 py-0.5 rounded rotate-3">CONFERMATO</span>
-                                                        <div class="w-20 h-6 bg-transparent opacity-85 dark:opacity-70">
-                                                            <svg class="w-full h-full text-zinc-800 dark:text-zinc-200" viewBox="0 0 100 24" fill="currentColor">
+                                                    {/* 防偽條碼 */}
+                                                    <div className="flex flex-col items-end gap-1">
+                                                        <span className="text-[9px] font-black font-serif text-emerald-800/60 dark:text-emerald-500/50 border border-emerald-800/40 dark:border-emerald-500/40 px-1 py-0.5 rounded rotate-3">CONFERMATO</span>
+                                                        <div className="w-20 h-6 bg-transparent opacity-85 dark:opacity-70">
+                                                            <svg className="w-full h-full text-zinc-800 dark:text-zinc-200" viewBox="0 0 100 24" fill="currentColor">
                                                                 <rect x="0" y="0" width="3" height="24"/>
                                                                 <rect x="5" y="0" width="1" height="24"/>
                                                                 <rect x="8" y="0" width="2" height="24"/>
@@ -1142,69 +1130,70 @@
                                 )}
 
                                 {activeTab === "checklist" && (
-                                    <div class="space-y-4">
-                                        <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-900 to-teal-950 text-white shadow">
-                                            <h2 class="text-sm font-black flex items-center gap-1">
+                                    <div className="space-y-4">
+                                        <div className="p-4 rounded-2xl bg-gradient-to-br from-emerald-900 to-teal-950 text-white shadow">
+                                            <h2 className="text-sm font-black flex items-center gap-1">
                                                 <Icon name="check-square" className="w-4 h-4 text-amber-400" />
                                                 <span>行李打包智能進度</span>
                                             </h2>
-                                            <p class="text-[10px] text-emerald-200">即時清點行李項目，支援離線保存進度！</p>
-                                            <div class="mt-3 flex items-center gap-3">
-                                                <div class="flex-1 bg-teal-950/65 rounded-full h-2.5 overflow-hidden p-0.5 border border-teal-500/20">
-                                                    <div class="bg-amber-400 h-full rounded-full transition-all duration-300" style={{ width: `${checklistPercent}%` }}></div>
+                                            <p className="text-[10px] text-emerald-200">即時清點行李項目，支援離線保存進度！</p>
+                                            <div className="mt-3 flex items-center gap-3">
+                                                <div className="flex-1 bg-teal-950/65 rounded-full h-2.5 overflow-hidden p-0.5 border border-teal-500/20">
+                                                    <div className="bg-amber-400 h-full rounded-full transition-all duration-300" style={{ width: `${checklistPercent}%` }}></div>
                                                 </div>
-                                                <span class="text-xs font-black font-mono text-amber-400">{checklistPercent}%</span>
+                                                <span className="text-xs font-black font-mono text-amber-400">{checklistPercent}%</span>
                                             </div>
                                         </div>
 
-                                        {/* 打包清單輸入框 - 【字體加大 2px 改動】 */}
-                                        <form onSubmit={handleAddChecklistItem} class={`p-2.5 rounded-xl border flex gap-1.5 ${darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-zinc-200"}`}>
+                                        {}
+                                        {/* 打包清單輸入框 */}
+                                        <form onSubmit={handleAddChecklistItem} className={`p-2.5 rounded-xl border flex gap-1.5 ${darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-zinc-200"}`}>
                                             <input 
                                                 type="text" 
                                                 value={newChecklistItem} 
                                                 onChange={(e) => setNewChecklistItem(e.target.value)}
                                                 placeholder="自訂行李項目 (如: 頸枕)" 
-                                                class={`flex-1 px-2.5 py-1.5 text-[14px] rounded border outline-none font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"}`}
+                                                className={`flex-1 px-2.5 py-1.5 text-[14px] rounded border outline-none font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"}`}
                                             />
                                             <select 
                                                 value={newChecklistCategory} 
                                                 onChange={(e) => setNewChecklistCategory(e.target.value)}
-                                                class={`px-1.5 text-[15px] rounded border outline-none font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"}`}
+                                                className={`px-1.5 text-[15px] rounded border outline-none font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"}`}
                                             >
                                                 <option value="核心證件與現金">證件與現金</option>
                                                 <option value="隨身電子設備">隨身電子</option>
                                                 <option value="護理、衣物與藥品">護理與衣物</option>
                                             </select>
-                                            <button type="submit" class="bg-emerald-900 hover:bg-emerald-850 text-white px-3 rounded text-sm font-bold flex items-center justify-center">
+                                            <button type="submit" className="bg-emerald-900 hover:bg-emerald-850 text-white px-3 rounded text-sm font-bold flex items-center justify-center">
                                                 <Icon name="plus" className="w-4 h-4 text-white" />
                                             </button>
                                         </form>
 
-                                        {/* 行李打包列表清單 - 【字體加大 2px 改動】 */}
-                                        <div class="space-y-3.5">
+                                        {/* 行李打包列表清單 */}
+                                        <div className="space-y-3.5">
                                             {["核心證件與現金", "隨身電子設備", "護理、衣物與藥品"].map((cat) => (
-                                                <div key={cat} class={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
-                                                    <h3 class="text-[14px] font-black text-amber-500 border-b border-zinc-100 dark:border-slate-800 pb-2 mb-2 flex justify-between items-center uppercase tracking-wider">
+                                                <div key={cat} className={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
+                                                    <h3 className="text-[14px] font-black text-amber-500 border-b border-zinc-100 dark:border-slate-800 pb-2 mb-2 flex justify-between items-center uppercase tracking-wider">
                                                         <span>{cat === "核心證件與現金" ? "🔑 證件與現金" : cat === "隨身電子設備" ? "🔌 隨身電子" : "👕 護理與衣物"}</span>
-                                                        <span class="text-[12px] bg-zinc-100 dark:bg-slate-800 px-2 py-0.5 rounded-full text-zinc-550 font-bold">
+                                                        <span className="text-[12px] bg-zinc-100 dark:bg-slate-800 px-2 py-0.5 rounded-full text-zinc-550 font-bold">
                                                             {checklist.filter((i) => i.category === cat && i.checked).length} / {checklist.filter((i) => i.category === cat).length}
                                                         </span>
                                                     </h3>
-                                                    <div class="space-y-1">
+                                                    <div className="space-y-1">
                                                         {checklist.filter((i) => i.category === cat).map((item) => {
                                                             const globalIdx = checklist.findIndex((x) => x.item === item.item);
                                                             return (
-                                                                <div key={item.item} class="flex items-center justify-between py-1.5 border-b border-zinc-50/20 last:border-0">
-                                                                    <label class="flex items-center gap-2.5 cursor-pointer text-[14px] select-none">
+                                                                <div key={item.item} className="flex items-center justify-between py-1.5 border-b border-zinc-50/20 last:border-0">
+                                                                    <label className="flex items-center gap-2.5 cursor-pointer text-[14px] select-none">
                                                                         <input 
                                                                             type="checkbox" 
                                                                             checked={item.checked} 
                                                                             onChange={() => toggleChecklist(globalIdx)}
-                                                                            class="rounded border-zinc-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4"
+                                                                            className="rounded border-zinc-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4"
                                                                         />
-                                                                        <span class={item.checked ? "line-through text-zinc-400" : "font-medium"}>{item.item}</span>
+                                                                        <span className={item.checked ? "line-through text-zinc-400" : "font-medium"}>{item.item}</span>
                                                                     </label>
-                                                                    <button onClick={() => deleteChecklistItem(globalIdx)} class="text-zinc-450 hover:text-red-500 p-1 flex items-center justify-center">
+                                                                    <button onClick={() => deleteChecklistItem(globalIdx)} className="text-zinc-450 hover:text-red-500 p-1 flex items-center justify-center">
                                                                         <Icon name="trash-2" className="w-4 h-4 text-zinc-450 hover:text-red-500" />
                                                                     </button>
                                                                 </div>
@@ -1218,51 +1207,52 @@
                                 )}
 
                                 {activeTab === "phrases" && (
-                                    <div class="space-y-4">
-                                        <div class="flex justify-between items-center">
-                                            <h2 class="text-sm font-black uppercase tracking-wider text-amber-500 flex items-center gap-1.5">
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center">
+                                            <h2 className="text-sm font-black uppercase tracking-wider text-amber-500 flex items-center gap-1.5">
                                                 <Icon name="languages" className="w-4 h-4 text-amber-500" />
                                                 <span>日常實用義大利語速查</span>
                                             </h2>
                                             <button 
                                                 onClick={() => { setFlashcardIndex(0); setShowAnswer(false); }}
-                                                class="bg-emerald-800 hover:bg-emerald-750 text-white font-bold text-[13px] px-3 py-1.5 rounded-lg flex items-center gap-1 shadow-sm"
+                                                className="bg-emerald-800 hover:bg-emerald-750 text-white font-bold text-[13px] px-3 py-1.5 rounded-lg flex items-center gap-1 shadow-sm"
                                             >
                                                 <span>⚡ 閃卡記憶模式</span>
                                             </button>
                                         </div>
 
-                                        {/* 語彙閃卡模式 - 【字體加大 2px 改動】 */}
+                                        {}
+                                        {/* 語彙閃卡模式 */}
                                         {flashcardIndex !== null && (
-                                            <div class="p-4 rounded-xl border border-amber-500/20 bg-gradient-to-br from-emerald-955 to-teal-955 text-white text-center space-y-4 relative">
-                                                <button onClick={() => setFlashcardIndex(null)} class="absolute top-2.5 right-2.5 text-zinc-300 hover:text-white font-sans text-[16px]">✕</button>
-                                                <div class="text-[14px] text-amber-400 font-bold uppercase tracking-wider font-sans">義語記憶閃卡 ({flashcardIndex + 1}/{PHRASEBOOK_DATA.length})</div>
-                                                <div class="space-y-1">
-                                                    <div class="text-[28px] font-bold text-amber-300 tracking-wide font-sans">{PHRASEBOOK_DATA[flashcardIndex].italian}</div>
-                                                    <div class="text-[14px] text-zinc-300">發音：{PHRASEBOOK_DATA[flashcardIndex].pinyin}</div>
+                                            <div className="p-4 rounded-xl border border-amber-500/20 bg-gradient-to-br from-emerald-955 to-teal-955 text-white text-center space-y-4 relative">
+                                                <button onClick={() => setFlashcardIndex(null)} className="absolute top-2.5 right-2.5 text-zinc-300 hover:text-white font-sans text-[16px]">✕</button>
+                                                <div className="text-[14px] text-amber-400 font-bold uppercase tracking-wider font-sans">義語記憶閃卡 ({flashcardIndex + 1}/{PHRASEBOOK_DATA.length})</div>
+                                                <div className="space-y-1">
+                                                    <div className="text-[28px] font-bold text-amber-300 tracking-wide font-sans">{PHRASEBOOK_DATA[flashcardIndex].italian}</div>
+                                                    <div className="text-[14px] text-zinc-300">發音：{PHRASEBOOK_DATA[flashcardIndex].pinyin}</div>
                                                 </div>
                                                 <button 
                                                     onClick={() => speakItalian(PHRASEBOOK_DATA[flashcardIndex].italian)}
-                                                    class="mx-auto flex items-center gap-1 px-4 py-1.5 rounded bg-amber-400 text-emerald-955 text-[14px] font-black shadow-md"
+                                                    className="mx-auto flex items-center gap-1 px-4 py-1.5 rounded bg-amber-400 text-emerald-955 text-[14px] font-black shadow-md"
                                                 >
                                                     <Icon name="volume-2" className="w-4 h-4 text-emerald-955" /> 
                                                     <span>播音</span>
                                                 </button>
-                                                <div class="pt-2.5 border-t border-white/10">
+                                                <div className="pt-2.5 border-t border-white/10">
                                                     {showAnswer ? (
-                                                        <div class="space-y-1.5">
-                                                            <div class="text-[16px] font-bold text-emerald-100">{PHRASEBOOK_DATA[flashcardIndex].chinese}</div>
-                                                            <div class="text-[14px] text-zinc-400 leading-relaxed">{PHRASEBOOK_DATA[flashcardIndex].usage}</div>
+                                                        <div className="space-y-1.5">
+                                                            <div className="text-[16px] font-bold text-emerald-100">{PHRASEBOOK_DATA[flashcardIndex].chinese}</div>
+                                                            <div className="text-[14px] text-zinc-400 leading-relaxed">{PHRASEBOOK_DATA[flashcardIndex].usage}</div>
                                                         </div>
                                                     ) : (
-                                                        <button onClick={() => setShowAnswer(true)} class="bg-white/10 hover:bg-white/20 text-white text-[14px] px-3.5 py-1.5 rounded font-bold font-sans">顯示翻譯</button>
+                                                        <button onClick={() => setShowAnswer(true)} className="bg-white/10 hover:bg-white/20 text-white text-[14px] px-3.5 py-1.5 rounded font-bold font-sans">顯示翻譯</button>
                                                     )}
                                                 </div>
-                                                <div class="flex gap-2 pt-2">
+                                                <div className="flex gap-2 pt-2">
                                                     <button 
                                                         disabled={flashcardIndex === 0} 
                                                         onClick={() => { setFlashcardIndex(prev => prev - 1); setShowAnswer(false); }}
-                                                        class="flex-1 bg-zinc-800 disabled:opacity-40 py-2 rounded text-[14px] font-bold font-sans"
+                                                        className="flex-1 bg-zinc-800 disabled:opacity-40 py-2 rounded text-[14px] font-bold font-sans"
                                                     >
                                                         上一個
                                                     </button>
@@ -1275,7 +1265,7 @@
                                                                 setShowAnswer(false);
                                                             }
                                                         }}
-                                                        class="flex-1 bg-amber-400 text-emerald-955 py-2 rounded text-[14px] font-black font-sans"
+                                                        className="flex-1 bg-amber-400 text-emerald-955 py-2 rounded text-[14px] font-black font-sans"
                                                     >
                                                         {flashcardIndex === PHRASEBOOK_DATA.length - 1 ? "完成" : "下一個"}
                                                     </button>
@@ -1283,33 +1273,33 @@
                                             </div>
                                         )}
 
-                                        {/* 語彙速查列表 - 【字體加大 2px 改動】 */}
-                                        <div class="space-y-2">
+                                        {/* 語彙速查列表 */}
+                                        <div className="space-y-2">
                                             <input 
                                                 type="text" 
                                                 value={phraseSearch} 
                                                 onChange={(e) => setPhraseSearch(e.target.value)}
                                                 placeholder="搜尋義語、中文或場景..." 
-                                                class={`w-full px-3 py-2 text-[14px] rounded-lg border outline-none font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}
+                                                className={`w-full px-3 py-2 text-[14px] rounded-lg border outline-none font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}
                                             />
-                                            <div class="space-y-2.5 max-h-[440px] overflow-y-auto no-scrollbar">
+                                            <div className="space-y-2.5 max-h-[440px] overflow-y-auto no-scrollbar">
                                                 {PHRASEBOOK_DATA.filter(p => 
                                                     p.italian.toLowerCase().includes(phraseSearch.toLowerCase()) || 
                                                     p.chinese.includes(phraseSearch) || 
                                                     p.usage.includes(phraseSearch)
                                                 ).map((phrase) => (
-                                                    <div key={phrase.italian} class={`p-3 rounded-xl border flex justify-between items-center ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
-                                                        <div class="space-y-0.5">
-                                                            <div class="flex items-center gap-1.5 flex-wrap">
-                                                                <span class="text-[16px] font-bold text-emerald-900 dark:text-amber-400 font-sans">{phrase.italian}</span>
-                                                                <span class="text-[13px] text-zinc-400 font-bold font-sans">[{phrase.pinyin}]</span>
+                                                    <div key={phrase.italian} className={`p-3 rounded-xl border flex justify-between items-center ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
+                                                        <div className="space-y-0.5">
+                                                            <div className="flex items-center gap-1.5 flex-wrap">
+                                                                <span className="text-[16px] font-bold text-emerald-900 dark:text-amber-400 font-sans">{phrase.italian}</span>
+                                                                <span className="text-[13px] text-zinc-400 font-bold font-sans">[{phrase.pinyin}]</span>
                                                             </div>
-                                                            <p class="text-[14px] font-black text-stone-850 dark:text-slate-100">{phrase.chinese}</p>
-                                                            <p class="text-[14px] text-zinc-500 italic leading-snug">{phrase.usage}</p>
+                                                            <p className="text-[14px] font-black text-stone-850 dark:text-slate-100">{phrase.chinese}</p>
+                                                            <p className="text-[14px] text-zinc-500 italic leading-snug">{phrase.usage}</p>
                                                         </div>
                                                         <button 
                                                             onClick={() => speakItalian(phrase.italian)}
-                                                            class="p-2.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-800 dark:text-amber-400 rounded-full transition-all flex items-center justify-center flex-shrink-0"
+                                                            className="p-2.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-800 dark:text-amber-400 rounded-full transition-all flex items-center justify-center flex-shrink-0"
                                                         >
                                                             <Icon name="volume-2" className="w-4.5 h-4.5 text-emerald-800 dark:text-amber-400" />
                                                         </button>
@@ -1322,41 +1312,41 @@
 
                             </div>
 
-                            {/* 底部導覽列 */}
                             {}
-                            <nav class="absolute bottom-0 left-0 right-0 border-t flex justify-around pb-4 pt-2.5 safe-bottom z-50 bg-white/95 dark:bg-slate-950/95 border-zinc-150 dark:border-slate-850 text-zinc-800 dark:text-slate-100 backdrop-blur-md">
+                            {/* 底部導覽列 */}
+                            <nav className="absolute bottom-0 left-0 right-0 border-t flex justify-around pb-4 pt-2.5 safe-bottom z-50 bg-white/95 dark:bg-slate-950/95 border-zinc-150 dark:border-slate-850 text-zinc-800 dark:text-slate-100 backdrop-blur-md">
                                 <button 
                                     onClick={() => setActiveTab("itinerary")}
-                                    class={`flex flex-col items-center gap-1 transition-all ${activeTab === "itinerary" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-400"}`}
+                                    className={`flex flex-col items-center gap-1 transition-all ${activeTab === "itinerary" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-400"}`}
                                 >
                                     <Icon name="calendar" className={`w-5 h-5 ${activeTab === 'itinerary' ? 'text-emerald-700 dark:text-amber-400' : 'text-zinc-400'}`} />
-                                    <span class="text-[12px] font-black">每日行程</span>
+                                    <span className="text-[12px] font-black">每日行程</span>
                                 </button>
                                 <button 
                                     onClick={() => setActiveTab("flights")}
-                                    class={`flex flex-col items-center gap-1 transition-all ${activeTab === "flights" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-400"}`}
+                                    className={`flex flex-col items-center gap-1 transition-all ${activeTab === "flights" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-400"}`}
                                 >
                                     <Icon name="plane" className={`w-5 h-5 ${activeTab === 'flights' ? 'text-emerald-700 dark:text-amber-400' : 'text-zinc-400'}`} />
-                                    <span class="text-[12px] font-black">航班高鐵</span>
+                                    <span className="text-[12px] font-black">航班高鐵</span>
                                 </button>
                                 <button 
                                     onClick={() => setActiveTab("checklist")}
-                                    class={`flex flex-col items-center gap-1 transition-all ${activeTab === "checklist" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-400"}`}
+                                    className={`flex flex-col items-center gap-1 transition-all ${activeTab === "checklist" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-400"}`}
                                 >
-                                    <div class="relative flex items-center justify-center">
+                                    <div className="relative flex items-center justify-center">
                                         <Icon name="check-square" className={`w-5 h-5 ${activeTab === 'checklist' ? 'text-emerald-700 dark:text-amber-400' : 'text-zinc-400'}`} />
                                         {checklistPercent > 0 && (
-                                            <span class="absolute -top-1.5 -right-2.5 bg-amber-400 text-emerald-950 text-[9px] font-bold rounded-full px-1">{checklistPercent}%</span>
+                                            <span className="absolute -top-1.5 -right-2.5 bg-amber-400 text-emerald-950 text-[9px] font-bold rounded-full px-1">{checklistPercent}%</span>
                                         )}
                                     </div>
-                                    <span class="text-[12px] font-black">行李打包</span>
+                                    <span className="text-[12px] font-black">行李打包</span>
                                 </button>
                                 <button 
                                     onClick={() => setActiveTab("phrases")}
-                                    class={`flex flex-col items-center gap-1 transition-all ${activeTab === "phrases" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-400"}`}
+                                    className={`flex flex-col items-center gap-1 transition-all ${activeTab === "phrases" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-400"}`}
                                 >
                                     <Icon name="languages" className={`w-5 h-5 ${activeTab === 'phrases' ? 'text-emerald-700 dark:text-amber-400' : 'text-zinc-400'}`} />
-                                    <span class="text-[12px] font-black">隨身義語</span>
+                                    <span className="text-[12px] font-black">隨身義語</span>
                                 </button>
                             </nav>
 
