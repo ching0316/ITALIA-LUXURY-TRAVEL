@@ -64,7 +64,7 @@
         
         /* 支援 iPhone 動態島與頂部狀態欄精確避讓 */
         .safe-top {
-            padding-top: max(8px, env(safe-area-inset-top, 8px));
+            padding-top: max(8px, env(safe-area-inset-top, 15px));
         }
         /* 支援 iPhone 的底部 Home Indicator 緊湊避讓，剛剛好不留空隙 */
         .safe-bottom {
@@ -611,7 +611,7 @@
                                         <Icon name="compass" className="w-4 h-4 text-emerald-950" />
                                     </div>
                                     <div>
-                                        <p class="text-[9px] tracking-widest uppercase font-bold text-amber-300 leading-none">ITALIA LUXURY TRAVEL</p>
+                                        <p class="text-[10px] tracking-widest uppercase font-bold text-amber-300 leading-none">ITALIA LUXURY TRAVEL</p>
                                         <h1 class="text-[11px] font-black tracking-tight leading-tight mt-0.5">義大利 15 日尊榮旅遊手冊</h1>
                                     </div>
                                 </div>
@@ -652,7 +652,7 @@
                                                     <button
                                                         key={d.day}
                                                         onClick={() => setSelectedDay(d.day)}
-                                                        class={`snap-center flex-shrink-0 w-16 py-1.5 rounded-xl border flex flex-col items-center justify-center transition-all ${selectedDay === d.day ? "bg-gradient-to-br from-emerald-800 to-teal-950 text-white border-emerald-800 shadow-md scale-105 font-bold" : `${darkMode ? "bg-slate-800 border-slate-700 text-slate-300" : "bg-white border-zinc-200 text-zinc-750 hover:bg-zinc-50"}`}`}
+                                                        class={`snap-center flex-shrink-0 w-20 py-1.5 rounded-xl border flex flex-col items-center justify-center transition-all ${selectedDay === d.day ? "bg-gradient-to-br from-emerald-800 to-teal-950 text-white border-emerald-800 shadow-[0_0_12px_rgba(16,185,129,0.25)] scale-105 font-black" : `${darkMode ? "bg-slate-800 border-slate-700 text-slate-300" : "bg-white border-zinc-200 text-zinc-750 hover:bg-zinc-50"}`}`}
                                                     >
                                                         <span class="text-[12px] uppercase tracking-widest opacity-85">Day</span>
                                                         <span class="text-sm font-black">{d.day}</span>
@@ -684,8 +684,8 @@
                                                     <div class="flex justify-between items-start gap-2.5">
                                                         <div class="space-y-1.5 flex-1">
                                                             <div class="flex items-center gap-1.5">
-                                                                <div class="inline-block text-[13px] font-black font-mono tracking-wider bg-[#121212] border border-zinc-800/80 px-2 py-0.5 rounded">
-                                                                    <span class="text-[#E5C158] drop-shadow-[0_0_6px_rgba(229,193,88,0.85)]">
+                                                                <div class="inline-block text-[13px] font-black font-mono tracking-wider bg-[#121212] border border-zinc-800/80 px-1 py-0 leading-none rounded-sm">
+                                                                    <span class="text-[#E5C158] drop-shadow-[0_0_5px_rgba(229,193,88,0.85)]">
                                                                         {item.time}
                                                                     </span>
                                                                 </div>
@@ -708,7 +708,7 @@
                                                                 </span>
                                                             </div>
                                                             {/* 活動標題 */}
-                                                            <h4 class="text-sm font-black leading-snug">{item.title}</h4>
+                                                            <h4 class="text-[15px] font-black leading-snug">{item.title}</h4>
                                                             
                                                             {/* 內文描述 */}
                                                             <p class={`text-[13px] leading-relaxed ${darkMode ? "text-slate-300" : "text-zinc-650"}`}>{item.desc}</p>
@@ -735,7 +735,7 @@
                                                             href={getGoogleMapsLink(item, selectedDayData.city)}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
-                                                            class="flex-shrink-0 p-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 transition-all flex items-center justify-center gap-0.5 text-xs font-extrabold"
+                                                            class="flex-shrink-0 px-1 py-0 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 transition-all flex items-center justify-center gap-0.5 text-xs font-extrabold"
                                                         >
                                                             <Icon name="map-pin" className="w-3.5 h-3.5 text-emerald-750 dark:text-emerald-400" />
                                                             <span>地圖</span>
@@ -751,7 +751,7 @@
                                     <div class="space-y-4 pb-4">
                                         <h2 class="text-sm font-black uppercase tracking-wider text-amber-500 flex items-center gap-1.5">
                                             <Icon name="plane" className="w-4 h-4 text-amber-500" />
-                                            <span>來回航班與高鐵票券</span>
+                                            <span>來回航班時間資訊</span>
                                         </h2>
                                         
                                         {/* 去程航班卡片 */}
@@ -840,7 +840,7 @@
                                         <div class="space-y-4">
                                             <h3 class="text-sm font-black uppercase text-amber-500 tracking-wider flex items-center gap-1">
                                                 <Icon name="ticket" className="w-4 h-4 text-amber-500" />
-                                                <span>義大利高鐵車票 (電子票根)</span>
+                                                <span>義大利高鐵車票</span>
                                             </h3>
                                             
                                             {/* 車票 1: Frecciarossa 10/4 */}
