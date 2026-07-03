@@ -487,12 +487,9 @@
             const [selectedDay, setSelectedDay] = useState(2);
             const [darkMode, setDarkMode] = useState(false);
             
-            // 自訂座位號碼儲存
+            // 自訂座位號碼儲存 (僅保留去/回程飛機座位自填)
             const [outboundSeat, setOutboundSeat] = useState(() => localStorage.getItem("outboundSeat") || "");
             const [inboundSeat, setInboundSeat] = useState(() => localStorage.getItem("inboundSeat") || "");
-            const [milanVeniceSeat, setMilanVeniceSeat] = useState(() => localStorage.getItem("milanVeniceSeat") || "");
-            const [veniceFlorenceSeat, setVeniceFlorenceSeat] = useState(() => localStorage.getItem("veniceFlorenceSeat") || "");
-            const [florenceRomeSeat, setFlorenceRomeSeat] = useState(() => localStorage.getItem("florenceRomeSeat") || "");
 
             // 打包清單儲存
             const [checklist, setChecklist] = useState(() => {
@@ -510,10 +507,7 @@
             useEffect(() => {
                 localStorage.setItem("outboundSeat", outboundSeat);
                 localStorage.setItem("inboundSeat", inboundSeat);
-                localStorage.setItem("milanVeniceSeat", milanVeniceSeat);
-                localStorage.setItem("veniceFlorenceSeat", veniceFlorenceSeat);
-                localStorage.setItem("florenceRomeSeat", florenceRomeSeat);
-            }, [outboundSeat, inboundSeat, milanVeniceSeat, veniceFlorenceSeat, florenceRomeSeat]);
+            }, [outboundSeat, inboundSeat]);
 
             useEffect(() => {
                 localStorage.setItem("packingChecklist", JSON.stringify(checklist));
@@ -690,7 +684,6 @@
                                                     <div class="flex justify-between items-start gap-2.5">
                                                         <div class="space-y-1.5 flex-1">
                                                             <div class="flex items-center gap-1.5">
-                                                                {/* 【核心修改】：時間字體改成奢華金色 (#E5C158)，底部背景改成質感霧黑色 (#121212) */}
                                                                 <span class="text-[14px] font-black text-[#E5C158] font-mono tracking-wider bg-[#121212] border border-zinc-800/80 px-2 py-0.5 rounded shadow-sm inline-block">{item.time}</span>
                                                                 
                                                                 {/* 類別標籤 */}
@@ -751,10 +744,10 @@
                                 )}
 
                                 {activeTab === "flights" && (
-                                    <div class="space-y-4">
+                                    <div class="space-y-4 pb-4">
                                         <h2 class="text-sm font-black uppercase tracking-wider text-amber-500 flex items-center gap-1.5">
                                             <Icon name="plane" className="w-4 h-4 text-amber-500" />
-                                            <span>來回航班資訊</span>
+                                            <span>來回航班與高鐵票券</span>
                                         </h2>
                                         
                                         {/* 去程航班卡片 - 【字體加大 2px 改動】 */}
@@ -839,51 +832,304 @@
                                             </div>
                                         </div>
 
-                                        {/* 義大利高鐵車票號碼配置 - 【字體加大 2px 改動】 */}
-                                        <div class={`p-3.5 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
-                                            <h3 class="text-sm font-black uppercase text-amber-500 mb-2.5 tracking-wider flex items-center gap-1">
-                                                <Icon name="compass" className="w-4 h-4 text-amber-500" />
-                                                <span>義大利高鐵車票座位</span>
+                                        {/* 義大利高鐵模擬實體車票設計 - 【擬真車票外觀、座位唯讀固定】 */}
+                                        <div class="space-y-4">
+                                            <h3 class="text-sm font-black uppercase text-amber-500 tracking-wider flex items-center gap-1">
+                                                <Icon name="ticket" className="w-4 h-4 text-amber-500" />
+                                                <span>義大利高鐵車票 (電子票根)</span>
                                             </h3>
-                                            <div class="space-y-3">
-                                                <div class="p-2 rounded bg-zinc-50 dark:bg-slate-800/60 border border-zinc-100 dark:border-slate-850">
-                                                    <div class="flex justify-between items-center text-[15px] mb-1">
-                                                        <span class="font-extrabold">🚄 10/4 高鐵: 08:45 米蘭 ➔ 11:12 威尼斯</span>
-                                                        <span class="bg-red-600 text-white font-bold px-1.5 py-0.5 rounded text-[13px]">Frecciarossa</span>
+                                            
+                                            {/* 車票 1: Frecciarossa 10/4 */}
+                                            {}
+                                            <div class="relative rounded-2xl border border-red-500/20 bg-white dark:bg-slate-900 shadow-xl overflow-hidden transition-all duration-300">
+                                                {/* 車票上頂欄 - 鐵路品牌配色 */}
+                                                <div class="bg-gradient-to-r from-red-600 to-red-800 text-white px-3.5 py-2.5 flex justify-between items-center">
+                                                    <div class="flex items-center gap-1.5">
+                                                        <span class="font-mono text-xs tracking-wider bg-white/10 px-1.5 py-0.5 rounded font-extrabold">TRENOTALIA</span>
+                                                        <span class="font-extrabold text-[12px] tracking-tight">Frecciarossa</span>
                                                     </div>
-                                                    <input 
-                                                        type="text" 
-                                                        value={milanVeniceSeat} 
-                                                        onChange={(e) => setMilanVeniceSeat(e.target.value)}
-                                                        placeholder="輸入車廂/座位 (例: Coach 3, Seat 14A)" 
-                                                        class={`w-full px-2 py-1 text-[15px] rounded border outline-none font-sans ${darkMode ? "bg-slate-900 border-slate-700 text-amber-400" : "bg-white border-zinc-200 text-zinc-900"}`}
-                                                    />
+                                                    <span class="text-[10px] font-black bg-amber-400 text-red-950 px-2 py-0.5 rounded-full uppercase tracking-wider">BUSINESS</span>
                                                 </div>
-                                                <div class="p-2 rounded bg-zinc-50 dark:bg-slate-800/60 border border-zinc-100 dark:border-slate-850">
-                                                    <div class="flex justify-between items-center text-[15px] mb-1">
-                                                        <span class="font-extrabold">🚄 10/6 高鐵: 08:05 威尼斯 ➔ 10:20 佛羅倫斯</span>
-                                                        <span class="bg-amber-500 text-emerald-950 font-bold px-1.5 py-0.5 rounded text-[13px]">Italo</span>
+                                                
+                                                {/* 車票主體內文 */}
+                                                <div class="p-3.5 space-y-3.5 relative">
+                                                    <div class="flex justify-between items-center">
+                                                        <div>
+                                                            <p class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Departure / Partenza</p>
+                                                            <p class="text-sm font-black text-zinc-800 dark:text-slate-100">米蘭</p>
+                                                            <p class="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Milano Centrale</p>
+                                                            <p class="text-lg font-black text-red-600 dark:text-red-400 font-mono mt-0.5">08:45</p>
+                                                        </div>
+                                                        <div class="flex-1 px-3 flex flex-col items-center">
+                                                            <span class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold">10月4日</span>
+                                                            <div class="w-full flex items-center justify-center my-1 relative">
+                                                                <div class="w-full h-[1px] border-t border-zinc-300 dark:border-slate-700"></div>
+                                                                <div class="absolute bg-white dark:bg-slate-900 px-1 text-red-600">
+                                                                    <Icon name="arrow-right" className="w-4 h-4" />
+                                                                </div>
+                                                            </div>
+                                                            <span class="text-[10px] bg-zinc-100 dark:bg-slate-800 text-zinc-550 dark:text-slate-350 px-1.5 py-0.5 rounded font-semibold">2H 27M</span>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            <p class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Arrival / Arrivo</p>
+                                                            <p class="text-sm font-black text-zinc-800 dark:text-slate-100">威尼斯</p>
+                                                            <p class="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Venezia S. Lucia</p>
+                                                            <p class="text-lg font-black text-red-600 dark:text-red-400 font-mono mt-0.5">11:12</p>
+                                                        </div>
                                                     </div>
-                                                    <input 
-                                                        type="text" 
-                                                        value={veniceFlorenceSeat} 
-                                                        onChange={(e) => setVeniceFlorenceSeat(e.target.value)}
-                                                        placeholder="輸入車廂/座位 (例: Coach 2, Seat 5B)" 
-                                                        class={`w-full px-2 py-1 text-[15px] rounded border outline-none font-sans ${darkMode ? "bg-slate-900 border-slate-700 text-amber-400" : "bg-white border-zinc-200 text-zinc-900"}`}
-                                                    />
                                                 </div>
-                                                <div class="p-2 rounded bg-zinc-50 dark:bg-slate-800/60 border border-zinc-100 dark:border-slate-850">
-                                                    <div class="flex justify-between items-center text-[15px] mb-1">
-                                                        <span class="font-extrabold">🚄 10/9 高鐵: 10:03 佛羅倫斯 ➔ 11:40 羅馬</span>
-                                                        <span class="bg-amber-500 text-emerald-950 font-bold px-1.5 py-0.5 rounded text-[13px]">Italo</span>
+
+                                                {/* 擬真撕開線與防偽半圓形打孔 */}
+                                                <div class="relative flex items-center my-0.5">
+                                                    <div class="absolute -left-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-r border-zinc-250 dark:border-slate-800"></div>
+                                                    <div class="w-full border-t-2 border-dashed border-zinc-200 dark:border-slate-800 mx-3"></div>
+                                                    <div class="absolute -right-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-l border-zinc-250 dark:border-slate-800"></div>
+                                                </div>
+
+                                                {/* 唯讀座位票根 stub */}
+                                                <div class="p-3.5 bg-zinc-50/50 dark:bg-slate-900/40 flex justify-between items-center text-zinc-800 dark:text-slate-150 relative">
+                                                    <div class="grid grid-cols-2 gap-x-6 gap-y-2">
+                                                        <div>
+                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Coach / Carrozza</p>
+                                                            <p class="text-sm font-black text-red-600 dark:text-red-400 font-mono">03</p>
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Seat / Posto</p>
+                                                            <p class="text-sm font-black text-red-600 dark:text-red-400 font-mono">1D & 2D</p>
+                                                        </div>
+                                                        <div class="col-span-2">
+                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Type / Class</p>
+                                                            <p class="text-[11px] font-black text-zinc-700 dark:text-slate-200">CAB-PLACE : 3-1D&2D</p>
+                                                        </div>
                                                     </div>
-                                                    <input 
-                                                        type="text" 
-                                                        value={florenceRomeSeat} 
-                                                        onChange={(e) => setFlorenceRomeSeat(e.target.value)}
-                                                        placeholder="輸入車廂/座位 (例: Coach 4, Seat 12A)" 
-                                                        class={`w-full px-2 py-1 text-[15px] rounded border outline-none font-sans ${darkMode ? "bg-slate-900 border-slate-700 text-amber-400" : "bg-white border-zinc-200 text-zinc-900"}`}
-                                                    />
+                                                    
+                                                    {/* 防偽條碼 & 蓋印效果 */}
+                                                    <div class="flex flex-col items-end gap-1">
+                                                        <span class="text-[9px] font-black font-serif text-emerald-800/60 dark:text-emerald-500/50 border border-emerald-800/40 dark:border-emerald-500/40 px-1 py-0.5 rounded rotate-12">CONFERMATO</span>
+                                                        <div class="w-20 h-6 bg-transparent opacity-85 dark:opacity-70">
+                                                            <svg class="w-full h-full text-zinc-800 dark:text-zinc-200" viewBox="0 0 100 24" fill="currentColor">
+                                                                <rect x="0" y="0" width="3" height="24"/>
+                                                                <rect x="5" y="0" width="1" height="24"/>
+                                                                <rect x="8" y="0" width="4" height="24"/>
+                                                                <rect x="14" y="0" width="2" height="24"/>
+                                                                <rect x="18" y="0" width="1" height="24"/>
+                                                                <rect x="21" y="0" width="5" height="24"/>
+                                                                <rect x="28" y="0" width="2" height="24"/>
+                                                                <rect x="32" y="0" width="1" height="24"/>
+                                                                <rect x="35" y="0" width="3" height="24"/>
+                                                                <rect x="40" y="0" width="2" height="24"/>
+                                                                <rect x="44" y="0" width="4" height="24"/>
+                                                                <rect x="50" y="0" width="1" height="24"/>
+                                                                <rect x="53" y="0" width="3" height="24"/>
+                                                                <rect x="58" y="0" width="1" height="24"/>
+                                                                <rect x="61" y="0" width="4" height="24"/>
+                                                                <rect x="67" y="0" width="2" height="24"/>
+                                                                <rect x="71" y="0" width="3" height="24"/>
+                                                                <rect x="76" y="0" width="1" height="24"/>
+                                                                <rect x="79" y="0" width="5" height="24"/>
+                                                                <rect x="86" y="0" width="2" height="24"/>
+                                                                <rect x="90" y="0" width="1" height="24"/>
+                                                                <rect x="93" y="0" width="3" height="24"/>
+                                                                <rect x="98" y="0" width="2" height="24"/>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* 車票 2: Italo 10/6 */}
+                                            {}
+                                            <div class="relative rounded-2xl border border-amber-600/20 bg-white dark:bg-slate-900 shadow-xl overflow-hidden transition-all duration-300">
+                                                {/* 車票上頂欄 - Italo 經典暗酒紅與金色 */}
+                                                <div class="bg-gradient-to-r from-red-900 to-red-950 text-white px-3.5 py-2.5 flex justify-between items-center">
+                                                    <div class="flex items-center gap-1.5">
+                                                        <span class="font-sans text-xs tracking-wider font-extrabold text-red-500 italic">italo</span>
+                                                        <span class="font-medium text-[11px] tracking-tight opacity-90">NTV SpA</span>
+                                                    </div>
+                                                    <span class="text-[10px] font-black bg-amber-400 text-red-955 px-2 py-0.5 rounded-full uppercase tracking-wider">Prima Business</span>
+                                                </div>
+                                                
+                                                {/* 車票主體內文 */}
+                                                <div class="p-3.5 space-y-3.5 relative">
+                                                    <div class="flex justify-between items-center">
+                                                        <div>
+                                                            <p class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Departure / Partenza</p>
+                                                            <p class="text-sm font-black text-zinc-800 dark:text-slate-100">威尼斯</p>
+                                                            <p class="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Venezia S. Lucia</p>
+                                                            <p class="text-lg font-black text-rose-800 dark:text-rose-400 font-mono mt-0.5">08:05</p>
+                                                        </div>
+                                                        <div class="flex-1 px-3 flex flex-col items-center">
+                                                            <span class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold">10月6日</span>
+                                                            <div class="w-full flex items-center justify-center my-1 relative">
+                                                                <div class="w-full h-[1px] border-t border-zinc-300 dark:border-slate-700"></div>
+                                                                <div class="absolute bg-white dark:bg-slate-900 px-1 text-amber-500">
+                                                                    <Icon name="arrow-right" className="w-4 h-4" />
+                                                                </div>
+                                                            </div>
+                                                            <span class="text-[10px] bg-zinc-100 dark:bg-slate-800 text-zinc-550 dark:text-slate-350 px-1.5 py-0.5 rounded font-semibold">2H 15M</span>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            <p class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Arrival / Arrivo</p>
+                                                            <p class="text-sm font-black text-zinc-800 dark:text-slate-100">佛羅倫斯</p>
+                                                            <p class="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Firenze S.M.N</p>
+                                                            <p class="text-lg font-black text-rose-800 dark:text-rose-400 font-mono mt-0.5">10:20</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {/* 擬真撕開線與防偽半圓形打孔 */}
+                                                <div class="relative flex items-center my-0.5">
+                                                    <div class="absolute -left-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-r border-zinc-250 dark:border-slate-800"></div>
+                                                    <div class="w-full border-t-2 border-dashed border-zinc-200 dark:border-slate-800 mx-3"></div>
+                                                    <div class="absolute -right-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-l border-zinc-250 dark:border-slate-800"></div>
+                                                </div>
+
+                                                {/* 唯讀座位票根 stub */}
+                                                <div class="p-3.5 bg-zinc-50/50 dark:bg-slate-900/40 flex justify-between items-center text-zinc-800 dark:text-slate-150 relative">
+                                                    <div class="grid grid-cols-2 gap-x-6 gap-y-2">
+                                                        <div>
+                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Carriage / Carrozza</p>
+                                                            <p class="text-sm font-black text-rose-800 dark:text-rose-400 font-mono font-sans">1</p>
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Seat / Posto</p>
+                                                            <p class="text-sm font-black text-rose-800 dark:text-rose-400 font-mono font-sans">41 & 42</p>
+                                                        </div>
+                                                        <div class="col-span-2">
+                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Type / Class</p>
+                                                            <p class="text-[11px] font-black text-zinc-700 dark:text-slate-200">Prima Business Standard</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    {/* 防偽條碼 & 蓋印效果 */}
+                                                    <div class="flex flex-col items-end gap-1">
+                                                        <span class="text-[9px] font-black font-serif text-emerald-800/60 dark:text-emerald-500/50 border border-emerald-800/40 dark:border-emerald-500/40 px-1 py-0.5 rounded -rotate-6">CONFERMATO</span>
+                                                        <div class="w-20 h-6 bg-transparent opacity-85 dark:opacity-70">
+                                                            <svg class="w-full h-full text-zinc-800 dark:text-zinc-200" viewBox="0 0 100 24" fill="currentColor">
+                                                                <rect x="0" y="0" width="1" height="24"/>
+                                                                <rect x="3" y="0" width="3" height="24"/>
+                                                                <rect x="8" y="0" width="1" height="24"/>
+                                                                <rect x="11" y="0" width="4" height="24"/>
+                                                                <rect x="17" y="0" width="2" height="24"/>
+                                                                <rect x="21" y="0" width="1" height="24"/>
+                                                                <rect x="24" y="0" width="5" height="24"/>
+                                                                <rect x="31" y="0" width="2" height="24"/>
+                                                                <rect x="35" y="0" width="1" height="24"/>
+                                                                <rect x="38" y="0" width="3" height="24"/>
+                                                                <rect x="43" y="0" width="2" height="24"/>
+                                                                <rect x="47" y="0" width="4" height="24"/>
+                                                                <rect x="53" y="0" width="1" height="24"/>
+                                                                <rect x="56" y="0" width="3" height="24"/>
+                                                                <rect x="61" y="0" width="1" height="24"/>
+                                                                <rect x="64" y="0" width="4" height="24"/>
+                                                                <rect x="70" y="0" width="2" height="24"/>
+                                                                <rect x="74" y="0" width="3" height="24"/>
+                                                                <rect x="79" y="0" width="1" height="24"/>
+                                                                <rect x="82" y="0" width="5" height="24"/>
+                                                                <rect x="89" y="0" width="2" height="24"/>
+                                                                <rect x="93" y="0" width="1" height="24"/>
+                                                                <rect x="96" y="0" width="3" height="24"/>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* 車票 3: Italo 10/9 */}
+                                            {}
+                                            <div class="relative rounded-2xl border border-amber-600/20 bg-white dark:bg-slate-900 shadow-xl overflow-hidden transition-all duration-300">
+                                                {/* 車票上頂欄 - Italo 經典暗酒紅與金色 */}
+                                                <div class="bg-gradient-to-r from-red-900 to-red-950 text-white px-3.5 py-2.5 flex justify-between items-center">
+                                                    <div class="flex items-center gap-1.5">
+                                                        <span class="font-sans text-xs tracking-wider font-extrabold text-red-500 italic">italo</span>
+                                                        <span class="font-medium text-[11px] tracking-tight opacity-90">NTV SpA</span>
+                                                    </div>
+                                                    <span class="text-[10px] font-black bg-amber-400 text-red-955 px-2 py-0.5 rounded-full uppercase tracking-wider">Prima Business</span>
+                                                </div>
+                                                
+                                                {/* 車票主體內文 */}
+                                                <div class="p-3.5 space-y-3.5 relative">
+                                                    <div class="flex justify-between items-center">
+                                                        <div>
+                                                            <p class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Departure / Partenza</p>
+                                                            <p class="text-sm font-black text-zinc-800 dark:text-slate-100">佛羅倫斯</p>
+                                                            <p class="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Firenze S.M.N</p>
+                                                            <p class="text-lg font-black text-rose-800 dark:text-rose-400 font-mono mt-0.5">10:03</p>
+                                                        </div>
+                                                        <div class="flex-1 px-3 flex flex-col items-center">
+                                                            <span class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold">10月9日</span>
+                                                            <div class="w-full flex items-center justify-center my-1 relative">
+                                                                <div class="w-full h-[1px] border-t border-zinc-300 dark:border-slate-700"></div>
+                                                                <div class="absolute bg-white dark:bg-slate-900 px-1 text-amber-500">
+                                                                    <Icon name="arrow-right" className="w-4 h-4" />
+                                                                </div>
+                                                            </div>
+                                                            <span class="text-[10px] bg-zinc-100 dark:bg-slate-800 text-zinc-550 dark:text-slate-350 px-1.5 py-0.5 rounded font-semibold">1H 37M</span>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            <p class="text-[11px] text-zinc-400 dark:text-slate-400 font-bold uppercase tracking-wider">Arrival / Arrivo</p>
+                                                            <p class="text-sm font-black text-zinc-800 dark:text-slate-100">羅馬</p>
+                                                            <p class="text-[11px] text-zinc-500 dark:text-slate-300 font-medium font-sans">Roma Termini</p>
+                                                            <p class="text-lg font-black text-rose-800 dark:text-rose-400 font-mono mt-0.5">11:40</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {/* 擬真撕開線與防偽半圓形打孔 */}
+                                                <div class="relative flex items-center my-0.5">
+                                                    <div class="absolute -left-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-r border-zinc-250 dark:border-slate-800"></div>
+                                                    <div class="w-full border-t-2 border-dashed border-zinc-200 dark:border-slate-800 mx-3"></div>
+                                                    <div class="absolute -right-2 w-4 h-4 rounded-full bg-zinc-100 dark:bg-slate-950 border-l border-zinc-250 dark:border-slate-800"></div>
+                                                </div>
+
+                                                {/* 唯讀座位票根 stub */}
+                                                <div class="p-3.5 bg-zinc-50/50 dark:bg-slate-900/40 flex justify-between items-center text-zinc-800 dark:text-slate-150 relative">
+                                                    <div class="grid grid-cols-2 gap-x-6 gap-y-2">
+                                                        <div>
+                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Carriage / Carrozza</p>
+                                                            <p class="text-sm font-black text-rose-800 dark:text-rose-400 font-mono font-sans">1</p>
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Seat / Posto</p>
+                                                            <p class="text-sm font-black text-rose-800 dark:text-rose-400 font-mono font-sans">41 & 42</p>
+                                                        </div>
+                                                        <div class="col-span-2">
+                                                            <p class="text-[10px] text-zinc-450 dark:text-slate-450 font-bold uppercase">Type / Class</p>
+                                                            <p class="text-[11px] font-black text-zinc-700 dark:text-slate-200">Prima Business Standard</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    {/* 防偽條碼 & 蓋印效果 */}
+                                                    <div class="flex flex-col items-end gap-1">
+                                                        <span class="text-[9px] font-black font-serif text-emerald-800/60 dark:text-emerald-500/50 border border-emerald-800/40 dark:border-emerald-500/40 px-1 py-0.5 rounded rotate-3">CONFERMATO</span>
+                                                        <div class="w-20 h-6 bg-transparent opacity-85 dark:opacity-70">
+                                                            <svg class="w-full h-full text-zinc-800 dark:text-zinc-200" viewBox="0 0 100 24" fill="currentColor">
+                                                                <rect x="0" y="0" width="3" height="24"/>
+                                                                <rect x="5" y="0" width="1" height="24"/>
+                                                                <rect x="8" y="0" width="2" height="24"/>
+                                                                <rect x="12" y="0" width="4" height="24"/>
+                                                                <rect x="18" y="0" width="1" height="24"/>
+                                                                <rect x="21" y="0" width="3" height="24"/>
+                                                                <rect x="26" y="0" width="2" height="24"/>
+                                                                <rect x="30" y="0" width="1" height="24"/>
+                                                                <rect x="33" y="0" width="4" height="24"/>
+                                                                <rect x="39" y="0" width="2" height="24"/>
+                                                                <rect x="43" y="0" width="5" height="24"/>
+                                                                <rect x="50" y="0" width="2" height="24"/>
+                                                                <rect x="54" y="0" width="1" height="24"/>
+                                                                <rect x="57" y="0" width="3" height="24"/>
+                                                                <rect x="62" y="0" width="2" height="24"/>
+                                                                <rect x="66" y="0" width="4" height="24"/>
+                                                                <rect x="72" y="0" width="1" height="24"/>
+                                                                <rect x="75" y="0" width="3" height="24"/>
+                                                                <rect x="80" y="0" width="1" height="24"/>
+                                                                <rect x="83" y="0" width="5" height="24"/>
+                                                                <rect x="90" y="0" width="2" height="24"/>
+                                                                <rect x="94" y="0" width="1" height="24"/>
+                                                                <rect x="97" y="0" width="3" height="24"/>
+                                                            </svg>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -992,9 +1238,9 @@
                                                 </div>
                                                 <button 
                                                     onClick={() => speakItalian(PHRASEBOOK_DATA[flashcardIndex].italian)}
-                                                    class="mx-auto flex items-center gap-1 px-4 py-1.5 rounded bg-amber-400 text-emerald-950 text-[14px] font-black shadow-md"
+                                                    class="mx-auto flex items-center gap-1 px-4 py-1.5 rounded bg-amber-400 text-emerald-955 text-[14px] font-black shadow-md"
                                                 >
-                                                    <Icon name="volume-2" className="w-4 h-4 text-emerald-950" /> 
+                                                    <Icon name="volume-2" className="w-4 h-4 text-emerald-955" /> 
                                                     <span>播音</span>
                                                 </button>
                                                 <div class="pt-2.5 border-t border-white/10">
@@ -1072,6 +1318,7 @@
                             </div>
 
                             {/* 底部導覽列 */}
+                            {}
                             <nav class="absolute bottom-0 left-0 right-0 border-t flex justify-around pb-4 pt-2.5 safe-bottom z-50 bg-white/95 dark:bg-slate-950/95 border-zinc-150 dark:border-slate-850 text-zinc-800 dark:text-slate-100 backdrop-blur-md">
                                 <button 
                                     onClick={() => setActiveTab("itinerary")}
