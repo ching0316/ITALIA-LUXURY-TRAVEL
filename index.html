@@ -605,14 +605,14 @@
                         <div class="w-full h-full flex flex-col relative overflow-hidden">
                             
                             {/* 頂部 Header - 精簡垂直高度 */}
-                            <header class="px-4 pb-2 safe-top border-b sticky top-0 z-50 flex justify-between items-center transition-colors bg-gradient-to-r from-emerald-900 to-teal-950 text-white border-emerald-950 shadow-md">
-                                <div class="flex items-center gap-2">
+                            <header class="px-4 pb-4 safe-top border-b sticky top-0 z-50 flex justify-between items-center transition-colors bg-gradient-to-r from-emerald-900 to-teal-950 text-white border-emerald-950 shadow-md">
+                                <div class="flex items-center gap-2.5">
                                     <div class="p-1 bg-amber-400 rounded-lg text-emerald-950 flex items-center justify-center shadow-sm">
-                                        <Icon name="compass" className="w-4 h-4" />
+                                        <Icon name="compass" className="w-4.5 h-4.5" />
                                     </div>
                                     <div>
-                                        <p class="text-[10px] tracking-widest uppercase font-bold text-amber-300 leading-none">ITALIA LUXURY TRAVEL</p>
-                                        <h1 class="text-[11px] font-black tracking-tight leading-tight mt-0.5">義大利 15 日尊榮旅遊手冊</h1>
+                                        <p class="text-[11px] tracking-widest uppercase font-bold text-amber-300 leading-none">ITALIA LUXURY TRAVEL</p>
+                                        <h1 class="text-[12px] font-black tracking-tight leading-tight mt-0.5">義大利 15 日尊榮旅遊手冊</h1>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-1.5">
@@ -652,7 +652,7 @@
                                                     <button
                                                         key={d.day}
                                                         onClick={() => setSelectedDay(d.day)}
-                                                        class={`snap-center flex-shrink-0 w-20 py-1.5 rounded-xl border flex flex-col items-center justify-center transition-all ${selectedDay === d.day ? "bg-gradient-to-br from-emerald-800 to-teal-950 text-white border-emerald-800 shadow-[0_0_12px_rgba(16,185,129,0.25)] scale-105 font-black" : `${darkMode ? "bg-slate-800 border-slate-700 text-slate-300" : "bg-white border-zinc-200 text-zinc-750 hover:bg-zinc-50"}`}`}
+                                                        class={`snap-center flex-shrink-0 w-20 py-1.5 rounded-xl border flex flex-col items-center justify-center transition-all ${selectedDay === d.day ? "bg-gradient-to-br from-emerald-800 to-teal-950 text-[#E5C158] border-emerald-800 shadow-[0_0_12px_rgba(16,185,129,0.25)] scale-105 font-black" : `${darkMode ? "bg-slate-800 border-slate-700 text-slate-300" : "bg-white border-zinc-200 text-zinc-750 hover:bg-zinc-50"}`}`}
                                                     >
                                                         <span class="text-[12px] uppercase tracking-widest opacity-85">Day</span>
                                                         <span class="text-sm font-black">{d.day}</span>
