@@ -660,24 +660,33 @@
             };
 
             return (
-                <div class={darkMode ? "dark" : ""}>
-                    {/* 主要外層 Wrapper - 手機滿版、桌機居中 */}
-                    <div class="min-h-screen bg-zinc-100 dark:bg-slate-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
-                          <div class="flex flex-col min-h-screen">
-                            {/* 頂部 Header */}
-                            <header class="sticky top-0 z-50 px-4 pt-3 pb-3 border-b flex justify-between items-center transition-colors bg-gradient-to-r from-emerald-900 to-teal-950 text-white border-emerald-950 shadow-md">
-                              <div class="flex items-center gap-2.5">
-                                <div class="p-1 bg-amber-400 rounded-lg text-emerald-950 flex items-center justify-center shadow-sm">
-                                  <span class="text-sm font-bold">🧭</span>
-                                </div>
-                                <div>
-                                  <p class="text-[12px] tracking-widest uppercase font-bold text-amber-300 leading-none">ITALIA LUXURY TRAVEL</p>
-                                  <h1 class="text-[14px] font-black tracking-tight leading-tight mt-0.5">義大利 15 日尊榮旅遊手冊</h1>
-                                </div>
-                              </div>
-                              <div></div>
-                            </header>
-
+                {/* 頂部動態島狀態列 - 精緻磨砂琉璃版 */}
+                <div class="sticky top-0 z-50 flex h-10 w-full justify-between items-center px-6 text-xs font-semibold select-none
+                            bg-emerald-950/80 dark:bg-slate-950/80 backdrop-blur-xl text-amber-200/90
+                            border-b border-white/10 shadow-[0_1px_2px_rgba(0,0,0,0.1)]">
+                    <span>9:41</span>
+                    {/* 擬真動態島：加上微弱內嵌高光 */}
+                    <div class="w-24 h-4 bg-black/90 rounded-full mx-auto shadow-[inset_0_1px_0.5px_rgba(255,255,255,0.2)]"></div>
+                    <div class="flex items-center gap-1.5 font-mono text-[10px]"><span>📶</span><span>🔋</span></div>
+                </div>
+                    {/* 高質感尊榮標頭 - 雙層微擬物漸層與高光邊緣 */}
+                    <header class="sticky top-10 z-40 px-5 pt-3 pb-3.5 flex justify-between items-center transition-colors 
+                                   bg-gradient-to-r from-emerald-950 via-teal-950 to-emerald-950 
+                                   text-white border-b border-emerald-900/60 
+                                   shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_10px_25px_-5px_rgba(0,0,0,0.3)] shrink-0">
+                        
+                        <div class="flex items-center gap-3">
+                            <div class="p-1.5 bg-gradient-to-br from-amber-300 to-amber-500 rounded-xl text-emerald-950 flex items-center justify-center shadow-[0_2px_10px_rgba(245,158,11,0.4),inset_0_1px_1px_rgba(255,255,255,0.6)]">
+                                <span class="text-sm font-black">🧭</span>
+                            </div>
+                            <div>
+                                <p class="text-[12px] tracking-[0.2em] uppercase font-black text-amber-300/90 leading-none drop-shadow-sm">ITALIA LUXURY TRAVEL</p>
+                                <h1 class="text-[15px] font-black tracking-tight leading-tight mt-1 text-white drop-shadow-md">義大利 15 日尊榮旅遊手冊</h1>
+                            </div>
+                        </div>
+                        <div></div>
+                    </header>
+                    
                             {/* 主要滑動內容區 - 增大可視範圍 */}
                             <div class="flex-1 px-4 pt-3 pb-24 space-y-4 bg-zinc-100 dark:bg-slate-950">
                                 
