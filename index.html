@@ -76,8 +76,47 @@
 
         /* 支援 iPhone 底部 Home Indicator 導覽條避讓 */
         .dock-safe-area {
-            bottom: max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1rem));
+            /* 1. 強制固定定位，拉開左右各 20px 的懸浮留白 */
+            position: fixed;
+            left: 1.25rem;  /* 相當於 Tailwind 的 left-5 */
+            right: 1.25rem; /* 相當於 Tailwind 的 right-5 */
+            
+            /* 2. 你原本完美的 iPhone 底部小白條智慧避讓計算 */
+            bottom: max(1.25rem, calc(env(safe-area-inset-bottom, 0px) + 1rem));
+            
+            /* 3. 頂級磨砂水晶玻璃背景 */
+            background-color: rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px); /* 確保 iOS Safari 完美毛玻璃 */
+            
+            /* 4. 微擬物高光外框：一條純白色的倒角反光條 */
+            border: 1.5px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 
+                /* 內嵌高光 (Rim Light)：營造水晶玻璃厚度 */
+                inset 0 1px 1px rgba(255, 255, 255, 0.9),
+                /* 第一層：觸地實體細陰影 */
+                0 1px 2px rgba(0, 0, 0, 0.05),
+                /* 第二層：帶有奢華翡翠綠的環境暈染光（呼應你的 Emerald 標頭） */
+                0 12px 24px -4px rgba(4, 120, 87, 0.08),
+                /* 第三層：大範圍縱深大投影，徹底將底板與背景抽離 */
+                0 24px 50px -12px rgba(0, 0, 0, 0.18);
+                
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
+        /* 🌙 當外層被加上 .dark 類別時的深色模式極致光影 */
+        .dark .dock-safe-area {
+            background-color: rgba(15, 23, 42, 0.65); /* 轉為 slate-900 磨砂黑寶石 */
+            border: 1.5px solid rgba(51, 65, 85, 0.6);   /* slate-700 邊框 */
+            box-shadow: 
+                /* 深色版內嵌微弱高光 */
+                inset 0 1px 0px rgba(255, 255, 255, 0.15),
+                /* 深色版超重磅環境深邃投影，絕不與黑色背景融合 */
+                0 1px 2px rgba(0, 0, 0, 0.5),
+                0 20px 40px -10px rgba(0, 0, 0, 0.7),
+                0 0 1px 1px rgba(255, 255, 255, 0.05);
+        }
+
     </style>
 </head>
 <body class="bg-emerald-950 dark:bg-slate-950 transition-colors duration-300">
@@ -1325,12 +1364,7 @@
                             </div>
 
                             {/* 底部導覽列 - 緊湊優化高度、極致貼合無空隙 */}
-                            <nav class="fixed left-5 right-5 bottom-5 pb-[env(safe-area-inset-bottom,0px)] rounded-[24px] border flex justify-around py-3.5 z-50 transition-all duration-300
-                                        bg-white/70 dark:bg-slate-900/65 backdrop-blur-2xl
-                                        border-[1.5px] border-white dark:border-slate-700/60 shadow-[inset_0_1px_1px_rgba(250,250,250,0.8)] dark:shadow-[inset_0_1px_0px_rgba(255,255,255,0.15)]
-                                        shadow-[0_1px_2px_rgba(0,0,0,0.05),0_12px_24px_-4px_rgba(4,120,87,0.08),0_24px_50px_-12px_rgba(0,0,0,0.18)]
-                                        dark:shadow-[0_1px_2px_rgba(0,0,0,0.5),0_20px_40px_-10px_rgba(0,0,0,0.7),0_0_1px_1px_rgba(255,255,255,0.05)]
-                                      text-zinc-800 dark:text-slate-100">
+                            <nav class="dock-safe-area rounded-[24px] border flex justify-around py-3.5 z-50 text-zinc-800 dark:text-slate-100">
                                 <button 
                                     onClick={() => setActiveTab("itinerary")}
                                     class={`flex flex-col items-center gap-0.5 transition-all ${activeTab === "itinerary" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-400"}`}
