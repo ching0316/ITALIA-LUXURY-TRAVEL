@@ -8,7 +8,8 @@
     <!-- 100% 消除 iOS Safari 頂部系統狀態欄留白：強制與手冊深綠、暗色深藍色融為一體 -->
     <meta name="theme-color" content="#121212" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
-    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon"
           sizes="180x180"
           href="https://ching0316.github.io/ITALIA-LUXURY-TRAVEL/apple-touch-icon.png">
@@ -54,8 +55,9 @@
     <style>
         body {
             font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            overflow: hidden; /* 防止 iOS 橡皮筋回彈效果干擾體驗 */
-            touch-action: pan-y;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            overscroll-behavior-y: none;  /* 真正用來防止 iOS/Android 瀏覽器下拉橡皮筋回彈、頁面流白邊的屬性 */
             -webkit-tap-highlight-color: transparent;
         }
         .no-scrollbar::-webkit-scrollbar {
@@ -67,12 +69,17 @@
         }
         
         /* 支援 iPhone 動態島與頂部狀態欄精確避讓 */
-        .safe-top {
-            padding-top: max(8px, env(safe-area-inset-top, 8px));
+        .header-safe-area {
+            padding-top: max(1.5rem, calc(env(safe-area-inset-top, 20px) + 0.75rem));
         }
-        /* 支援 iPhone 的底部 Home Indicator 緊湊避讓，剛剛好不留空隙 */
-        .safe-bottom {
-            padding-bottom: max(6px, env(safe-area-inset-bottom, 8px));
+
+        /* 支援 iPhone 底部 Home Indicator 導覽條避讓 */
+        .dock-safe-area {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding-bottom: max(1.0rem, calc(env(safe-area-inset-bottom, 0px) + 0.5rem));
         }
     </style>
 </head>
