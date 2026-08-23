@@ -621,22 +621,25 @@
             };
 
             return (
-                <div class={darkMode ? "dark" : ""}>
-                    {/* 主要外層 Wrapper - 手機滿版、桌機居中 */}
-                    <div class="fixed inset-0 sm:relative sm:inset-auto flex flex-col sm:rounded-[48px] sm:border-[8px] sm:border-zinc-800 dark:sm:border-slate-800 sm:shadow-2xl overflow-hidden transition-all duration-300 bg-white dark:bg-slate-900 border-zinc-200 mx-auto sm:h-[80vh] sm:aspect-[9/19.5] sm:max-h-[852px]">
-                        <div class="flex-1 h-full w-full overflow-y-auto">
-                            
-                            {/* 頂部 Header - 精簡垂直高度 */}
-                            <header class="px-4 pt-3 pb-3 border-b flex justify-between items-center transition-colors bg-gradient-to-r from-emerald-900 to-teal-950 text-white border-emerald-950 shadow-md shrink-0">
-                                <div class="flex items-center gap-2.5">
+                <!-- 1. 最外層：深淺色模式與桌機版置中容器 -->
+                <div class="min-h-screen bg-slate-100 dark:bg-slate-950 sm:flex sm:items-center sm:justify-center sm:p-8 transition-colors duration-300">
+                  
+                  <!-- 2. 手機模擬器外殼 
+                       手機版：寬高全滿、無邊框、無圓角、靠原生網頁滾動 (不加 overflow-hidden)
+                       桌機版：固定比例縮放、有精美邊框、限制高度並在內部滾動 -->
+                  <div class="w-full min-h-screen bg-white dark:bg-slate-900 transition-all duration-300 sm:min-h-0 sm:h-[80vh] sm:aspect-[9/19.5] sm:max-h-[852px] sm:rounded-[48px] sm:border-[8px] sm:border-zinc-800 dark:sm:border-slate-800 sm:shadow-2xl sm:overflow-hidden sm:flex sm:flex-col mx-auto">
+                            {/* 頂部 Header */}
+                            <header class="sticky top-0 z-50 px-4 pt-3 pb-3 border-b flex justify-between items-center transition-colors bg-gradient-to-r from-emerald-900 to-teal-950 text-white border-emerald-950 shadow-md shrink-0 sm:relative sm:top-auto">
+                                  <div class="flex items-center gap-2.5">
                                     <div class="p-1 bg-amber-400 rounded-lg text-emerald-950 flex items-center justify-center shadow-sm">
-                                        <Icon name="compass" className="w-4.5 h-4.5" />
+                                      <!-- 替換為你的 Icon 元件 -->
+                                      <span class="text-sm font-bold">🧭</span>
                                     </div>
                                     <div>
-                                        <p class="text-[12px] tracking-widest uppercase font-bold text-amber-300 leading-none">ITALIA LUXURY TRAVEL</p>
-                                        <h1 class="text-[14px] font-black tracking-tight leading-tight mt-0.5">義大利 15 日尊榮旅遊手冊</h1>
+                                      <p class="text-[12px] tracking-widest uppercase font-bold text-amber-300 leading-none">ITALIA LUXURY TRAVEL</p>
+                                      <h1 class="text-[14px] font-black tracking-tight leading-tight mt-0.5">義大利 15 日尊榮旅遊手冊</h1>
                                     </div>
-                                </div>
+                                  </div>
                     
                                 <div></div>
                             </header>
