@@ -82,6 +82,20 @@
             padding-bottom: max(1.0rem, calc(env(safe-area-inset-bottom, 0px) + 0.5rem));
         }
     </style>
+    <script>
+        // 監聽螢幕頂部的點擊
+        window.addEventListener('click', (e) => {
+            // 點擊螢幕上方 50 像素內（動態島與狀態列區域）
+            if (e.clientY <= 50) {
+                // 因為滾動做在 body 上，直接控制 window 滾回頂部
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    </script>
+
 </head>
 <body class="bg-emerald-950 dark:bg-slate-950 transition-colors duration-300">
     <div id="root"></div>
