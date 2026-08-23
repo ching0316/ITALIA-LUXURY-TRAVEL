@@ -1325,39 +1325,44 @@
                             </div>
 
                             {/* 底部導覽列 - 緊湊優化高度、極致貼合無空隙 */}
-                            <nav class="fixed left-4 right-4 bottom-4 pb-[env(safe-area-inset-bottom,0px)] rounded-2xl border flex justify-around py-2.5 z-50 bg-white/95 dark:bg-slate-950/95 border-zinc-150 dark:border-slate-850 text-zinc-800 dark:text-slate-100 backdrop-blur-md shadow-lg shadow-zinc-200/50 dark:shadow-none">
+                            <nav class="fixed left-4 right-4 bottom-4 pb-[env(safe-area-inset-bottom,0px)] rounded-2xl border flex justify-around py-2.5 z-50 
+                                        transition-all duration-300
+                                        bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl
+                                        border-white/60 dark:border-slate-800/60
+                                        shadow-[0_20px_40px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]
+                                        text-zinc-800 dark:text-slate-100">
                                 <button 
                                     onClick={() => setActiveTab("itinerary")}
                                     class={`flex flex-col items-center gap-0.5 transition-all ${activeTab === "itinerary" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-400"}`}
                                 >
-                                    <Icon name="calendar" className={`w-4.5 h-4.5 ${activeTab === 'itinerary' ? 'text-emerald-700 dark:text-amber-400' : 'text-zinc-400'}`} />
-                                    <span class="text-[10.5px] font-black">每日行程</span>
+                                    <Icon name="calendar" className={`w-5 h-5 ${activeTab === 'itinerary' ? 'text-emerald-700 dark:text-amber-400' : 'text-zinc-400'}`} />
+                                    <span class="text-[12px] font-black">每日行程</span>
                                 </button>
                                 <button 
                                     onClick={() => setActiveTab("flights")}
                                     class={`flex flex-col items-center gap-0.5 transition-all ${activeTab === "flights" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-400"}`}
                                 >
-                                    <Icon name="plane" className={`w-4.5 h-4.5 ${activeTab === 'flights' ? 'text-emerald-700 dark:text-amber-400' : 'text-zinc-400'}`} />
-                                    <span class="text-[10.5px] font-black">航班高鐵</span>
+                                    <Icon name="plane" className={`w-5 h-5 ${activeTab === 'flights' ? 'text-emerald-700 dark:text-amber-400' : 'text-zinc-400'}`} />
+                                    <span class="text-[12px] font-black">航班高鐵</span>
                                 </button>
                                 <button 
                                     onClick={() => setActiveTab("checklist")}
                                     class={`flex flex-col items-center gap-0.5 transition-all ${activeTab === "checklist" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-400"}`}
                                 >
                                     <div class="relative flex items-center justify-center">
-                                        <Icon name="check-square" className={`w-4.5 h-4.5 ${activeTab === 'checklist' ? 'text-emerald-700 dark:text-amber-400' : 'text-zinc-400'}`} />
+                                        <Icon name="check-square" className={`w-5 h-5 ${activeTab === 'checklist' ? 'text-emerald-700 dark:text-amber-400' : 'text-zinc-400'}`} />
                                         {checklistPercent > 0 && (
                                             <span class="absolute -top-1 -right-2.5 bg-amber-400 text-emerald-950 text-[8px] font-black rounded-full px-1">{checklistPercent}%</span>
                                         )}
                                     </div>
-                                    <span class="text-[10.5px] font-black">行李打包</span>
+                                    <span class="text-[12px] font-black">行李打包</span>
                                 </button>
                                 <button 
                                     onClick={() => setActiveTab("phrases")}
                                     class={`flex flex-col items-center gap-0.5 transition-all ${activeTab === "phrases" ? "text-emerald-700 dark:text-amber-400 scale-105 font-bold" : "text-zinc-400"}`}
                                 >
-                                    <Icon name="languages" className={`w-4.5 h-4.5 ${activeTab === 'phrases' ? 'text-emerald-700 dark:text-amber-400' : 'text-zinc-400'}`} />
-                                    <span class="text-[10.5px] font-black">隨身義語</span>
+                                    <Icon name="languages" className={`w-5 h-5 ${activeTab === 'phrases' ? 'text-emerald-700 dark:text-amber-400' : 'text-zinc-400'}`} />
+                                    <span class="text-[12px] font-black">隨身義語</span>
                                 </button>
                             </nav>
 
