@@ -72,24 +72,6 @@
         /* 支援 iPhone 動態島與頂部狀態欄精確避讓 */
         .header-safe-area {
             padding-top: max(1.5rem, calc(env(safe-area-inset-top, 20px) + 0.75rem));
-
-            background-color: rgba(255, 255, 255, 0.72);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px); /* 確保 iOS Safari 完美毛玻璃 */
-            
-            /* 微擬物高光外框：一條純白色的倒角反光條 */
-            border: 1.5px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 
-                /* 內嵌高光 (Rim Light)：營造水晶玻璃厚度 */
-                inset 0 1px 1px rgba(255, 255, 255, 0.9),
-                /* 第一層：觸地實體細陰影 */
-                0 1px 2px rgba(0, 0, 0, 0.05),
-                /* 第二層：帶有奢華翡翠綠的環境暈染光（呼應你的 Emerald 標頭） */
-                0 12px 24px -4px rgba(4, 120, 87, 0.08),
-                /* 第三層：大範圍縱深大投影，徹底將底板與背景抽離 */
-                0 24px 50px -12px rgba(0, 0, 0, 0.18);
-                
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* 支援 iPhone 底部 Home Indicator 導覽條避讓 */
