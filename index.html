@@ -4,23 +4,21 @@
     <meta charset="utf-8">
     <!-- 加入 viewport-fit=cover 確保網頁填滿 iPhone 14 Pro 動態島與底部安全區域 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
-    <!-- 100% 消除 iOS Safari 頂部系統狀態欄留白：強制與手冊深綠、暗色深藍色融為一體 -->
-    <meta name="theme-color" content="#F0EEE9" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#F0EEE9" media="(prefers-color-scheme: dark)">
+
+    <!-- 100% 消除 iOS Safari 頂部系統狀態欄留白：融合法拉利深黑碳纖維底色 -->
+    <meta name="theme-color" content="#0B0B0C" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#0B0B0C" media="(prefers-color-scheme: light)">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon"
-          sizes="180x180"
-          href="https://ching0316.github.io/ITALIA-LUXURY-TRAVEL/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://ching0316.github.io/ITALIA-LUXURY-TRAVEL/apple-touch-icon.png">
     
     <title>義大利 15 日尊榮旅遊手冊</title>
-    
-    <!-- 載入 Google Fonts：更換為整齊、清晰的現代英中字體 -->
+
+    <!-- Google Fonts 現代與賽車競技感英中字體 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;850;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,700;1,700&family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
     <!-- 引入 Tailwind CSS 進行響應式排版 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -29,14 +27,21 @@
             theme: {
                 extend: {
                     colors: {
-                        emerald: {
-                            800: '#065f46',
-                            900: '#064e3b',
-                            950: '#022c22',
+                        ferrari: {
+                            red: '#EF0000',       /* Rosso Corsa */
+                            darkred: '#990000',   /* Deep Racing Red */
+                            yellow: '#FFD700',    /* Giallo Modena */
+                            gold: '#F59E0B',      /* Racing Gold */
+                            carbon: '#0F0F11',    /* Carbon Fiber Base */
+                            card: '#161619',      /* Cockpit Panel Dark */
+                            cardhover: '#1E1E23',
+                            border: '#2A2A30',
+                            glow: 'rgba(239, 0, 0, 0.4)'
                         }
                     },
                     fontFamily: {
                         sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+                        tech: ['Chakra Petch', 'Inter', 'sans-serif'],
                     }
                 }
             }
@@ -56,11 +61,26 @@
         html {
             scroll-behavior: smooth;
             -webkit-tap-highlight-color: transparent;
+            background-color: #080809;
         }
         body {
-            font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', 'Noto Sans TC', -apple-system, sans-serif;
+            background-color: #080809;
+            color: #E5E7EB;
+            overflow-x: hidden;
         }
+        
+        /* 碳纖維底紋網格 */
+        .bg-carbon-pattern {
+            background-color: #09090A;
+            background-image: 
+                radial-gradient(rgba(239, 0, 0, 0.08) 1px, transparent 0),
+                linear-gradient(45deg, #111114 25%, transparent 25%, transparent 75%, #111114 75%, #111114),
+                linear-gradient(45deg, #111114 25%, transparent 25%, transparent 75%, #111114 75%, #111114);
+            background-size: 24px 24px, 8px 8px, 8px 8px;
+            background-position: 0 0, 0 0, 4px 4px;
+        }
+    
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -71,52 +91,73 @@
         
         /* 支援 iPhone 動態島與頂部狀態欄精確避讓 */
         .header-safe-area {
-            padding-top: max(1.0rem, calc(env(safe-area-inset-top, 20px) + 0.25rem));
+        padding-top: max(0.75rem, calc(env(safe-area-inset-top, 20px) + 0.25rem));
         }
-
-        /* 支援 iPhone 底部 Home Indicator 導覽條避讓 */
+    
+        /* 超跑方向盤底座懸浮導覽列 (Manettino Console Dock) */
         .dock-safe-area {
-            /* 1. 強制固定定位，拉開左右各 20px 的懸浮留白 */
             position: fixed;
-            left: 1.25rem;  /* 相當於 Tailwind 的 left-5 */
-            right: 1.25rem; /* 相當於 Tailwind 的 right-5 */
-            
-            /* 2. 你原本完美的 iPhone 底部小白條智慧避讓計算 */
+            left: 1rem;
+            right: 1rem;
             bottom: max(0.75rem, calc(env(safe-area-inset-bottom, 0px) + 0.5rem));
-            
-            /* 3. 頂級磨砂水晶玻璃背景 */
-            background-color: rgba(255, 255, 255, 0.72);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px); /* 確保 iOS Safari 完美毛玻璃 */
-            
-            /* 4. 微擬物高光外框：一條純白色的倒角反光條 */
-            border: 1.5px solid rgba(255, 255, 255, 0.6);
+            background: rgba(18, 18, 20, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(239, 0, 0, 0.35);
             box-shadow: 
-                /* 內嵌高光 (Rim Light)：營造水晶玻璃厚度 */
-                inset 0 1px 1px rgba(255, 255, 255, 0.9),
-                /* 第一層：觸地實體細陰影 */
-                0 1px 2px rgba(0, 0, 0, 0.05),
-                /* 第二層：帶有奢華翡翠綠的環境暈染光（呼應你的 Emerald 標頭） */
-                0 12px 24px -6px rgba(4, 120, 87, 0.12);
-                /* 第三層：大範圍縱深大投影，徹底將底板與背景抽離 */
-                0 10px 20px -6px rgba(0, 0, 0, 0.12);
-                
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                0 0 20px rgba(239, 0, 0, 0.25),
+                0 15px 30px -10px rgba(0, 0, 0, 0.9);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 50;
         }
-        
-        /* 🌙 當外層被加上 .dark 類別時的深色模式極致光影 */
-        .dark .dock-safe-area {
-            background-color: rgba(15, 23, 42, 0.65); /* 轉為 slate-900 磨砂黑寶石 */
-            border: 1.5px solid rgba(51, 65, 85, 0.6);   /* slate-700 邊框 */
-            box-shadow: 
-                /* 深色版內嵌微弱高光 */
-                inset 0 1px 0px rgba(255, 255, 255, 0.15),
-                /* 深色版超重磅環境深邃投影，絕不與黑色背景融合 */
-                0 1px 2px rgba(0, 0, 0, 0.5),
-                0 20px 40px -10px rgba(0, 0, 0, 0.7),
-                0 0 1px 1px rgba(255, 255, 255, 0.05);
+    
+        /* 競速光條與金屬切面效果 */
+        .ferrari-stripe {
+            background: linear-gradient(90deg, #EF0000 0%, #FFD700 50%, #EF0000 100%);
         }
-
+    
+        .carbon-card {
+            background: linear-gradient(135deg, rgba(26,26,30,0.95) 0%, rgba(16,16,19,0.98) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+    
+        .carbon-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(239, 0, 0, 0.6), transparent);
+            opacity: 0.5;
+        }
+    
+        .carbon-card:hover::before {
+            opacity: 1;
+            background: linear-gradient(90deg, #EF0000, #FFD700, #EF0000);
+        }
+    
+        /* 閃耀金屬感文字 */
+        .text-metal {
+            background: linear-gradient(180deg, #FFFFFF 0%, #9CA3AF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    
+        .text-ferrari-gold {
+            background: linear-gradient(180deg, #FFF066 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    
+        /* 脈衝 LED 指示燈 */
+        .led-red {
+            box-shadow: 0 0 10px #EF0000, 0 0 20px #EF0000;
+        }
+        .led-yellow {
+            box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700;
+        }
     </style>
 </head>
 <body class="font-sans antialiased bg-[#F0EEE9] text-[#121212] transition-colors duration-300 min-h-screen">
@@ -677,19 +718,31 @@
             return (
                  <div class={darkMode ? "dark" : ""}>
                     {/* 主要外層 Wrapper - 手機滿版、桌機居中 */}
-                    <div class="min-h-screen bg-zinc-100 dark:bg-slate-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
-                          <div class="flex flex-col min-h-screen">
-                            {/* 頂部 Header */}
-                            <header class="sticky top-0 z-50 px-4 pt-3 pb-3 border-b flex justify-between items-center transition-colors bg-gradient-to-r from-emerald-900 to-teal-950 text-white border-emerald-950 shadow-md">
-                              <div class="flex items-center gap-2.5">
-                                <div class="p-1 bg-amber-400 rounded-lg text-emerald-950 flex items-center justify-center shadow-sm">
-                                  <Icon name="compass" className="w-4.5 h-4.5" />
+                    <!-- 頂部法拉利超跑競速儀表檔頭 (Ferrari Speedometer Header) -->
+                        <header className="sticky top-0 z-40 bg-[#0B0B0D]/95 backdrop-blur-xl border-b border-red-900/40 shadow-2xl header-safe-area">
+                            <div className="max-w-4xl mx-auto px-4 py-3">
+                              
+                              <!-- Scuderia Racing Red Stripe Bar -->
+                              <div className="h-1 w-full ferrari-stripe rounded-full mb-3"></div>
+                
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-3">
+                                  <!-- Ferrari Yellow Shield Badge Icon -->
+                                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-400 to-yellow-600 p-0.5 shadow-lg shadow-yellow-500/20 flex items-center justify-center">
+                                    <div className="w-full h-full bg-black rounded-[7px] flex items-center justify-center">
+                                      <span className="font-tech text-yellow-400 font-extrabold text-xl tracking-tighter">SF</span>
+                                    </div>
+                                  </div>
+                                  <div>
+                                    <div className="flex items-center space-x-2">
+                                      <span className="text-xs font-tech font-bold uppercase tracking-widest text-red-500">Scuderia Grand Tour</span>
+                                      <span className="px-1.5 py-0.5 text-[10px] font-bold font-tech bg-red-950 text-red-400 border border-red-800 rounded">15 DAYS</span>
+                                    </div>
+                                    <h1 className="text-lg md:text-xl font-black text-white tracking-wide font-sans">
+                                      義大利尊榮旅遊手冊
+                                    </h1>
+                                  </div>
                                 </div>
-                                <div>
-                                  <p class="text-[14px] tracking-widest uppercase font-bold text-amber-300 leading-none">ITALIA LUXURY TRAVEL</p>
-                                  <h1 class="text-[16px] font-black tracking-tight leading-tight mt-0.5">義大利 15 日尊榮旅遊手冊</h1>
-                                </div>
-                              </div>
                               <div></div>
                             </header>
                     
