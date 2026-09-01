@@ -718,31 +718,19 @@
             return (
                  <div class={darkMode ? "dark" : ""}>
                     {/* 主要外層 Wrapper - 手機滿版、桌機居中 */}
-                    <!-- 頂部法拉利超跑競速儀表檔頭 (Ferrari Speedometer Header) -->
-                        <header className="sticky top-0 z-40 bg-[#0B0B0D]/95 backdrop-blur-xl border-b border-red-900/40 shadow-2xl header-safe-area">
-                            <div className="max-w-4xl mx-auto px-4 py-3">
-                              
-                              <!-- Scuderia Racing Red Stripe Bar -->
-                              <div className="h-1 w-full ferrari-stripe rounded-full mb-3"></div>
-                
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center space-x-3">
-                                  <!-- Ferrari Yellow Shield Badge Icon -->
-                                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-400 to-yellow-600 p-0.5 shadow-lg shadow-yellow-500/20 flex items-center justify-center">
-                                    <div className="w-full h-full bg-black rounded-[7px] flex items-center justify-center">
-                                      <span className="font-tech text-yellow-400 font-extrabold text-xl tracking-tighter">SF</span>
-                                    </div>
-                                  </div>
-                                  <div>
-                                    <div className="flex items-center space-x-2">
-                                      <span className="text-xs font-tech font-bold uppercase tracking-widest text-red-500">Scuderia Grand Tour</span>
-                                      <span className="px-1.5 py-0.5 text-[10px] font-bold font-tech bg-red-950 text-red-400 border border-red-800 rounded">15 DAYS</span>
-                                    </div>
-                                    <h1 className="text-lg md:text-xl font-black text-white tracking-wide font-sans">
-                                      義大利尊榮旅遊手冊
-                                    </h1>
-                                  </div>
+                    <div class="min-h-screen bg-zinc-100 dark:bg-slate-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
+                          <div class="flex flex-col min-h-screen">
+                            {/* 頂部 Header */}
+                            <header class="sticky top-0 z-50 px-4 pt-3 pb-3 border-b flex justify-between items-center transition-colors bg-gradient-to-r from-emerald-900 to-teal-950 text-white border-emerald-950 shadow-md">
+                              <div class="flex items-center gap-2.5">
+                                <div class="p-1 bg-amber-400 rounded-lg text-emerald-950 flex items-center justify-center shadow-sm">
+                                  <Icon name="compass" className="w-4.5 h-4.5" />
                                 </div>
+                                <div>
+                                  <p class="text-[14px] tracking-widest uppercase font-bold text-amber-300 leading-none">ITALIA LUXURY TRAVEL</p>
+                                  <h1 class="text-[16px] font-black tracking-tight leading-tight mt-0.5">義大利 15 日尊榮旅遊手冊</h1>
+                                </div>
+                              </div>
                               <div></div>
                             </header>
                     
@@ -1484,3 +1472,4 @@
     </script>
 </body>
 </html>
+
