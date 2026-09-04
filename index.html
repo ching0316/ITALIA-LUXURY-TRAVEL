@@ -1489,51 +1489,57 @@
             let touchEndX = 0;
             let touchEndY = 0;
         
-            const minSwipeDistance = 50; // 最低滑動觸發距離 (px)
+            const minSwipeDistance = 40; // 稍微調低門檻，提升靈敏度 (px)
             const maxDays = 15; // 您的總行程天數
         
-            // 監聽整個頁面或特定行程容器
-            const container = document.body;
+            // 優先綁定在特定的行程區塊，若找不到才用 body
+            const container = document.getElementById('itinerary-container') || document.body;
         
             container.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-                touchStartY = e.changedTouches[0].screenY;
+                if (e.touches.length > 1) return; 
+                
+                // 修正：使用 clientX / clientY 在行動裝置瀏覽器上更穩定
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
             }, { passive: true });
         
             container.addEventListener('touchend', function(e) {
-                touchEndX = e.changedTouches[0].screenX;
-                touchEndY = e.changedTouches[0].screenY;
+                // 修正：touchend 的 e.touches 長度為 0，改用 e.changedTouches 抓取最後點擊點
+                if (e.changedTouches.length === 0) return;
+        
+                touchEndX = e.changedTouches[0].clientX;
+                touchEndY = e.changedTouches[0].clientY;
         
                 const deltaX = touchEndX - touchStartX;
                 const deltaY = touchEndY - touchStartY;
         
-                // 1. 判斷是否為水平滑動 (防止垂直滾動頁面時誤觸)
-                // 2. 滑動距離需大於最小門檻
+                // 判斷是否為水平滑動且大於門檻
                 if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
                     
-                    // 檢查全域的 currentDay 變數與 setSelectedDay 函數是否存在
+                    // 檢查全域變數與函式
                     if (typeof currentDay !== 'undefined' && typeof setSelectedDay === 'function') {
                         
+                        // 強制轉成數字，避免全域變數變成字串引發錯誤 (例如 "1" + 1 變成 "11")
+                        const current = Number(currentDay);
+        
                         if (deltaX < 0) {
-                            // ------------------------------------------------
-                            // 【向左滑動】 -> 切換至【下一天】
-                            // ------------------------------------------------
-                            if (currentDay < maxDays) {
-                                setSelectedDay(currentDay + 1);
+                            // 【向左滑動】 -> 下一天
+                            if (current < maxDays) {
+                                setSelectedDay(current + 1);
                             }
                         } else {
-                            // ------------------------------------------------
-                            // 【向右滑動】 -> 切換至【上一天】
-                            // ------------------------------------------------
-                            if (currentDay > 1) {
-                                setSelectedDay(currentDay - 1);
+                            // 【向右滑動】 -> 上一天
+                            if (current > 1) {
+                                setSelectedDay(current - 1);
                             }
                         }
-        
+                    } else {
+                        console.error("滑動成功，但找不到 currentDay 變數或 setSelectedDay 函式！");
                     }
                 }
             }, { passive: true });
-        };
+        }
+
 
         // 初始化掛載 React 元件
         const root = ReactDOM.createRoot(document.getElementById('root'));
