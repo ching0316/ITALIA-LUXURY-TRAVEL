@@ -654,6 +654,15 @@
                     window.removeEventListener('touchend', handleTouchEnd);
                 };
             }, [maxDays]); // 當 maxDays 改變時重新綁定
+
+            // 🎯 當天數改變時，自動將網頁滾動回最上方
+            useEffect(() => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // 使用 'smooth' 會有平滑滾動動畫；若想瞬間移動請改成 'auto'
+                });
+            }, [selectedDay]); // 🔍 只要 selectedDay 改變，就會觸發此邏輯
+
             
             // 自訂座位號碼儲存 (僅保留去/回程飛機座位自填)
             const [outboundSeat, setOutboundSeat] = useState(() => localStorage.getItem("outboundSeat") || "");
