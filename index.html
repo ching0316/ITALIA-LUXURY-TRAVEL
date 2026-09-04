@@ -603,15 +603,75 @@
 
             return <span ref={iconRef} class="inline-flex items-center justify-center" />;
         }
-        
+
+        import { useState, useEffect, useRef } from "react"; // 🎯 確保引入了 useRef
         function App() {
             const [activeTab, setActiveTab] = useState("itinerary");
             const [selectedDay, setSelectedDay] = useState(2);
             const [darkMode, setDarkMode] = useState(false);
 
-            // 🎯 您的總行程天數
-            const maxDays = 15; 
+            // 🎯 1. 建立一個 Ref 用來控制橫向天數選單的滾動
+            const tabsRef = useRef(null);
         
+            const maxDays = 15;
+        
+            // ... 保持您原本的左右滑動與回到網頁最上方的 useEffect ...
+        
+            // --- 這裡放入 JSX 中對應修改的片段 ---
+            return (
+                {/* 橫向滑動天數 */}
+                <div class="space-y-1.5 border-t border-zinc-900">
+                    <div class="flex items-center justify-between text-xs text-zinc-400 mb-1.5 font-tech">
+                        <span class="text-xs font-black uppercase tracking-wider text-amber-500 flex items-center gap-1">
+                            <Icon name="calendar" class="w-3.5 h-3.5 text-amber-500" />
+                            <span>15 天行程橫向切換</span>
+                        </span>
+                        <span class="text-[9px] text-zinc-400 font-bold">左右滑動</span>
+                    </div>
+                    
+                    {/* 🎯 2. 在這裡加上 ref={tabsRef} */}
+                    <div 
+                        ref={tabsRef} 
+                        class="flex overflow-x-auto gap-2 py-1 no-scrollbar snap-x scroll-smooth"
+                    >
+                        {DAYS_DATA.map((d) => (
+                            <button
+                                key={d.day}
+                                onClick={() => setSelectedDay(d.day)}
+                                {/* 🎯 3. 加上 data-day 屬性，方便之後用程式碼定位這個按鈕 */}
+                                data-day={d.day}
+                                class={`snap-center flex-shrink-0 w-20 py-1.5 rounded-xl font-tech font-bold border flex flex-col items-center justify-center transition-all ${
+                                    selectedDay === d.day 
+                                    ? "carbon-card-active font-tech font-bold bg-yellow-400/10 text-yellow-400 border-red-400 shadow-lg shadow-red-600/40 scale-105 font-black" 
+                                    : `carbon-card ${darkMode ? "bg-slate-800 border-slate-700 text-slate-300" : "bg-zinc-900/90 text-zinc-400 border-zinc-800 hover:border-zinc-600 hover:text-zinc-200"}`
+                                }`}
+                            >
+                                <span class="text-[14px] uppercase tracking-widest opacity-85">Day</span>
+                                <span class="text-[14px] font-black">{d.day}</span>
+                                <span class="text-[12px] truncate max-w-[55px] opacity-90">{d.city.split(" ")[0]}</span>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            );
+
+            // 🎯 當天數改變時，自動將上方的橫向天數選單滾動至該天數（置中）
+            useEffect(() => {
+                if (tabsRef.current) {
+                    // 在選單內搜尋帶有當前天數 data-day 屬性的按鈕
+                    const activeBtn = tabsRef.current.querySelector(`[data-day="${selectedDay}"]`);
+                    
+                    if (activeBtn) {
+                        // 讓該按鈕平滑地滾動到可視範圍的中間位置
+                        activeBtn.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest',   // 避免影響垂直滾動
+                            inline: 'center'    // 水平方向精準居中
+                        });
+                    }
+                }
+            }, [selectedDay]); // 🔍 只要選中的天數變了，橫向選單就跟著動
+
             // 📱 行動裝置左右滑動切換天數
             useEffect(() => {
                 let touchStartX = 0;
