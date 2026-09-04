@@ -604,6 +604,46 @@
             return <span ref={iconRef} class="inline-flex items-center justify-center" />;
         }
 
+        // 行動裝置 / iPhone 左右滑動切換天數
+        (function setupSwipeNavigation() {
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchEndX = 0;
+            let touchEndY = 0;
+        
+            const minSwipeDistance = 50; // 最低滑動觸發距離 (px)
+            
+            // 監聽整個頁面或特定行程容器 (可更換為您行程內容的 ID，如 document.getElementById('itinerary'))
+            const container = document.body; 
+        
+            container.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+        
+            container.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+                
+                const deltaX = touchEndX - touchStartX;
+                const deltaY = touchEndY - touchStartY;
+        
+                // 判斷是否為水平滑動（避免垂直滾動頁面時誤觸）
+                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+                    if (deltaX < 0) {
+                        // 向左滑動 -> 切換至「下一天」
+                        // 請替換為您網頁原有的下一天函數或觸發按鈕點擊：
+                        document.getElementById('next-day-btn')?.click(); 
+                    } else {
+                        // 向右滑動 -> 切換至「上一天」
+                        document.getElementById('prev-day-btn')?.click();
+                    }
+                }
+            }, { passive: true });
+        })();
+
+
+        
         function App() {
             const [activeTab, setActiveTab] = useState("itinerary");
             const [selectedDay, setSelectedDay] = useState(2);
