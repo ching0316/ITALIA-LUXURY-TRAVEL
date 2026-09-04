@@ -117,23 +117,29 @@
             background: linear-gradient(90deg, #EF0000 0%, #FFD700 50%, #EF0000 100%);
         }
     
-        .carbon-card {
+        }
+        .carbon-card, .carbon-card-active {
             background: linear-gradient(135deg, rgba(26,26,30,0.95) 0%, rgba(16,16,19,0.98) 100%);
             border: 1px solid rgba(255, 255, 255, 0.07);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
             position: relative;
+            overflow: hidden; /* 避免頂部發光條超出 rounded-xl 的圓角 */
         }
-    
-        .carbon-card::before {
+
+        .carbon-card::before, .carbon-card-active::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(239, 0, 0, 0.6), transparent);
-            opacity: 0.5;
+            background: linear-gradient(90deg, #EF0000, #FFD700, #EF0000);
+            transition: opacity 0.4s ease;
         }
-    
-        .carbon-card:hover::before {
+
+        .carbon-card::before {
+            opacity: 0.15;
+        }
+        
+        .carbon-card:hover::before, .carbon-card-active::before {
             opacity: 1;
             background: linear-gradient(90deg, #EF0000, #FFD700, #EF0000);
         }
