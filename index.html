@@ -619,71 +619,53 @@
             useEffect(() => {
                 let touchStartX = 0;
                 let touchStartY = 0;
-                const minSwipeDistance = 40; // 滑動發動門檻 (px)
-        
+                let isInsideTabs = false; // 🎯 新增：標記是否在天數列內滑動
+                const minSwipeDistance = 40; 
+            
                 const handleTouchStart = (e) => {
-                    if (e.touches.length > 1) return; // 防雙指縮放誤觸
+                    if (e.touches.length > 1) return; 
+            
+                    // 🎯 檢查這次觸控的起點，是否在橫向天數選單 (tabsRef) 內部
+                    if (tabsRef.current && tabsRef.current.contains(e.target)) {
+                        isInsideTabs = true;
+                        return; // 如果是在天數選單內滑動，就不記錄起點，以下邏輯不執行
+                    }
+                    
+                    isInsideTabs = false; // 正常的頁面滑動
                     touchStartX = e.touches[0].clientX;
                     touchStartY = e.touches[0].clientY;
                 };
-        
+            
                 const handleTouchEnd = (e) => {
-                    if (e.changedTouches.length === 0) return;
+                    // 🎯 如果是從天數選單內部開始的滑動，直接忽略，不切換整頁行程
+                    if (isInsideTabs || e.changedTouches.length === 0) return;
+            
                     const touchEndX = e.changedTouches[0].clientX;
                     const touchEndY = e.changedTouches[0].clientY;
-        
+            
                     const deltaX = touchEndX - touchStartX;
                     const deltaY = touchEndY - touchStartY;
-        
+            
                     // 判斷是否為水平滑動，且距離大於門檻
                     if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
                         if (deltaX < 0) {
-                            // 向左滑動 -> 切換至下一天 (不超過 maxDays)
                             setSelectedDay((prevDay) => (prevDay < maxDays ? prevDay + 1 : prevDay));
                         } else {
-                            // 向右滑動 -> 切換至上一天 (不小於 1)
                             setSelectedDay((prevDay) => (prevDay > 1 ? prevDay - 1 : prevDay));
                         }
                     }
                 };
-        
-                // 將事件綁定在整個視窗 (window)
+            
                 window.addEventListener('touchstart', handleTouchStart, { passive: true });
                 window.addEventListener('touchend', handleTouchEnd, { passive: true });
-        
-                // 🧹 組件卸載時移除監聽器，防止記憶體洩漏
+            
                 return () => {
                     window.removeEventListener('touchstart', handleTouchStart);
                     window.removeEventListener('touchend', handleTouchEnd);
                 };
-            }, [maxDays]); // 當 maxDays 改變時重新綁定
+            }, [maxDays]); // 🔍 這裡不需要把 tabsRef 放進 dependency，因為 ref 的變更不會觸發重新渲染
 
-            // 🎯 當天數改變時，自動將網頁滾動回最上方
-            useEffect(() => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth' // 使用 'smooth' 會有平滑滾動動畫；若想瞬間移動請改成 'auto'
-                });
-            }, [selectedDay]); // 🔍 只要 selectedDay 改變，就會觸發此邏輯
 
-            // 🎯 當天數改變時，自動將上方的橫向天數選單滾動至該天數（置中）
-            useEffect(() => {
-                if (tabsRef.current) {
-                    // 在選單內搜尋帶有當前天數 data-day 屬性的按鈕
-                    const activeBtn = tabsRef.current.querySelector(`[data-day="${selectedDay}"]`);
-                    
-                    if (activeBtn) {
-                        // 讓該按鈕平滑地滾動到可視範圍的中間位置
-                        activeBtn.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'nearest',   // 避免影響垂直滾動
-                            inline: 'center'    // 水平方向精準居中
-                        });
-                    }
-                }
-            }, [selectedDay]); // 🔍 只要選中的天數變了，橫向選單就跟著動
-
-            
             // 自訂座位號碼儲存 (僅保留去/回程飛機座位自填)
             const [outboundSeat, setOutboundSeat] = useState(() => localStorage.getItem("outboundSeat") || "");
             const [inboundSeat, setInboundSeat] = useState(() => localStorage.getItem("inboundSeat") || "");
