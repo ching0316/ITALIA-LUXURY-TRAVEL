@@ -603,61 +603,6 @@
 
             return <span ref={iconRef} class="inline-flex items-center justify-center" />;
         }
-
-        // 行動裝置 / iPhone 左右滑動切換天數
-        function setupSwipeNavigation() {
-            let touchStartX = 0;
-            let touchStartY = 0;
-            let touchEndX = 0;
-            let touchEndY = 0;
-        
-            const minSwipeDistance = 50; // 最低滑動觸發距離 (px)
-            const maxDays = 15; // 您的總行程天數
-        
-            // 監聽整個頁面或特定行程容器
-            const container = document.body;
-        
-            container.addEventListener('touchstart', function(e) {
-                touchStartX = e.changedTouches[0].screenX;
-                touchStartY = e.changedTouches[0].screenY;
-            }, { passive: true });
-        
-            container.addEventListener('touchend', function(e) {
-                touchEndX = e.changedTouches[0].screenX;
-                touchEndY = e.changedTouches[0].screenY;
-        
-                const deltaX = touchEndX - touchStartX;
-                const deltaY = touchEndY - touchStartY;
-        
-                // 1. 判斷是否為水平滑動 (防止垂直滾動頁面時誤觸)
-                // 2. 滑動距離需大於最小門檻
-                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
-                    
-                    // 檢查全域的 currentDay 變數與 setSelectedDay 函數是否存在
-                    if (typeof currentDay !== 'undefined' && typeof setSelectedDay === 'function') {
-                        
-                        if (deltaX < 0) {
-                            // ------------------------------------------------
-                            // 【向左滑動】 -> 切換至【下一天】
-                            // ------------------------------------------------
-                            if (currentDay < maxDays) {
-                                setSelectedDay(currentDay + 1);
-                            }
-                        } else {
-                            // ------------------------------------------------
-                            // 【向右滑動】 -> 切換至【上一天】
-                            // ------------------------------------------------
-                            if (currentDay > 1) {
-                                setSelectedDay(currentDay - 1);
-                            }
-                        }
-        
-                    }
-                }
-            }, { passive: true });
-        };
-
-
         
         function App() {
             const [activeTab, setActiveTab] = useState("itinerary");
@@ -1536,6 +1481,59 @@
                 </div>
             );
         }
+
+        // 行動裝置 / iPhone 左右滑動切換天數
+        function setupSwipeNavigation() {
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchEndX = 0;
+            let touchEndY = 0;
+        
+            const minSwipeDistance = 50; // 最低滑動觸發距離 (px)
+            const maxDays = 15; // 您的總行程天數
+        
+            // 監聽整個頁面或特定行程容器
+            const container = document.body;
+        
+            container.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+        
+            container.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+        
+                const deltaX = touchEndX - touchStartX;
+                const deltaY = touchEndY - touchStartY;
+        
+                // 1. 判斷是否為水平滑動 (防止垂直滾動頁面時誤觸)
+                // 2. 滑動距離需大於最小門檻
+                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+                    
+                    // 檢查全域的 currentDay 變數與 setSelectedDay 函數是否存在
+                    if (typeof currentDay !== 'undefined' && typeof setSelectedDay === 'function') {
+                        
+                        if (deltaX < 0) {
+                            // ------------------------------------------------
+                            // 【向左滑動】 -> 切換至【下一天】
+                            // ------------------------------------------------
+                            if (currentDay < maxDays) {
+                                setSelectedDay(currentDay + 1);
+                            }
+                        } else {
+                            // ------------------------------------------------
+                            // 【向右滑動】 -> 切換至【上一天】
+                            // ------------------------------------------------
+                            if (currentDay > 1) {
+                                setSelectedDay(currentDay - 1);
+                            }
+                        }
+        
+                    }
+                }
+            }, { passive: true });
+        };
 
         // 初始化掛載 React 元件
         const root = ReactDOM.createRoot(document.getElementById('root'));
