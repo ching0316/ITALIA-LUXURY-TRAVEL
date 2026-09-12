@@ -885,56 +885,30 @@
                                             {selectedDayData.items.map((item) => (
                                                 <div key={item.id} class={`p-3.5 rounded-xl border transition-all ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
                                                     <div class="flex justify-between items-center mb-2">
-                                                        <div class="space-y-1.5 flex-1">
-                                                            <div class="flex items-center gap-1.5">
-                                                                <div class="inline-block text-[16px] font-tech font-bold tracking-wider carbon-card text-yellow-400 px-1.5 py-0.5 leading-none rounded-sm">
-                                                                    <span class="font-tech text-[#E5C158] drop-shadow-[0_0_5px_rgba(229,193,88,0.85)]">
-                                                                        {item.time}
-                                                                    </span>
-                                                                </div>
-                                                                
-                                                                {/* 類別標籤 */}
-                                                                <span class={`text-xs px-1.5 py-0.5 rounded font-black uppercase ${
-                                                                    item.type === "sight" ? "bg-blue-500/10 text-blue-500" :
-                                                                    item.type === "food" ? "bg-orange-500/10 text-orange-500" :
-                                                                    item.type === "shopping" ? "bg-pink-500/10 text-pink-500" :
-                                                                    item.type === "transport" ? "bg-green-500/10 text-green-500" :
-                                                                    item.type === "flight" ? "bg-sky-500/10 text-sky-500" :
-                                                                    item.type === "hotel" ? "bg-purple-500/10 text-purple-500" : "bg-zinc-500/10 text-zinc-500"
-                                                                }`}>
-                                                                    {item.type === "sight" ? "🏛️ 景點" :
-                                                                     item.type === "food" ? "🍕 美食" :
-                                                                     item.type === "shopping" ? "🛍️ 購物" :
-                                                                     item.type === "transport" ? "🚄 交通" :
-                                                                     item.type === "flight" ? "✈️ 航班" :
-                                                                     item.type === "hotel" ? "🏨 住宿" : "📍 其他"}
+                                                        <div class="flex items-center gap-1.5">
+                                                            <div class="inline-block text-[16px] font-tech font-bold tracking-wider carbon-card text-yellow-400 px-1.5 py-0.5 leading-none rounded-sm">
+                                                                <span class="font-tech text-[#E5C158] drop-shadow-[0_0_5px_rgba(229,193,88,0.85)]">
+                                                                    {item.time}
                                                                 </span>
                                                             </div>
-                                                            <div class="flex flex-col gap-1.5 w-full px-1 pt-2 pb-1">
-                                                                {/* 活動標題 */}
-                                                                <h4 class="text-[15px] font-black leading-snug whitespace-pre-line">{item.title}</h4>
                                                                 
-                                                                {/* 內文描述 */}
-                                                                <p class={`text-[15px] leading-relaxed whitespace-pre-line ${darkMode ? "text-slate-300" : "text-zinc-650"}`}>{item.desc}</p>
-                                                                
-                                                                {/* 重要提醒 */}
-                                                                {item.note && (
-                                                                    <div class="mt-1.5 flex items-start gap-1 text-[15px] text-amber-600 dark:text-amber-400 font-bold bg-amber-500/5 p-1.5 rounded border border-amber-500/10 whitespace-pre-line">
-                                                                        <Icon name="info" className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
-                                                                        <span><strong>提醒：</strong>{item.note}</span>
-                                                                    </div>
-                                                                )}
-                                                                
-                                                                {/* 拍照秘訣 */}
-                                                                {item.tips && (
-                                                                    <div class="mt-1.5 flex items-start gap-1 text-[15px] text-teal-600 dark:text-teal-400 font-bold bg-teal-500/5 p-1.5 rounded border border-teal-500/10 whitespace-pre-line">
-                                                                        <Icon name="compass" className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-teal-600 dark:text-teal-400" />
-                                                                        <span><strong>拍照秘訣：</strong>{item.tips}</span>
-                                                                    </div>
-                                                                )}
-                                                            </div>   
+                                                            {/* 類別標籤 */}
+                                                            <span class={`text-xs px-1.5 py-0.5 rounded font-black uppercase ${
+                                                                item.type === "sight" ? "bg-blue-500/10 text-blue-500" :
+                                                                item.type === "food" ? "bg-orange-500/10 text-orange-500" :
+                                                                item.type === "shopping" ? "bg-pink-500/10 text-pink-500" :
+                                                                item.type === "transport" ? "bg-green-500/10 text-green-500" :
+                                                                item.type === "flight" ? "bg-sky-500/10 text-sky-500" :
+                                                                item.type === "hotel" ? "bg-purple-500/10 text-purple-500" : "bg-zinc-500/10 text-zinc-500"
+                                                            }`}>
+                                                                {item.type === "sight" ? "🏛️ 景點" :
+                                                                 item.type === "food" ? "🍕 美食" :                                                                     item.type === "shopping" ? "🛍️ 購物" :
+                                                                  item.type === "transport" ? "🚄 交通" :
+                                                                 item.type === "flight" ? "✈️ 航班" :
+                                                                 item.type === "hotel" ? "🏨 住宿" : "📍 其他"}
+                                                            </span>
                                                         </div>
-                                                        
+
                                                         {/* 地圖按鈕 */}
                                                         <a 
                                                             href={getGoogleMapsLink(item, selectedDayData.city)}
@@ -946,11 +920,34 @@
                                                             <span>地圖</span>
                                                         </a>
                                                     </div>
+
+                                                    {/* 下方內容區 */}
+                                                    <div class="flex flex-col gap-1.5 w-full px-1 pt-2 pb-1">
+                                                        {/* 活動標題 */}
+                                                        <h4 class="text-[15px] font-black leading-snug whitespace-pre-line">{item.title}</h4>
+                                                        
+                                                        {/* 內文描述 */}
+                                                        <p class={`text-[15px] leading-relaxed whitespace-pre-line ${darkMode ? "text-slate-300" : "text-zinc-650"}`}>{item.desc}</p>
+                                                        
+                                                        {/* 重要提醒 */}
+                                                        {item.note && (
+                                                            <div class="mt-1.5 flex items-start gap-1 text-[15px] text-amber-600 dark:text-amber-400 font-bold bg-amber-500/5 p-1.5 rounded border border-amber-500/10 whitespace-pre-line">
+                                                                <Icon name="info" className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
+                                                                <span><strong>提醒：</strong>{item.note}</span>                                                                
+                                                            </div>
+                                                        )}
+                                                            
+                                                        {/* 拍照秘訣 */}
+                                                        {item.tips && (
+                                                            <div class="mt-1.5 flex items-start gap-1 text-[15px] text-teal-600 dark:text-teal-400 font-bold bg-teal-500/5 p-1.5 rounded border border-teal-500/10 whitespace-pre-line">
+                                                                <Icon name="compass" className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-teal-600 dark:text-teal-400" />
+                                                                <span><strong>拍照秘訣：</strong>{item.tips}</span>
+                                                            </div>
+                                                        )}
+                                                    </div>   
                                                 </div>
-                                            ))}
+                                            )}
                                         </div>
-                                    </div>
-                                )}
 
                                 {activeTab === "flights" && (
                                     <div class="space-y-4 pb-4">
