@@ -928,8 +928,8 @@
                                                             
                                                             {/* 重要提醒 */}
                                                             {item.note && (
-                                                                <div class="mt-1.5 flex items-start gap-1 text-[15px] text-amber-600 dark:text-amber-400 font-bold bg-amber-500/5 p-1.5 rounded border border-amber-500/10 whitespace-pre-line">
-                                                                    <Icon name="info" className="w-4.5 h-4.5 flex-shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
+                                                                <div class="mt-1.5 flex items-start gap-1 text-[15px] text-red-600 dark:text-red-400 font-bold bg-red-500/5 p-1.5 rounded border border-red-500/10 whitespace-pre-line">
+                                                                    <Icon name="info" className="w-4.0 h-4.0 flex-shrink-0 mt-0.5 text-red-600 dark:text-red-400" />
                                                                     <span><strong>提醒：</strong>{item.note}</span>
                                                                 </div>
                                                             )}
@@ -937,8 +937,16 @@
                                                             {/* 拍照秘訣 */}
                                                             {item.tips && (
                                                                 <div class="mt-1.5 flex items-start gap-1 text-[15px] text-teal-600 dark:text-teal-400 font-bold bg-teal-500/5 p-1.5 rounded border border-teal-500/10 whitespace-pre-line">
-                                                                    <Icon name="compass" className="w-4.5 h-4.5 flex-shrink-0 mt-0.5 text-teal-600 dark:text-teal-400" />
+                                                                    <Icon name="compass" className="w-4.0 h-4.0 flex-shrink-0 mt-0.5 text-teal-600 dark:text-teal-400" />
                                                                     <span><strong>拍照秘訣：</strong>{item.tips}</span>
+                                                                </div>
+                                                            )}
+
+                                                            {/* 餐點推薦 */}
+                                                            {item.tips && (
+                                                                <div class="mt-1.5 flex items-start gap-1 text-[15px] text-amber-600 dark:text-amber-400 font-bold bg-amber-500/5 p-1.5 rounded border border-amber-500/10 whitespace-pre-line">
+                                                                    <Icon name="restaurant"  className="w-4.0 h-4.0 flex-shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
+                                                                    <span><strong>餐點推薦：</strong>{item.tips}</span>
                                                                 </div>
                                                             )}
                                                         </div>
