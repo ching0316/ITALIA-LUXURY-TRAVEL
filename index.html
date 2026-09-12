@@ -878,14 +878,13 @@
                                                   </div>
                                                 </div>
                                             </div>
+                                        </div>
                                       
-
                                         {/* 當日行程節點清單 */}
                                         <div class="space-y-3">
                                             {selectedDayData.items.map((item) => (
                                                 <div key={item.id} class={`p-3.5 rounded-xl border transition-all ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
-                                                    <div class="flex justify-between items-start gap-2.5">
-                                                        <div class="space-y-1.5 flex-1">
+                                                        <div class="flex justify-between items-center mb-2">
                                                             <div class="flex items-center gap-1.5">
                                                                 <div class="inline-block text-[16px] font-tech font-bold tracking-wider carbon-card text-yellow-400 px-1.5 py-0.5 leading-none rounded-sm">
                                                                     <span class="font-tech text-[#E5C158] drop-shadow-[0_0_5px_rgba(229,193,88,0.85)]">
@@ -910,6 +909,21 @@
                                                                      item.type === "hotel" ? "🏨 住宿" : "📍 其他"}
                                                                 </span>
                                                             </div>
+
+                                                            {/* 地圖按鈕放在右上角 */}                                                        {/* 地圖按鈕 */}
+                                                            <a 
+                                                                href={getGoogleMapsLink(item, selectedDayData.city)}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                class="flex-shrink-0 px-1 py-0 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 transition-all flex items-center justify-center gap-0.5 text-xs font-extrabold"
+                                                            >
+                                                                <Icon name="map-pin" className="w-3.5 h-3.5 text-emerald-750 dark:text-emerald-400" />
+                                                                <span>地圖</span>
+                                                            </a>
+                                                        </div>
+                                        
+                                                    {/* 2. 下方內容區：滿寬度 (w-full)，文字會直接延伸到右邊邊界 */}
+                                                    <div class="space-y-1.5 w-full">
                                                             {/* 活動標題 */}
                                                             <h4 class="text-[15px] font-black leading-snug whitespace-pre-line">{item.title}</h4>
                                                             
@@ -931,23 +945,12 @@
                                                                     <span><strong>拍照秘訣：</strong>{item.tips}</span>
                                                                 </div>
                                                             )}
-                                                        </div>
-                                                        
-                                                        {/* 地圖按鈕 */}
-                                                        <a 
-                                                            href={getGoogleMapsLink(item, selectedDayData.city)}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            class="flex-shrink-0 px-1 py-0 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 transition-all flex items-center justify-center gap-0.5 text-xs font-extrabold"
-                                                        >
-                                                            <Icon name="map-pin" className="w-3.5 h-3.5 text-emerald-750 dark:text-emerald-400" />
-                                                            <span>地圖</span>
-                                                        </a>
                                                     </div>
+                                            
                                                 </div>
                                             ))}
                                         </div>
-                                    </div>
+                                     </div>
                                 )}
 
                                 {activeTab === "flights" && (
@@ -1051,7 +1054,7 @@
                                                 {/* 車票上頂欄 - 鐵路品牌配色 */}
                                                 <div class="bg-gradient-to-r from-red-600 to-red-800 text-white px-3.5 py-2.5 flex justify-between items-center">
                                                     <div class="flex items-center gap-1.5">
-                                                        <span class="font-mono text-xs tracking-wider bg-white/10 px-1.5 py-0.5 rounded font-extrabold">TRENOTALIA</span>
+                                                        <span class="font-mono text-xs tracking-wider bg-white/10 px-1.5 py-0.5 rounded font-extrabold">TRENITALIA</span>
                                                         <span class="font-extrabold text-[14px] tracking-tight">Frecciarossa</span>
                                                     </div>
                                                     <span class="text-[11px] font-black bg-amber-400 text-red-955 px-2 py-0.5 rounded-full uppercase tracking-wider">BUSINESS</span>
