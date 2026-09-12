@@ -194,7 +194,7 @@
               { id: 'd2-2', time: '08:30-09:35', title: '出關 + 領行李', desc: '行李盤前核對行李，準備前往搭車。', type: 'transport' },
               { id: 'd2-3', time: '09:35-10:50', title: '搭 Malpensa Express 機場特快 ➔ 米蘭中央車站', desc: '乘車地點：第1航廈(T1)地下1樓(Level-1)，跟隨「Train/Malpensa Express」指標前進。\n尋找目的地為 Milano Centrale 的班次。', type: 'transport', note: '建議使用 Trenord App 購票。',  place: 'Milano Centrale Railway Station', address: 'Piazza Duca d\'Aosta, 1, 20124 Milano MI, Italy' },
               { id: 'd2-4', time: '10:50-11:20', title: 'NYX Hotel Milan 飯店寄放行李', desc: '前往 NYX 飯店寄放大件行李，短暫整裝。', type: 'hotel', note: '🚻大廳洗手間必上！', place: 'NYX Hotel Milan by Leonardo Hotels', address: 'Piazza Quattro Novembre, 3, 20124 Milano MI, Italy' },
-              { id: 'd2-5', time: '11:20-11:45', title: '搭地鐵 M2 (綠線)：Centrale Fs ➔ Lanza', desc: '往 Abbiategrasso 或 Assago Forum 方向搭乘 4 站。\n使用 ATM Milano App 購買 24 小時票。', type: 'transport', note: 'Lanza 站出站即是斯福爾扎城堡後方', place: 'Lanza Metro Station Milan', address: 'Piazza Lanza, 20121 Milano MI, Italy' },
+              { id: 'd2-5', time: '11:20-11:45', title: '搭地鐵 M2 (綠線)：Centrale Fs ➔ Lanza', desc: '往 Abbiategrasso 或 Assago Forum 方向搭乘 4 站。\nLanza 站出站即是斯福爾扎城堡後方。', type: 'transport', note: '使用 ATM Milano App 購買 24 小時票。', place: 'Lanza Metro Station Milan', address: 'Piazza Lanza, 20121 Milano MI, Italy' },
               { id: 'd2-6', time: '11:45-12:45', title: '斯福爾扎城堡 & 和平門散步', desc: 'Lanza 站出站後沿護城河外前往正門，可拍到城堡側面全景。\n11:55 到達正門 Piazza Castello 噴泉廣場，拍攝噴泉與高塔，尋找蛇吞人紋章。\n走進第一層中庭，利用古典拱廊與後防禦塔進行「自然畫框」構圖。\n由城堡後門步出森皮奧內公園中央步道，走向和平門拍攝。', type: 'sight', tips: '\n對稱極簡構圖：站在公園中軸線盡頭拍攝。\n都會街景感：在 Arco della Pace 站，拍攝電車軌道與老街道的現代歷史交融感。', place: 'Castello Sforzesco', address: 'Piazza Castello, 20121 Milano MI, Italy' },
               { id: 'd2-7', time: '12:45-13:00', title: '搭 1 號路面電車：Arco della Pace ➔ P.za Virgilio', desc: '往 Greco Rovereto 方向搭乘 4 站。下車過馬路即達餐廳，車程僅 10 分鐘，體驗懷舊電車。', type: 'transport', place: 'Arco della Pace', address: 'Piazza Sempione, 20154 Milano MI, Italy' },
               { id: 'd2-8', time: '13:10-14:00', title: '午餐：miscusi | pasta fresca Milano Cadorna', desc: '享用米蘭當地高人氣的手工新鮮義大利麵。🚻有洗手間。', type: 'food', menu: '義大利麵-Siciliano（青醬、開心果、紅蝦塔塔）、Tricolore（番茄、青醬、起司、開心果）。', place: 'miscusi | pasta fresca Milano Cadorna', address: 'Via G. Leopardi, 13, 20123 Milano MI, 義大利' },
@@ -929,7 +929,7 @@
                                                             {/* 重要提醒 */}
                                                             {item.note && (
                                                                 <div class="mt-1.5 flex items-start gap-1 text-[15px] text-red-600 dark:text-red-400 font-bold bg-red-500/5 p-1.5 rounded border border-red-500/10 whitespace-pre-line">
-                                                                    <Icon name="info" className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-red-600 dark:text-red-400" />
+                                                                    <Icon name="info" className="w-3.7 h-3.7 flex-shrink-0 mt-0.5 text-red-600 dark:text-red-400" />
                                                                     <span><strong>提醒：</strong>{item.note}</span>
                                                                 </div>
                                                             )}
@@ -937,7 +937,7 @@
                                                             {/* 拍照秘訣 */}
                                                             {item.tips && (
                                                                 <div class="mt-1.5 flex items-start gap-1 text-[15px] text-teal-600 dark:text-teal-400 font-bold bg-teal-500/5 p-1.5 rounded border border-teal-500/10 whitespace-pre-line">
-                                                                    <Icon name="compass" className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-teal-600 dark:text-teal-400" />
+                                                                    <Icon name="compass" className="w-3.7 h-3.7 flex-shrink-0 mt-0.5 text-teal-600 dark:text-teal-400" />
                                                                     <span><strong>拍照秘訣：</strong>{item.tips}</span>
                                                                 </div>
                                                             )}
@@ -945,7 +945,7 @@
                                                             {/* 餐點推薦 */}
                                                             {item.menu && (
                                                                 <div class="mt-1.5 flex items-start gap-1 text-[15px] text-amber-600 dark:text-amber-400 font-bold bg-amber-500/5 p-1.5 rounded border border-amber-500/10 whitespace-pre-line">
-                                                                    <Icon name="utensils-crossed"  className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
+                                                                    <Icon name="utensils-crossed"  className="w-3.7 h-3.7 flex-shrink-0 mt-0.5 text-amber-600 dark:text-amber-400" />
                                                                     <span><strong>餐點推薦：</strong>{item.menu}</span>
                                                                 </div>
                                                             )}
