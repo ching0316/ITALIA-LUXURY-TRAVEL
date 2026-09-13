@@ -752,6 +752,13 @@
 
             // 100% 精準 Google Maps 連結生成器
             const getGoogleMapsLink = (item, city) => {
+              // 1. 優先判斷是否有自訂連結 (包含圖檔網址)
+              const customUrl = item.customLink || item.url || item.link || item.imgUrl;
+              if (customUrl) {
+                return customUrl.trim(); // 去除前後空格後直接傳回
+              }
+                
+              // 2. 經緯度判斷
               const coordsRegex = /(-?\d+\.\d+)\s*,\s*(-?\d+\.\d+)/;
               const combinedText = (item.desc || '') + ' ' + (item.tips || '');
               const match = combinedText.match(coordsRegex);
