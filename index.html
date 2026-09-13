@@ -677,25 +677,26 @@
 
             // 🎯 當天數改變時，自動將上方的橫向天數選單滾動至該天數（置中，不影響全頁垂直滾動）
             useEffect(() => {
-                const activeBtn = tabsRef.current.querySelector(`[data-day="${selectedDay}"]`);
-        
-                if (activeBtn) {
-                    // 🛑 改用容器自身的 scrollLeft 計算，精準只滾動 X 軸
-                    const container = tabsRef.current;
-                    const btnLeft = activeBtn.offsetLeft;
-                    const btnWidth = activeBtn.offsetWidth;
-                    const containerWidth = container.clientWidth;
-        
-                    // 計算讓按鈕居中的 scrollLeft 位置
-                    const targetScrollLeft = btnLeft - (containerWidth / 2) + (btnWidth / 2);
-        
-                    container.scrollTo({
-                        left: targetScrollLeft,
-                        behavior: 'smooth'
-                    });
+                if (tabsRef.current) {
+                    const activeBtn = tabsRef.current.querySelector(`[data-day="${selectedDay}"]`);
+                    
+                    if (activeBtn) {
+                        // 🛑 改用容器自身的 scrollLeft 計算，精準只滾動 X 軸
+                        const container = tabsRef.current;
+                        const btnLeft = activeBtn.offsetLeft;
+                        const btnWidth = activeBtn.offsetWidth;
+                        const containerWidth = container.clientWidth;
+            
+                        // 計算讓按鈕居中的 scrollLeft 位置
+                        const targetScrollLeft = btnLeft - (containerWidth / 2) + (btnWidth / 2);
+            
+                        container.scrollTo({
+                            left: targetScrollLeft,
+                            behavior: 'smooth'
+                        });
+                    }
                 }
-            }
-        }, [selectedDay]); // 🔍 只要選中的天數變了，橫向選單就跟著動
+            }, [selectedDay]); // 🔍 只要選中的天數變了，橫向選單就跟著動
 
 
 
