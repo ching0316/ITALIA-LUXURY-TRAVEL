@@ -577,6 +577,7 @@
         ];
         
         const { useState, useEffect, useRef } = React;
+        const [isImageOpen, setIsImageOpen] = useState(false);
 
         // 可安全相容於 React 虛擬 DOM 的 Lucide 圖標組件
         function Icon({ name, className = "w-4 h-4" }) {
