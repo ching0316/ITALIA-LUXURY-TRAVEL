@@ -577,7 +577,6 @@
         ];
         
         const { useState, useEffect, useRef } = React;
-        const [isImageOpen, setIsImageOpen] = useState(false);
 
         // 可安全相容於 React 虛擬 DOM 的 Lucide 圖標組件
         function Icon({ name, className = "w-4 h-4" }) {
@@ -607,6 +606,9 @@
         }
 
         function App() {
+
+            const [isImageOpen, setIsImageOpen] = useState(false);
+            
             const [activeTab, setActiveTab] = useState("itinerary");
             const [selectedDay, setSelectedDay] = useState(2);
             const [darkMode, setDarkMode] = useState(false);
@@ -818,6 +820,7 @@
                 a.click();
                 document.body.removeChild(a);
             };
+
 
             return (
                  <div class={darkMode ? "dark" : ""}>
