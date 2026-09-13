@@ -816,27 +816,32 @@
                     {/* 主要外層 Wrapper - 手機滿版、桌機居中 */}
                     <div class="min-h-screen bg-zinc-100 dark:bg-slate-950 text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
                           <div class="flex flex-col min-h-screen">
-                            {/* Scuderia Racing Red Stripe Bar */}
-                            <div class="h-1 w-full ferrari-stripe rounded-full mb-3"></div>
-                            {/* 頂部 Header */}
-                            <header class="sticky top-0 z-50 flex items-center justify-between px-4 pb-3 pt-3 text-white transition-colors bg-[#0B0B0D]/95 backdrop-blur-xl border-b border-red-900/40 shadow-md">
-                              <div class="flex items-center space-x-3">
-                                  {/*  Ferrari Yellow Shield Badge Icon */}
-                                  <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-400 to-yellow-600 p-0.5 shadow-lg shadow-yellow-500/20 flex items-center justify-center shrink-0">
-                                    <div class="w-full h-full bg-black rounded-[7px] flex items-center justify-center p-1">
-                                        <img 
-                                          src="https://ching0316.github.io/ITALIA-LUXURY-TRAVEL/apple-touch-icon.png" 
-                                          alt="Ferrari Shield Logo" 
-                                          class="w-full h-full object-contain"
-                                        />
-                                    </div>
+
+                            {/* 頂部 Header：整體黏在最上方，並設定 Safe Area Padding */}
+                            <header class="sticky top-0 z-50 flex items-center justify-between px-4 pb-3 pt-3 header-safe-area text-white transition-colors bg-[#0B0B0D]/95 backdrop-blur-xl border-b border-red-900/40 shadow-md">
+                                {/* 1. 將 Scuderia Red Stripe 放進 header 最上方 */}
+                                <div class="h-1 w-full ferrari-stripe rounded-full mb-2"></div>
+                                {/*  2. Header 內容區 */}
+                                <div className="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                      {/*  Ferrari Yellow Shield Badge Icon */}
+                                      <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-400 to-yellow-600 p-0.5 shadow-lg shadow-yellow-500/20 flex items-center justify-center shrink-0">
+                                        <div class="w-full h-full bg-black rounded-[7px] flex items-center justify-center p-1">
+                                            <img 
+                                              src="https://ching0316.github.io/ITALIA-LUXURY-TRAVEL/apple-touch-icon.png" 
+                                              alt="Ferrari Shield Logo" 
+                                              class="w-full h-full object-contain"
+                                            />
+                                        </div>
+                                      </div>
+                                      <div class="flex flex-col justify-center">
+                                        <p class="font-tech text-[14px] font-bold uppercase tracking-widest text-amber-300 leading-none">ITALIA LUXURY TRAVEL</p>
+                                        <h1 class="text-[16px] font-black text-white font-sans tracking-tight leading-tight mt-0.5">義大利 15 日尊榮旅遊手冊</h1>
+                                      </div>
                                   </div>
-                                  <div class="flex flex-col justify-center">
-                                    <p class="font-tech text-[14px] font-bold uppercase tracking-widest text-amber-300 leading-none">ITALIA LUXURY TRAVEL</p>
-                                    <h1 class="text-[16px] font-black text-white font-sans tracking-tight leading-tight mt-0.5">義大利 15 日尊榮旅遊手冊</h1>
-                                  </div>
-                              </div>
-                              <div></div>
+                                  <div></div>
+                                </div>
+                                
                             </header>
                     
                             {/* 主要滑動內容區 - 增大可視範圍 */}
