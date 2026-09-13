@@ -623,12 +623,21 @@
         
                 const handleTouchStart = (e) => {
                     if (e.touches.length > 1) return; // 防雙指縮放誤觸
+                    // 🛑 關鍵修改：若滑動起點在橫向選單（tabsRef）內，忽略此滑動事件
+                    if (tabsRef.current && tabsRef.current.contains(e.target)) {
+                        return;
+                    }
                     touchStartX = e.touches[0].clientX;
                     touchStartY = e.touches[0].clientY;
                 };
         
                 const handleTouchEnd = (e) => {
                     if (e.changedTouches.length === 0) return;
+
+                    // 🛑 關鍵修改：若滑動結束點也在橫向選單內，防止觸發切換
+                    if (tabsRef.current && tabsRef.current.contains(e.target)) {
+                        return;
+                    }
                     const touchEndX = e.changedTouches[0].clientX;
                     const touchEndY = e.changedTouches[0].clientY;
         
