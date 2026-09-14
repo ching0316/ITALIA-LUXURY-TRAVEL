@@ -608,6 +608,7 @@
         function App() {
 
             const [isImageOpen, setIsImageOpen] = useState(false);
+            const [activeImageUrl, setActiveImageUrl] = useState(null);
             
             const [activeTab, setActiveTab] = useState("itinerary");
             const [selectedDay, setSelectedDay] = useState(2);
@@ -982,43 +983,45 @@
                                                             )}
 
                                                             {/* 平面圖 */}
-                                                            {item.imgUrl && (
-                                                                <>
-                                                                    {/* 1. 平面圖顯示列 */}
-                                                                    <div class="mt-1.5 flex items-start gap-1 text-[15px] text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/5 p-1.5 rounded border border-emerald-500/10 whitespace-pre-line">
-                                                                        <Icon name="map" className="w-3.55 h-3.55 flex-shrink-0 mt-0.1 text-emerald-600 dark:text-emerald-400" />
-                                                                        <span>
-                                                                            <strong>平面圖：</strong>
-                                                                            {/* 改為按鈕，點擊時開啟燈箱 */}
-                                                                            <button 
-                                                                                onClick={() => setIsImageOpen(true)} 
-                                                                                class="underline decoration-dotted hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer text-left"
-                                                                            >
-                                                                                查看圖片
-                                                                            </button>
-                                                                        </span>
-                                                                    </div>
-                                                            
-                                                                    {/* 2. 點擊放大燈箱：點擊畫面上任何地方（包括圖片本身），都會關閉並返回原網頁 */}
-                                                                    {isImageOpen && (
-                                                                        <div 
-                                                                            onClick={() => setIsImageOpen(false)} 
-                                                                            class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out animate-fade-in"
-                                                                        >
-                                                                            <div class="relative max-w-[90vw] max-h-[85vh]">
-                                                                                <img 
-                                                                                    src={item.imgUrl} 
-                                                                                    alt="平面圖" 
-                                                                                    class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl select-none" 
-                                                                                />
-                                                                            </div>
-                                                                            {/* 底部提示文字 */}
-                                                                            <p class="mt-4 text-white/60 text-sm tracking-wider font-normal select-none">
-                                                                                點擊任意處返回網頁
-                                                                            </p>
-                                                                        </div>
-                                                                    )}
-                                                                </>
+                                                            {items.map((item) => (
+                                                              <div key={item.id}>
+
+                                                                {item.imgUrl && (
+                                                                  <div class="mt-1.5 flex items-start gap-1 text-[15px] text-emerald-600 dark:text-emerald-400 font-bold bg-emerald-500/5 p-1.5 rounded border border-emerald-500/10 whitespace-pre-line">
+                                                                    <Icon name="map" className="w-3.55 h-3.55 flex-shrink-0 mt-0.1 text-emerald-600 dark:text-emerald-400" />
+                                                                    <span>
+                                                                      <strong>平面圖：</strong>
+                                                                      <button 
+                                                                        type="button"
+                                                                        onClick={() => setActiveImageUrl(item.imgUrl)} // 👈 傳入當前的 imgUrl
+                                                                        class="underline decoration-dotted hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer text-left"
+                                                                      >
+                                                                        查看圖片
+                                                                      </button>
+                                                                    </span>
+                                                                  </div>
+                                                                )}
+                                                              </div>
+                                                            ))}
+                                                                
+                                                                      
+                                                            {/* 3. 將 Modal 獨立放在迴圈外層，只有當 activeImageUrl 有值時才渲染 */} 
+                                                            {activeImageUrl && (
+                                                              <div 
+                                                                onClick={() => setActiveImageUrl(null)} 
+                                                                class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out animate-fade-in"
+                                                              >
+                                                                <div class="relative max-w-[90vw] max-h-[85vh]">
+                                                                  <img 
+                                                                    src={activeImageUrl} 
+                                                                    alt="平面圖" 
+                                                                    class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl select-none" 
+                                                                  />
+                                                                </div>
+                                                                <p class="mt-4 text-white/60 text-sm tracking-wider font-normal select-none">
+                                                                  點擊任意處返回網頁
+                                                                </p>
+                                                              </div>
                                                             )}
 
                                                 
