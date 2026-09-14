@@ -607,7 +607,7 @@
 
         function App() {
 
-            const [isImageOpen, setIsImageOpen] = useState(false);
+            const [activeImageUrl, setActiveImageUrl] = useState(null);
             
             const [activeTab, setActiveTab] = useState("itinerary");
             const [selectedDay, setSelectedDay] = useState(2);
@@ -991,7 +991,7 @@
                                                                             <strong>平面圖：</strong>
                                                                             {/* 改為按鈕，點擊時開啟燈箱 */}
                                                                             <button 
-                                                                                onClick={() => setIsImageOpen(true)} 
+                                                                                onClick={() => setActiveImageUrl(item.imgUrl)} 
                                                                                 class="underline decoration-dotted hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer text-left"
                                                                             >
                                                                                 查看圖片
@@ -1000,9 +1000,9 @@
                                                                     </div>
                                                             
                                                                     {/* 2. 點擊放大燈箱：點擊畫面上任何地方（包括圖片本身），都會關閉並返回原網頁 */}
-                                                                    {isImageOpen && (
+                                                                    {activeImageUrl === item.imgUrl && (
                                                                         <div 
-                                                                            onClick={() => setIsImageOpen(false)} 
+                                                                            onClick={() => setActiveImageUrl(null)} 
                                                                             class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm cursor-zoom-out animate-fade-in"
                                                                         >
                                                                             <div class="relative max-w-[90vw] max-h-[85vh]">
