@@ -526,22 +526,22 @@
         ];
         
         const PACKING_LIST_DATA = [
-          { category: '核心證件與現金', item: '護照正本 (效期6個月以上)', checked: false },
-          { category: '核心證件與現金', item: '護照與身份證影本紙本留底', checked: false },
-          { category: '核心證件與現金', item: '實體列印高鐵票、門票、飯店確認單', checked: false },
-          { category: '核心證件與現金', item: '雙幣信用卡2張（含感應式刷卡與Apple Pay）', checked: false },
-          { category: '核心證件與現金', item: '歐元小額硬幣與備用現鈔 (建議公廁/咖啡店備用)', checked: false },
-          { category: '隨身電子設備', item: '手機、充電器、備份SIM卡/海外eSIM QR', checked: false },
-          { category: '隨身電子設備', item: '義大利專用雙圓頭轉接插頭 2 個 (歐規 Type C/L)', checked: false },
-          { category: '隨身電子設備', item: '符合航安規範的行動電源 (容量需標示清晰)', checked: false },
-          { category: '隨身電子設備', item: '相機、足夠的備份記憶卡、快充頭', checked: false },
-          { category: '隨身電子設備', item: '傳輸線與輕便延長線/排插', checked: false },
-          { category: '護理、衣物與藥品', item: '輕便防風保暖夾克', checked: false },
-          { category: '護理、衣物與藥品', item: '耐磨好走的防滑步行鞋', checked: false },
-          { category: '護理、衣物與藥品', item: '個人常用藥物 (感冒藥、止痛藥、暈車藥)', checked: false },
-          { category: '護理、衣物與藥品', item: '舒緩肌肉酸痛貼布/休足時間 (登頂行程必備)', checked: false },
-          { category: '護理、衣物與藥品', item: '太陽眼鏡、遮陽帽、輕便折疊晴雨傘', checked: false },
-          { category: '護理、衣物與藥品', item: '隨身防扒包 / 掛脖手機繩', checked: false },
+          { id: '1',category: '核心證件與現金', item: '護照正本 (效期6個月以上)', checked: false },
+          { id: '2',category: '核心證件與現金', item: '護照與身份證影本紙本留底', checked: false },
+          { id: '3',category: '核心證件與現金', item: '實體列印高鐵票、門票、飯店確認單', checked: false },
+          { id: '4',category: '核心證件與現金', item: '雙幣信用卡2張（含感應式刷卡與Apple Pay）', checked: false },
+          { id: '5',category: '核心證件與現金', item: '歐元小額硬幣與備用現鈔 (建議公廁/咖啡店備用)', checked: false },
+          { id: '6',category: '隨身電子設備', item: '手機、充電器、備份SIM卡/海外eSIM QR', checked: false },
+          { id: '7',category: '隨身電子設備', item: '義大利專用雙圓頭轉接插頭 2 個 (歐規 Type C/L)', checked: false },
+          { id: '8',category: '隨身電子設備', item: '符合航安規範的行動電源 (容量需標示清晰)', checked: false },
+          { id: '9',category: '隨身電子設備', item: '相機、足夠的備份記憶卡、快充頭', checked: false },
+          { id: '10',category: '隨身電子設備', item: '傳輸線與輕便延長線/排插', checked: false },
+          { id: '11',category: '護理、衣物與藥品', item: '輕便防風保暖夾克', checked: false },
+          { id: '12',category: '護理、衣物與藥品', item: '耐磨好走的防滑步行鞋', checked: false },
+          { id: '13',category: '護理、衣物與藥品', item: '個人常用藥物 (感冒藥、止痛藥、暈車藥)', checked: false },
+          { id: '14',category: '護理、衣物與藥品', item: '舒緩肌肉酸痛貼布/休足時間 (登頂行程必備)', checked: false },
+          { id: '15',category: '護理、衣物與藥品', item: '太陽眼鏡、遮陽帽、輕便折疊晴雨傘', checked: false },
+          { id: '16',category: '護理、衣物與藥品', item: '隨身防扒包 / 掛脖手機繩', checked: false },
         ];
         
         const PHRASEBOOK_DATA = [
@@ -780,22 +780,26 @@
             const handleAddChecklistItem = (e) => {
                 e.preventDefault();
                 if (!newChecklistItem.trim()) return;
-                setChecklist([...checklist, {
-                    category: newChecklistCategory,
-                    item: newChecklistItem,
-                    checked: false
-                }]);
-                setNewChecklistItem("");
+                setChecklist((prev) => [
+                ...prev,
+                {
+                  id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
+                  category: newChecklistCategory,
+                  item: newChecklistItem.trim(),
+                  checked: false,
+                },
+              ]);
+              setNewChecklistItem("");
             };
 
-            const toggleChecklist = (index) => {
-                const nextList = [...checklist];
-                nextList[index].checked = !nextList[index].checked;
-                setChecklist(nextList);
+            const toggleChecklist = (id) => {
+              setChecklist((prev) =>
+                prev.map((item) => (item.id === id ? { ...item, checked: !item.checked } : item))
+              );
             };
 
-            const deleteChecklistItem = (index) => {
-                setChecklist(checklist.filter((_, i) => i !== index));
+            const deleteChecklistItem = (id) => {
+                setChecklist((prev) => prev.filter((item) => item.id !== id)
             };
 
             const checkedCount = checklist.filter((item) => item.checked).length;
@@ -1433,63 +1437,60 @@
 
                                         {/* 打包清單輸入框 */}
                                         <form onSubmit={handleAddChecklistItem} class={`p-2.5 rounded-xl border flex gap-1.5 ${darkMode ? "bg-slate-900 border-slate-800" : "bg-white border-zinc-200"}`}>
-                                            <input 
-                                                type="text" 
-                                                value={newChecklistItem} 
-                                                onChange={(e) => setNewChecklistItem(e.target.value)}
-                                                placeholder="自訂行李項目 (如: 頸枕)" 
-                                                class={`flex-1 px-2.5 py-1.5 text-[16px] rounded border outline-none font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"}`}
-                                            />
-                                            <select 
-                                                value={newChecklistCategory} 
-                                                onChange={(e) => setNewChecklistCategory(e.target.value)}
-                                                class={`px-1.5 text-[15px] rounded border outline-none font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"}`}
-                                            >
-                                                <option value="核心證件與現金">證件與現金</option>
-                                                <option value="隨身電子設備">隨身電子</option>
-                                                <option value="護理、衣物與藥品">護理與衣物</option>
-                                            </select>
-                                            <button type="submit" class="bg-emerald-900 hover:bg-emerald-850 text-white px-3 rounded text-sm font-bold flex items-center justify-center">
-                                                <Icon name="plus" className="w-4 h-4 text-white" />
-                                            </button>
+                                          <input 
+                                            type="text" 
+                                            value={newChecklistItem} 
+                                            onChange={(e) => setNewChecklistItem(e.target.value)}
+                                            placeholder="自訂行李項目 (如: 頸枕)" 
+                                            class={`flex-1 px-2.5 py-1.5 text-[16px] rounded border outline-none font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"}`}
+                                          />
+                                          <select 
+                                            value={newChecklistCategory} 
+                                            onChange={(e) => setNewChecklistCategory(e.target.value)}
+                                            class={`px-1.5 text-[15px] rounded border outline-none font-sans ${darkMode ? "bg-slate-800 border-slate-700 text-white" : "bg-zinc-50 border-zinc-200 text-zinc-900"}`}
+                                          >
+                                            <option value="核心證件與現金">證件與現金</option>
+                                            <option value="隨身電子設備">隨身電子</option>
+                                            <option value="護理、衣物與藥品">護理與衣物</option>
+                                          </select>
+                                          <button type="submit" class="bg-emerald-900 hover:bg-emerald-850 text-white px-3 rounded text-sm font-bold flex items-center justify-center">
+                                            <Icon name="plus" class="w-4 h-4 text-white" />
+                                          </button>
                                         </form>
-
+                                        
                                         {/* 行李打包列表清單 */}
                                         <div class="space-y-3.5">
-                                            {["核心證件與現金", "隨身電子設備", "護理、衣物與藥品"].map((cat) => (
-                                                <div key={cat} class={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
-                                                    <h3 class="text-[16px] font-black text-amber-500 border-b border-zinc-100 dark:border-slate-800 pb-2 mb-2 flex justify-between items-center uppercase tracking-wider">
-                                                        <span>{cat === "核心證件與現金" ? "🔑 證件與現金" : cat === "隨身電子設備" ? "🔌 隨身電子" : "👕 護理與衣物"}</span>
-                                                        <span class="text-[14px] bg-zinc-100 dark:bg-slate-800 px-2 py-0.5 rounded-full text-zinc-550 font-bold">
-                                                            {checklist.filter((i) => i.category === cat && i.checked).length} / {checklist.filter((i) => i.category === cat).length}
-                                                        </span>
-                                                    </h3>
-                                                    <div class="space-y-1">
-                                                        {checklist.filter((i) => i.category === cat).map((item) => {
-                                                            const globalIdx = checklist.findIndex((x) => x.item === item.item);
-                                                            return (
-                                                                <div key={item.item} class="flex items-center justify-between py-1.5 border-b border-zinc-50/20 last:border-0">
-                                                                    <label class="flex items-center gap-2.5 cursor-pointer text-[16px] select-none">
-                                                                        <input 
-                                                                            type="checkbox" 
-                                                                            checked={item.checked} 
-                                                                            onChange={() => toggleChecklist(globalIdx)}
-                                                                            class="rounded border-zinc-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4"
-                                                                        />
-                                                                        <span class={item.checked ? "line-through text-zinc-400" : "font-medium"}>{item.item}</span>
-                                                                    </label>
-                                                                    <button onClick={() => deleteChecklistItem(globalIdx)} class="text-zinc-450 hover:text-red-500 p-1 flex items-center justify-center">
-                                                                        <Icon name="trash-2" className="w-4 h-4 text-zinc-450 hover:text-red-500" />
-                                                                    </button>
-                                                                </div>
-                                                            );
-                                                        })}
+                                          {["核心證件與現金", "隨身電子設備", "護理、衣物與藥品"].map((cat) => (
+                                            <div key={cat} class={`p-3 rounded-xl border ${darkMode ? "bg-slate-900 border-slate-800 text-white" : "bg-white border-zinc-200 text-zinc-900"}`}>
+                                              <h3 class="text-[16px] font-black text-amber-500 border-b border-zinc-100 dark:border-slate-800 pb-2 mb-2 flex justify-between items-center uppercase tracking-wider">
+                                                <span>{cat === "核心證件與現金" ? "🔑 證件與現金" : cat === "隨身電子設備" ? "🔌 隨身電子" : "👕 護理與衣物"}</span>
+                                                <span class="text-[14px] bg-zinc-100 dark:bg-slate-800 px-2 py-0.5 rounded-full text-zinc-550 font-bold">
+                                                  {checklist.filter((i) => i.category === cat && i.checked).length} / {checklist.filter((i) => i.category === cat).length}
+                                                </span>
+                                              </h3>
+                                              <div class="space-y-1">
+                                                {checklist
+                                                  .filter((i) => i.category === cat)
+                                                  .map((item) => (
+                                                    <div key={item.id} class="flex items-center justify-between py-1.5 border-b border-zinc-50/20 last:border-0">
+                                                      <label class="flex items-center gap-2.5 cursor-pointer text-[16px] select-none">
+                                                        <input 
+                                                          type="checkbox" 
+                                                          checked={item.checked} 
+                                                          onChange={() => toggleChecklist(item.id)}
+                                                          class="rounded border-zinc-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4"
+                                                        />
+                                                        <span class={item.checked ? "line-through text-zinc-400" : "font-medium"}>{item.item}</span>
+                                                      </label>
+                                                      <button onClick={() => deleteChecklistItem(item.id)} class="text-zinc-450 hover:text-red-500 p-1 flex items-center justify-center">
+                                                        <Icon name="trash-2" className=="w-4 h-4 text-zinc-450 hover:text-red-500" />
+                                                      </button>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                  ))}
+                                              </div>
+                                            </div>
+                                          ))}
                                         </div>
-                                    </div>
-                                )}
 
                                 {activeTab === "phrases" && (
                                     <div class="space-y-4">
