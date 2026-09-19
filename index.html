@@ -799,7 +799,7 @@
             };
 
             const deleteChecklistItem = (id) => {
-                setChecklist((prev) => prev.filter((item) => item.id !== id)
+                setChecklist((prev) => prev.filter((item) => item.id !== id));
             };
 
             const checkedCount = checklist.filter((item) => item.checked).length;
@@ -1483,7 +1483,7 @@
                                                         <span class={item.checked ? "line-through text-zinc-400" : "font-medium"}>{item.item}</span>
                                                       </label>
                                                       <button onClick={() => deleteChecklistItem(item.id)} class="text-zinc-450 hover:text-red-500 p-1 flex items-center justify-center">
-                                                        <Icon name="trash-2" className=="w-4 h-4 text-zinc-450 hover:text-red-500" />
+                                                        <Icon name="trash-2" className="w-4 h-4 text-zinc-450 hover:text-red-500" />
                                                       </button>
                                                     </div>
                                                   ))}
@@ -1491,6 +1491,8 @@
                                             </div>
                                           ))}
                                         </div>
+                                      </div>
+                                    )}
 
                                 {activeTab === "phrases" && (
                                     <div class="space-y-4">
